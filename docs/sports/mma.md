@@ -10,45 +10,45 @@
 
 ## Leagues & Competitions
 
+> ESPN tracks **50+ MMA organizations**. Key slugs listed below. Use `https://sports.core.api.espn.com/v2/sports/mma/leagues` for the full list.
+
+### Major Promotions
+
 | Abbreviation | League Name | Slug | Full URL |
 | --- | --- | --- | --- |
-| `ACB` | Absolute Championship Berkut | `absolute` | `https://sports.core.api.espn.com/v2/sports/mma/leagues/absolute` |
-| `AFFLICTION` | Affliction | `affliction` | `https://sports.core.api.espn.com/v2/sports/mma/leagues/affliction` |
-| `BFC` | Bang Fighting Championships | `bang-fighting` | `https://sports.core.api.espn.com/v2/sports/mma/leagues/bang-fighting` |
-| `BFC` | Banni Fight Combat | `banni-fight` | `https://sports.core.api.espn.com/v2/sports/mma/leagues/banni-fight` |
-| `BFC` | Banzay Fight Championship | `banzay` | `https://sports.core.api.espn.com/v2/sports/mma/leagues/banzay` |
-| `BFC` | Barracao Fight Championship | `barracao` | `https://sports.core.api.espn.com/v2/sports/mma/leagues/barracao` |
-| `BFC` | Battlezone Fighting Championships | `battlezone` | `https://sports.core.api.espn.com/v2/sports/mma/leagues/battlezone` |
-| `BFC` | Bellator Fighting Championship | `bellator` | `https://sports.core.api.espn.com/v2/sports/mma/leagues/bellator` |
-| `BFC` | Benevides Fight Championship | `benevides` | `https://sports.core.api.espn.com/v2/sports/mma/leagues/benevides` |
-| `BFC` | Big Fight Champions | `big-fight` | `https://sports.core.api.espn.com/v2/sports/mma/leagues/big-fight` |
-| `BFC` | Blackout Fighting Championship | `blackout` | `https://sports.core.api.espn.com/v2/sports/mma/leagues/blackout` |
-| `BFC` | Bosnia Fight Championship | `bosnia` | `https://sports.core.api.espn.com/v2/sports/mma/leagues/bosnia` |
-| `BFC` | Boxe Fight Combat | `boxe` | `https://sports.core.api.espn.com/v2/sports/mma/leagues/boxe` |
-| `BFC` | Brazilian Freestyle Circuit | `brazilian-freestyle` | `https://sports.core.api.espn.com/v2/sports/mma/leagues/brazilian-freestyle` |
-| `BFC` | Budo Fighting Championships | `budo` | `https://sports.core.api.espn.com/v2/sports/mma/leagues/budo` |
-| `CWFC` | Cage Warriors Fighting Championship | `cage-warriors` | `https://sports.core.api.espn.com/v2/sports/mma/leagues/cage-warriors` |
-| `DREAM` | Dream | `dream` | `https://sports.core.api.espn.com/v2/sports/mma/leagues/dream` |
-| `FNG` | Fight Nights Global | `fng` | `https://sports.core.api.espn.com/v2/sports/mma/leagues/fng` |
-| `IFC` | Invicta FC | `ifc` | `https://sports.core.api.espn.com/v2/sports/mma/leagues/ifc` |
-| `IFL` | International Fight League | `ifl` | `https://sports.core.api.espn.com/v2/sports/mma/leagues/ifl` |
-| `K-1` | K-1 | `k1` | `https://sports.core.api.espn.com/v2/sports/mma/leagues/k1` |
-| `KSW` | Konfrontacja Sztuk Walki | `ksw` | `https://sports.core.api.espn.com/v2/sports/mma/leagues/ksw` |
+| `UFC` | Ultimate Fighting Championship | `ufc` | `https://sports.core.api.espn.com/v2/sports/mma/leagues/ufc` |
+| `BEL` | Bellator MMA | `bellator` | `https://sports.core.api.espn.com/v2/sports/mma/leagues/bellator` |
+| `IFC` | Invicta FC (Women's) | `ifc` | `https://sports.core.api.espn.com/v2/sports/mma/leagues/ifc` |
 | `LFA` | Legacy Fighting Alliance | `lfa` | `https://sports.core.api.espn.com/v2/sports/mma/leagues/lfa` |
-| `LFC` | Legacy Fighting Championship | `lfc` | `https://sports.core.api.espn.com/v2/sports/mma/leagues/lfc` |
-| `M-1` | M-1 Mix-Fight Championship | `m1` | `https://sports.core.api.espn.com/v2/sports/mma/leagues/m1` |
+| `KSW` | Konfrontacja Sztuk Walki | `ksw` | `https://sports.core.api.espn.com/v2/sports/mma/leagues/ksw` |
+| `CW` | Cage Warriors | `cage-warriors` | `https://sports.core.api.espn.com/v2/sports/mma/leagues/cage-warriors` |
+| `ACB` | Absolute Championship Berkut | `absolute` | `https://sports.core.api.espn.com/v2/sports/mma/leagues/absolute` |
+| `FNG` | Fight Nights Global | `fng` | `https://sports.core.api.espn.com/v2/sports/mma/leagues/fng` |
+| `K1` | K-1 | `k1` | `https://sports.core.api.espn.com/v2/sports/mma/leagues/k1` |
+| `M1` | M-1 Mix-Fight Championship | `m1` | `https://sports.core.api.espn.com/v2/sports/mma/leagues/m1` |
+| `IFL` | International Fight League | `ifl` | `https://sports.core.api.espn.com/v2/sports/mma/leagues/ifl` |
+| `DRM` | Dream | `dream` | `https://sports.core.api.espn.com/v2/sports/mma/leagues/dream` |
+
+### Additional International Promotions (partial)
+
+| Slug | Name |
+|------|------|
+| `affliction` | Affliction |
+| `bang-fighting` | Bang Fighting Championships |
+| `banzay` | Banzay Fight Championship |
+| `battlezone` | Battlezone Fighting Championships |
+| `blackout` | Blackout Fighting Championship |
+| `bosnia` | Bosnia Fight Championship |
+| `boxe` | Boxe Fight Combat |
+| `brazilian-freestyle` | Brazilian Freestyle Circuit |
+| `budo` | Budo Fighting Championships |
+| `lfc` | Legacy Fighting Championship |
 
 ---
 
 ## API Endpoints
 
 > All endpoints below follow the pattern:  
-> `https://sports.core.api.espn.com/v2/sports/mma/leagues/{league}<sub-path>`  
-> Replace `{league}` with a league slug from the table above.
-
-### Common Query Parameters
-
-Most list endpoints support: `page` (int), `limit` (int). Additional filters are documented per endpoint.
 
 ### Seasons & Calendar
 
