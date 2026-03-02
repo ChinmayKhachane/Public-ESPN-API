@@ -109,21 +109,110 @@ Most list endpoints support: `page` (int), `limit` (int). Additional filters are
 
 ---
 
+## Site API Endpoints
+
+> These use `site.api.espn.com` and return user-friendly data (scores, rosters, news, etc.)
+
+```
+GET https://site.api.espn.com/apis/site/v2/sports/football/{league}/{resource}
+```
+
+| Resource | Description |
+|----------|-------------|
+| `scoreboard` | Live scores & schedules |
+| `scoreboard?week={n}&seasontype=2` | Scores for a specific week |
+| `teams` | All teams |
+| `teams/{id}` | Single team |
+| `teams/{id}/roster` | Team roster |
+| `teams/{id}/schedule` | Team schedule |
+| `teams/{id}/depthcharts` | Depth charts |
+| `teams/{id}/injuries` | Injury report |
+| `standings` | League standings |
+| `news` | Latest news |
+| `news?team={id}` | Team-specific news |
+| `calendar/regular-season` | Regular season weeks |
+| `summary?event={id}` | Full game summary |
+
+---
+
+## Specialized Endpoints
+
+### QBR (Total Quarterback Rating)
+
+```bash
+# Season totals QBR (NFL)
+GET https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/{year}/types/2/groups/1/qbr/0
+
+# Weekly QBR (NFL)
+GET https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/{year}/types/2/weeks/{week}/qbr/0
+
+# College Football QBR (NCAAF)
+GET https://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/{year}/types/2/groups/80/qbr/0
+```
+
+> **Split values:** `0` = totals, `1` = home, `2` = away
+
+### Recruiting
+
+```bash
+# Top recruiting class by year (NCAAF)
+GET https://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/{year}/recruits
+
+# Recruiting class by team
+GET https://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/{year}/classes/{teamId}
+```
+
+### Power Index (SP+)
+
+```bash
+# Season SP+ ratings
+GET https://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/{year}/powerindex
+
+# SP+ leaders
+GET https://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/{year}/powerindex/leaders
+```
+
+---
+
 ## Example API Calls
 
 ```bash
-# List leagues for Football
+# NFL scoreboard (all games this week)
+curl "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard"
+
+# NFL Week 1 scores
+curl "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?week=1&seasontype=2"
+
+# NFL standings
+curl "https://site.api.espn.com/apis/site/v2/sports/football/nfl/standings"
+
+# Dallas Cowboys roster
+curl "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/6/roster"
+
+# Dallas Cowboys depth chart
+curl "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/6/depthcharts"
+
+# Dallas Cowboys injury report
+curl "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/6/injuries"
+
+# College Football scoreboard
+curl "https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?week=1&seasontype=2&groups=80"
+
+# Get all NFL leagues
 curl "https://sports.core.api.espn.com/v2/sports/football/leagues"
 
-# Get Canadian Football League teams
+# NFL teams (core API)
+curl "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/teams?limit=50"
+
+# NFL current season events
+curl "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events"
+
+# NFL athletes (core API)
+curl "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/athletes?limit=100&active=true"
+
+# NFL standings (core API)
+curl "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/standings"
+
+# CFL teams
 curl "https://sports.core.api.espn.com/v2/sports/football/leagues/cfl/teams"
-
-# Get current season events
-curl "https://sports.core.api.espn.com/v2/sports/football/leagues/cfl/events"
-
-# Get athletes (players)
-curl "https://sports.core.api.espn.com/v2/sports/football/leagues/cfl/athletes"
-
-# Get standings
-curl "https://sports.core.api.espn.com/v2/sports/football/leagues/cfl/standings"
 ```

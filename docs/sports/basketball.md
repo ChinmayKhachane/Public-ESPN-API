@@ -119,21 +119,96 @@ Most list endpoints support: `page` (int), `limit` (int). Additional filters are
 
 ---
 
+## Site API Endpoints
+
+> These use `site.api.espn.com` and return user-friendly data (scores, rosters, news, etc.)
+
+```
+GET https://site.api.espn.com/apis/site/v2/sports/basketball/{league}/{resource}
+```
+
+| Resource | Description |
+|----------|-------------|
+| `scoreboard` | Live scores & schedules |
+| `scoreboard?dates={YYYYMMDD}` | Scores for a specific date |
+| `teams` | All teams |
+| `teams/{id}` | Single team |
+| `teams/{id}/roster` | Team roster |
+| `teams/{id}/schedule` | Team schedule |
+| `teams/{id}/injuries` | Injury report |
+| `standings` | League standings |
+| `news` | Latest news |
+| `news?team={id}` | Team-specific news |
+| `calendar/regular-season` | Regular season schedule weeks |
+| `summary?event={id}` | Full game summary |
+
+---
+
+## Specialized Endpoints
+
+### Bracketology (NCAA Tournament)
+
+```bash
+# Live bracket projections
+GET https://sports.core.api.espn.com/v2/tournament/{tournamentId}/seasons/{year}/bracketology
+
+# Bracket snapshot at a specific iteration
+GET https://sports.core.api.espn.com/v2/tournament/{tournamentId}/seasons/{year}/bracketology/{iteration}
+```
+
+> Common tournament IDs: `22` = NCAA Men's, `23` = NCAA Women's
+
+### Power Index (BPI)
+
+```bash
+# Season BPI ratings
+GET https://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/{year}/powerindex
+
+# BPI leaders
+GET https://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/{year}/powerindex/leaders
+
+# BPI by team
+GET https://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/{year}/powerindex/{teamId}
+```
+
+---
+
 ## Example API Calls
 
 ```bash
-# List leagues for Basketball
+# NBA scoreboard (today)
+curl "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard"
+
+# NBA scoreboard for a specific date
+curl "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=20250320"
+
+# NBA standings
+curl "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/standings"
+
+# LA Lakers roster
+curl "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams/13/roster"
+
+# LA Lakers injury report
+curl "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams/13/injuries"
+
+# Men's College Basketball scoreboard
+curl "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard?dates=20250320-20250323"
+
+# Get all basketball leagues (core API)
 curl "https://sports.core.api.espn.com/v2/sports/basketball/leagues"
 
-# Get FIBA World Cup teams
+# NBA teams (core API)
+curl "https://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/teams?limit=50"
+
+# NBA athletes (core API)
+curl "https://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/athletes?limit=100&active=true"
+
+# NBA standings (core API)
+curl "https://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/standings"
+
+# WNBA teams
+curl "https://sports.core.api.espn.com/v2/sports/basketball/leagues/wnba/teams"
+
+# FIBA World Cup teams
 curl "https://sports.core.api.espn.com/v2/sports/basketball/leagues/fiba/teams"
-
-# Get current season events
-curl "https://sports.core.api.espn.com/v2/sports/basketball/leagues/fiba/events"
-
-# Get athletes (players)
-curl "https://sports.core.api.espn.com/v2/sports/basketball/leagues/fiba/athletes"
-
-# Get standings
-curl "https://sports.core.api.espn.com/v2/sports/basketball/leagues/fiba/standings"
 ```
