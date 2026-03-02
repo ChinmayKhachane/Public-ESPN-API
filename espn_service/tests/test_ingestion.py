@@ -25,7 +25,9 @@ class TestGetOrCreateSportAndLeague:
         assert sport.slug == "basketball"
         assert sport.name == "Basketball"
         assert league.slug == "nba"
-        assert league.name == "NBA"
+        # league.name stores the full official name from LEAGUE_INFO
+        assert league.name == "National Basketball Association"
+        # league.abbreviation stores the short form
         assert league.abbreviation == "NBA"
         assert league.sport == sport
 
