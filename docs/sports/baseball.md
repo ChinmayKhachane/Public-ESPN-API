@@ -116,21 +116,59 @@ Most list endpoints support: `page` (int), `limit` (int). Additional filters are
 
 ---
 
+## Site API Endpoints
+
+> These use `site.api.espn.com` and return user-friendly data (scores, rosters, news, etc.)
+
+```
+GET https://site.api.espn.com/apis/site/v2/sports/baseball/{league}/{resource}
+```
+
+| Resource | Description |
+|----------|-------------|
+| `scoreboard` | Live scores & schedules |
+| `scoreboard?dates={YYYYMMDD}` | Scores for a specific date |
+| `teams` | All teams |
+| `teams/{id}` | Single team |
+| `teams/{id}/roster` | Team roster |
+| `teams/{id}/schedule` | Team schedule |
+| `teams/{id}/injuries` | Injury report |
+| `standings` | League standings |
+| `news` | Latest news |
+| `summary?event={id}` | Full game summary |
+
+---
+
 ## Example API Calls
 
 ```bash
-# List leagues for Baseball
+# MLB scoreboard (today)
+curl "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard"
+
+# MLB scoreboard for a specific date
+curl "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard?dates=20250920"
+
+# MLB standings
+curl "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/standings"
+
+# New York Yankees roster
+curl "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/teams/10/roster"
+
+# New York Yankees injuries
+curl "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/teams/10/injuries"
+
+# College Baseball scoreboard
+curl "https://site.api.espn.com/apis/site/v2/sports/baseball/college-baseball/scoreboard"
+
+# Get all baseball leagues (core API)
 curl "https://sports.core.api.espn.com/v2/sports/baseball/leagues"
 
-# Get Caribbean Series teams
-curl "https://sports.core.api.espn.com/v2/sports/baseball/leagues/caribbean-series/teams"
+# MLB teams (core API)
+curl "https://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/teams?limit=50"
 
-# Get current season events
-curl "https://sports.core.api.espn.com/v2/sports/baseball/leagues/caribbean-series/events"
+# MLB athletes (core API)
+curl "https://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/athletes?limit=100&active=true"
 
-# Get athletes (players)
-curl "https://sports.core.api.espn.com/v2/sports/baseball/leagues/caribbean-series/athletes"
-
-# Get standings
-curl "https://sports.core.api.espn.com/v2/sports/baseball/leagues/caribbean-series/standings"
+# World Baseball Classic teams
+curl "https://sports.core.api.espn.com/v2/sports/baseball/leagues/world-baseball-classic/teams"
 ```

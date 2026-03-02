@@ -108,21 +108,38 @@ Most list endpoints support: `page` (int), `limit` (int). Additional filters are
 
 ---
 
+## Site API Endpoints
+
+> These use `site.api.espn.com` and return user-friendly data (scores, rosters, news, etc.)
+
+```
+GET https://site.api.espn.com/apis/site/v2/sports/lacrosse/{league}/{resource}
+```
+
+| Resource | Description |
+|----------|-------------|
+| `scoreboard` | Live scores & schedules |
+| `teams` | All teams |
+| `standings` | League standings |
+| `news` | Latest news |
+
+---
+
 ## Example API Calls
 
 ```bash
-# List leagues for Lacrosse
+# PLL scoreboard
+curl "https://site.api.espn.com/apis/site/v2/sports/lacrosse/pll/scoreboard"
+
+# NLL scoreboard
+curl "https://site.api.espn.com/apis/site/v2/sports/lacrosse/nll/scoreboard"
+
+# Get all lacrosse leagues (core API)
 curl "https://sports.core.api.espn.com/v2/sports/lacrosse/leagues"
 
-# Get NCAA Men's Lacrosse teams
-curl "https://sports.core.api.espn.com/v2/sports/lacrosse/leagues/mens-college-lacrosse/teams"
+# PLL teams (core API)
+curl "https://sports.core.api.espn.com/v2/sports/lacrosse/leagues/pll/teams"
 
-# Get current season events
-curl "https://sports.core.api.espn.com/v2/sports/lacrosse/leagues/mens-college-lacrosse/events"
-
-# Get athletes (players)
-curl "https://sports.core.api.espn.com/v2/sports/lacrosse/leagues/mens-college-lacrosse/athletes"
-
-# Get standings
-curl "https://sports.core.api.espn.com/v2/sports/lacrosse/leagues/mens-college-lacrosse/standings"
+# PLL events (core API)
+curl "https://sports.core.api.espn.com/v2/sports/lacrosse/leagues/pll/events"
 ```

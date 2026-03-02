@@ -109,21 +109,39 @@ Most list endpoints support: `page` (int), `limit` (int). Additional filters are
 
 ---
 
+## Site API Endpoints
+
+> These use `site.api.espn.com` and return user-friendly data (scores, rosters, news, etc.)
+
+```
+GET https://site.api.espn.com/apis/site/v2/sports/racing/{league}/{resource}
+```
+
+| Resource | Description |
+|----------|-------------|
+| `scoreboard` | Race results & schedules |
+| `news` | Latest news |
+
+---
+
 ## Example API Calls
 
 ```bash
-# List leagues for Motor Sports
+# Formula 1 scoreboard (race results)
+curl "https://site.api.espn.com/apis/site/v2/sports/racing/f1/scoreboard"
+
+# IndyCar scoreboard
+curl "https://site.api.espn.com/apis/site/v2/sports/racing/irl/scoreboard"
+
+# NASCAR Cup scoreboard
+curl "https://site.api.espn.com/apis/site/v2/sports/racing/nascar-premier/scoreboard"
+
+# Get all racing leagues (core API)
 curl "https://sports.core.api.espn.com/v2/sports/racing/leagues"
 
-# Get Formula 1 teams
-curl "https://sports.core.api.espn.com/v2/sports/racing/leagues/f1/teams"
+# F1 athletes (core API)
+curl "https://sports.core.api.espn.com/v2/sports/racing/leagues/f1/athletes?limit=50"
 
-# Get current season events
+# F1 events (core API)
 curl "https://sports.core.api.espn.com/v2/sports/racing/leagues/f1/events"
-
-# Get athletes (players)
-curl "https://sports.core.api.espn.com/v2/sports/racing/leagues/f1/athletes"
-
-# Get standings
-curl "https://sports.core.api.espn.com/v2/sports/racing/leagues/f1/standings"
 ```

@@ -104,4 +104,39 @@ Most list endpoints support: `page` (int), `limit` (int). Additional filters are
 
 ---
 
+## Site API Endpoints
+
+> These use `site.api.espn.com` and return user-friendly data (scores, rosters, news, etc.)
+
+```
+GET https://site.api.espn.com/apis/site/v2/sports/cricket/{league}/{resource}
+```
+
+| Resource | Description |
+|----------|-------------|
+| `scoreboard` | Live scores & schedules |
+| `scoreboard?dates={YYYYMMDD}` | Scores for a specific date |
+| `teams` | All teams |
+| `standings` | Standings |
+| `news` | Latest news |
+
+---
+
 ## Example API Calls
+
+```bash
+# ICC T20 World Cup scoreboard
+curl "https://site.api.espn.com/apis/site/v2/sports/cricket/icc.t20/scoreboard"
+
+# IPL scoreboard
+curl "https://site.api.espn.com/apis/site/v2/sports/cricket/ipl/scoreboard"
+
+# Get all cricket leagues (core API)
+curl "https://sports.core.api.espn.com/v2/sports/cricket/leagues"
+
+# ICC T20 World Cup teams (core API)
+curl "https://sports.core.api.espn.com/v2/sports/cricket/leagues/icc.t20/teams"
+
+# ICC T20 World Cup events (core API)
+curl "https://sports.core.api.espn.com/v2/sports/cricket/leagues/icc.t20/events"
+```

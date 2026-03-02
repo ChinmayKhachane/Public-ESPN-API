@@ -106,21 +106,41 @@ Most list endpoints support: `page` (int), `limit` (int). Additional filters are
 
 ---
 
+## Site API Endpoints
+
+> These use `site.api.espn.com` and return user-friendly data (scores, rosters, news, etc.)
+
+```
+GET https://site.api.espn.com/apis/site/v2/sports/tennis/{league}/{resource}
+```
+
+| Resource | Description |
+|----------|-------------|
+| `scoreboard` | Live match scores |
+| `scoreboard?dates={YYYYMMDD}` | Scores for a specific date |
+| `athletes/{id}` | Player profile |
+| `news` | Latest news |
+
+---
+
 ## Example API Calls
 
 ```bash
-# List leagues for Tennis
+# ATP scoreboard
+curl "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard"
+
+# WTA scoreboard
+curl "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard"
+
+# ATP scoreboard for specific date range
+curl "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard?dates=20250620-20250707"
+
+# Get all tennis leagues (core API)
 curl "https://sports.core.api.espn.com/v2/sports/tennis/leagues"
 
-# Get ATP teams
-curl "https://sports.core.api.espn.com/v2/sports/tennis/leagues/atp/teams"
+# ATP athletes (core API)
+curl "https://sports.core.api.espn.com/v2/sports/tennis/leagues/atp/athletes?limit=100&active=true"
 
-# Get current season events
+# ATP events (core API)
 curl "https://sports.core.api.espn.com/v2/sports/tennis/leagues/atp/events"
-
-# Get athletes (players)
-curl "https://sports.core.api.espn.com/v2/sports/tennis/leagues/atp/athletes"
-
-# Get standings
-curl "https://sports.core.api.espn.com/v2/sports/tennis/leagues/atp/standings"
 ```

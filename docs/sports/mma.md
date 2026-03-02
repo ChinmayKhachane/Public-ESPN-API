@@ -129,21 +129,34 @@ Most list endpoints support: `page` (int), `limit` (int). Additional filters are
 
 ---
 
+## Site API Endpoints
+
+> These use `site.api.espn.com` and return user-friendly data (scores, rosters, news, etc.)
+
+```
+GET https://site.api.espn.com/apis/site/v2/sports/mma/{league}/{resource}
+```
+
+| Resource | Description |
+|----------|-------------|
+| `scoreboard` | Event results & schedules |
+| `athletes/{id}` | Fighter profile |
+| `news` | Latest news |
+
+---
+
 ## Example API Calls
 
 ```bash
-# List leagues for MMA
+# UFC scoreboard (events)
+curl "https://site.api.espn.com/apis/site/v2/sports/mma/ufc/scoreboard"
+
+# Get all MMA leagues (core API)
 curl "https://sports.core.api.espn.com/v2/sports/mma/leagues"
 
-# Get Absolute Championship Berkut teams
-curl "https://sports.core.api.espn.com/v2/sports/mma/leagues/absolute/teams"
+# UFC athletes (core API)
+curl "https://sports.core.api.espn.com/v2/sports/mma/leagues/ufc/athletes?limit=100&active=true"
 
-# Get current season events
-curl "https://sports.core.api.espn.com/v2/sports/mma/leagues/absolute/events"
-
-# Get athletes (players)
-curl "https://sports.core.api.espn.com/v2/sports/mma/leagues/absolute/athletes"
-
-# Get standings
-curl "https://sports.core.api.espn.com/v2/sports/mma/leagues/absolute/standings"
+# UFC events (core API)
+curl "https://sports.core.api.espn.com/v2/sports/mma/leagues/ufc/events"
 ```

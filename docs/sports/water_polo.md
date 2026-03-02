@@ -106,21 +106,35 @@ Most list endpoints support: `page` (int), `limit` (int). Additional filters are
 
 ---
 
+## Site API Endpoints
+
+> These use `site.api.espn.com` and return user-friendly data (scores, rosters, news, etc.)
+
+```
+GET https://site.api.espn.com/apis/site/v2/sports/water-polo/{league}/{resource}
+```
+
+| Resource | Description |
+|----------|-------------|
+| `scoreboard` | Live scores & schedules |
+| `teams` | All teams |
+| `standings` | Standings |
+| `news` | Latest news |
+
+---
+
 ## Example API Calls
 
 ```bash
-# List leagues for Water Polo
+# FINA Men's Water Polo scoreboard
+curl "https://site.api.espn.com/apis/site/v2/sports/water-polo/fina.m/scoreboard"
+
+# FINA Women's Water Polo scoreboard
+curl "https://site.api.espn.com/apis/site/v2/sports/water-polo/fina.w/scoreboard"
+
+# Get all water polo leagues (core API)
 curl "https://sports.core.api.espn.com/v2/sports/water-polo/leagues"
 
-# Get NCAA Men's Water Polo teams
-curl "https://sports.core.api.espn.com/v2/sports/water-polo/leagues/mens-college-water-polo/teams"
-
-# Get current season events
-curl "https://sports.core.api.espn.com/v2/sports/water-polo/leagues/mens-college-water-polo/events"
-
-# Get athletes (players)
-curl "https://sports.core.api.espn.com/v2/sports/water-polo/leagues/mens-college-water-polo/athletes"
-
-# Get standings
-curl "https://sports.core.api.espn.com/v2/sports/water-polo/leagues/mens-college-water-polo/standings"
+# Events (core API)
+curl "https://sports.core.api.espn.com/v2/sports/water-polo/leagues/fina.m/events"
 ```

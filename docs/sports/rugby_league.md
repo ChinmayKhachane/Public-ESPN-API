@@ -105,21 +105,39 @@ Most list endpoints support: `page` (int), `limit` (int). Additional filters are
 
 ---
 
+## Site API Endpoints
+
+> These use `site.api.espn.com` and return user-friendly data (scores, rosters, news, etc.)
+
+```
+GET https://site.api.espn.com/apis/site/v2/sports/rugby-league/{league}/{resource}
+```
+
+| Resource | Description |
+|----------|-------------|
+| `scoreboard` | Live scores & schedules |
+| `scoreboard?dates={YYYYMMDD}` | Scores for a specific date |
+| `teams` | All teams |
+| `standings` | League standings |
+| `news` | Latest news |
+
+---
+
 ## Example API Calls
 
 ```bash
-# List leagues for Rugby League
+# NRL scoreboard
+curl "https://site.api.espn.com/apis/site/v2/sports/rugby-league/nrl/scoreboard"
+
+# Super League scoreboard
+curl "https://site.api.espn.com/apis/site/v2/sports/rugby-league/superleague/scoreboard"
+
+# Get all rugby league competitions (core API)
 curl "https://sports.core.api.espn.com/v2/sports/rugby-league/leagues"
 
-# Get Rugby League teams
-curl "https://sports.core.api.espn.com/v2/sports/rugby-league/leagues/3/teams"
+# NRL teams (core API)
+curl "https://sports.core.api.espn.com/v2/sports/rugby-league/leagues/nrl/teams"
 
-# Get current season events
-curl "https://sports.core.api.espn.com/v2/sports/rugby-league/leagues/3/events"
-
-# Get athletes (players)
-curl "https://sports.core.api.espn.com/v2/sports/rugby-league/leagues/3/athletes"
-
-# Get standings
-curl "https://sports.core.api.espn.com/v2/sports/rugby-league/leagues/3/standings"
+# NRL events (core API)
+curl "https://sports.core.api.espn.com/v2/sports/rugby-league/leagues/nrl/events"
 ```

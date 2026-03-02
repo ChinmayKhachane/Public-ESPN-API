@@ -110,21 +110,59 @@ Most list endpoints support: `page` (int), `limit` (int). Additional filters are
 
 ---
 
+## Site API Endpoints
+
+> These use `site.api.espn.com` and return user-friendly data (scores, rosters, news, etc.)
+
+```
+GET https://site.api.espn.com/apis/site/v2/sports/hockey/{league}/{resource}
+```
+
+| Resource | Description |
+|----------|-------------|
+| `scoreboard` | Live scores & schedules |
+| `scoreboard?dates={YYYYMMDD}` | Scores for a specific date |
+| `teams` | All teams |
+| `teams/{id}` | Single team |
+| `teams/{id}/roster` | Team roster |
+| `teams/{id}/schedule` | Team schedule |
+| `teams/{id}/injuries` | Injury report |
+| `standings` | League standings |
+| `news` | Latest news |
+| `summary?event={id}` | Full game summary |
+
+---
+
 ## Example API Calls
 
 ```bash
-# List leagues for Ice Hockey
+# NHL scoreboard (today)
+curl "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/scoreboard"
+
+# NHL scoreboard for a specific date
+curl "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/scoreboard?dates=20250415"
+
+# NHL standings
+curl "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/standings"
+
+# Toronto Maple Leafs roster
+curl "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/teams/28/roster"
+
+# Toronto Maple Leafs injuries
+curl "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/teams/28/injuries"
+
+# College Hockey Men scoreboard
+curl "https://site.api.espn.com/apis/site/v2/sports/hockey/mens-college-hockey/scoreboard"
+
+# Get all hockey leagues (core API)
 curl "https://sports.core.api.espn.com/v2/sports/hockey/leagues"
 
-# Get World Cup of Hockey teams
-curl "https://sports.core.api.espn.com/v2/sports/hockey/leagues/hockey-world-cup/teams"
+# NHL teams (core API)
+curl "https://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/teams?limit=50"
 
-# Get current season events
-curl "https://sports.core.api.espn.com/v2/sports/hockey/leagues/hockey-world-cup/events"
+# NHL athletes (core API)
+curl "https://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/athletes?limit=100&active=true"
 
-# Get athletes (players)
-curl "https://sports.core.api.espn.com/v2/sports/hockey/leagues/hockey-world-cup/athletes"
-
-# Get standings
-curl "https://sports.core.api.espn.com/v2/sports/hockey/leagues/hockey-world-cup/standings"
+# NHL standings (core API)
+curl "https://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/standings"
 ```

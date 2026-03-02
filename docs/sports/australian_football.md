@@ -105,21 +105,43 @@ Most list endpoints support: `page` (int), `limit` (int). Additional filters are
 
 ---
 
+## Site API Endpoints
+
+> These use `site.api.espn.com` and return user-friendly data (scores, rosters, news, etc.)
+
+```
+GET https://site.api.espn.com/apis/site/v2/sports/australian-football/{league}/{resource}
+```
+
+| Resource | Description |
+|----------|-------------|
+| `scoreboard` | Live scores & schedules |
+| `scoreboard?dates={YYYYMMDD}` | Scores for a specific date |
+| `teams` | All teams |
+| `teams/{id}/roster` | Team roster |
+| `standings` | Standings |
+| `news` | Latest news |
+
+---
+
 ## Example API Calls
 
 ```bash
-# List leagues for Australian Rules Football
+# AFL scoreboard (today)
+curl "https://site.api.espn.com/apis/site/v2/sports/australian-football/afl/scoreboard"
+
+# AFL standings
+curl "https://site.api.espn.com/apis/site/v2/sports/australian-football/afl/standings"
+
+# AFL teams
+curl "https://site.api.espn.com/apis/site/v2/sports/australian-football/afl/teams"
+
+# Get all Australian football leagues (core API)
 curl "https://sports.core.api.espn.com/v2/sports/australian-football/leagues"
 
-# Get AFL teams
-curl "https://sports.core.api.espn.com/v2/sports/australian-football/leagues/afl/teams"
+# AFL teams (core API)
+curl "https://sports.core.api.espn.com/v2/sports/australian-football/leagues/afl/teams?limit=25"
 
-# Get current season events
+# AFL events (core API)
 curl "https://sports.core.api.espn.com/v2/sports/australian-football/leagues/afl/events"
-
-# Get athletes (players)
-curl "https://sports.core.api.espn.com/v2/sports/australian-football/leagues/afl/athletes"
-
-# Get standings
-curl "https://sports.core.api.espn.com/v2/sports/australian-football/leagues/afl/standings"
 ```

@@ -113,21 +113,41 @@ Most list endpoints support: `page` (int), `limit` (int). Additional filters are
 
 ---
 
+## Site API Endpoints
+
+> These use `site.api.espn.com` and return user-friendly data (scores, rosters, news, etc.)
+
+```
+GET https://site.api.espn.com/apis/site/v2/sports/golf/{league}/{resource}
+```
+
+| Resource | Description |
+|----------|-------------|
+| `scoreboard` | Live tournament scores |
+| `scoreboard?dates={YYYYMMDD}` | Scores for a specific date range |
+| `leaderboard?tournamentId={id}` | Tournament leaderboard |
+| `news` | Latest news |
+
+---
+
 ## Example API Calls
 
 ```bash
-# List leagues for Golf
+# PGA TOUR scoreboard
+curl "https://site.api.espn.com/apis/site/v2/sports/golf/pga/scoreboard"
+
+# LPGA scoreboard
+curl "https://site.api.espn.com/apis/site/v2/sports/golf/lpga/scoreboard"
+
+# LIV Golf scoreboard
+curl "https://site.api.espn.com/apis/site/v2/sports/golf/liv/scoreboard"
+
+# Get all golf leagues (core API)
 curl "https://sports.core.api.espn.com/v2/sports/golf/leagues"
 
-# Get PGA TOUR Champions teams
-curl "https://sports.core.api.espn.com/v2/sports/golf/leagues/champions-tour/teams"
+# PGA TOUR athletes (core API)
+curl "https://sports.core.api.espn.com/v2/sports/golf/leagues/pga/athletes?limit=100&active=true"
 
-# Get current season events
-curl "https://sports.core.api.espn.com/v2/sports/golf/leagues/champions-tour/events"
-
-# Get athletes (players)
-curl "https://sports.core.api.espn.com/v2/sports/golf/leagues/champions-tour/athletes"
-
-# Get standings
-curl "https://sports.core.api.espn.com/v2/sports/golf/leagues/champions-tour/standings"
+# PGA TOUR events (core API)
+curl "https://sports.core.api.espn.com/v2/sports/golf/leagues/pga/events"
 ```

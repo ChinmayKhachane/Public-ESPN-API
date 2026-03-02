@@ -105,21 +105,35 @@ Most list endpoints support: `page` (int), `limit` (int). Additional filters are
 
 ---
 
+## Site API Endpoints
+
+> These use `site.api.espn.com` and return user-friendly data (scores, rosters, news, etc.)
+
+```
+GET https://site.api.espn.com/apis/site/v2/sports/field-hockey/{league}/{resource}
+```
+
+| Resource | Description |
+|----------|-------------|
+| `scoreboard` | Live scores & schedules |
+| `teams` | All teams |
+| `standings` | Standings |
+| `news` | Latest news |
+
+---
+
 ## Example API Calls
 
 ```bash
-# List leagues for Field Hockey
+# FIH Women scoreboard
+curl "https://site.api.espn.com/apis/site/v2/sports/field-hockey/fih.w/scoreboard"
+
+# FIH Men scoreboard
+curl "https://site.api.espn.com/apis/site/v2/sports/field-hockey/fih.m/scoreboard"
+
+# Get all field hockey leagues (core API)
 curl "https://sports.core.api.espn.com/v2/sports/field-hockey/leagues"
 
-# Get NCAA Women's Field Hockey teams
-curl "https://sports.core.api.espn.com/v2/sports/field-hockey/leagues/womens-college-field-hockey/teams"
-
-# Get current season events
-curl "https://sports.core.api.espn.com/v2/sports/field-hockey/leagues/womens-college-field-hockey/events"
-
-# Get athletes (players)
-curl "https://sports.core.api.espn.com/v2/sports/field-hockey/leagues/womens-college-field-hockey/athletes"
-
-# Get standings
-curl "https://sports.core.api.espn.com/v2/sports/field-hockey/leagues/womens-college-field-hockey/standings"
+# FIH Women events (core API)
+curl "https://sports.core.api.espn.com/v2/sports/field-hockey/leagues/fih.w/events"
 ```

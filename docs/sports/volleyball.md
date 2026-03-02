@@ -106,21 +106,35 @@ Most list endpoints support: `page` (int), `limit` (int). Additional filters are
 
 ---
 
+## Site API Endpoints
+
+> These use `site.api.espn.com` and return user-friendly data (scores, rosters, news, etc.)
+
+```
+GET https://site.api.espn.com/apis/site/v2/sports/volleyball/{league}/{resource}
+```
+
+| Resource | Description |
+|----------|-------------|
+| `scoreboard` | Live scores & schedules |
+| `teams` | All teams |
+| `standings` | Standings |
+| `news` | Latest news |
+
+---
+
 ## Example API Calls
 
 ```bash
-# List leagues for Volleyball
+# FIVB Women scoreboard
+curl "https://site.api.espn.com/apis/site/v2/sports/volleyball/fivb.w/scoreboard"
+
+# FIVB Men scoreboard
+curl "https://site.api.espn.com/apis/site/v2/sports/volleyball/fivb.m/scoreboard"
+
+# Get all volleyball leagues (core API)
 curl "https://sports.core.api.espn.com/v2/sports/volleyball/leagues"
 
-# Get NCAA Men's Volleyball teams
-curl "https://sports.core.api.espn.com/v2/sports/volleyball/leagues/mens-college-volleyball/teams"
-
-# Get current season events
-curl "https://sports.core.api.espn.com/v2/sports/volleyball/leagues/mens-college-volleyball/events"
-
-# Get athletes (players)
-curl "https://sports.core.api.espn.com/v2/sports/volleyball/leagues/mens-college-volleyball/athletes"
-
-# Get standings
-curl "https://sports.core.api.espn.com/v2/sports/volleyball/leagues/mens-college-volleyball/standings"
+# FIVB Women events (core API)
+curl "https://sports.core.api.espn.com/v2/sports/volleyball/leagues/fivb.w/events"
 ```
