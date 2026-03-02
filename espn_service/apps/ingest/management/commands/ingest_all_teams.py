@@ -96,7 +96,7 @@ class Command(BaseCommand):
 
         leagues = ALL_LEAGUES
         if sport_filter:
-            leagues = [(s, l) for s, l in ALL_LEAGUES if s == sport_filter.lower()]
+            leagues = [(s, league_slug) for s, league_slug in ALL_LEAGUES if s == sport_filter.lower()]
             if not leagues:
                 raise CommandError(
                     f"No leagues configured for sport: {sport_filter}. "

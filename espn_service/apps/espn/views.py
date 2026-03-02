@@ -163,8 +163,8 @@ class TeamViewSet(viewsets.ReadOnlyModelViewSet):
         ],
     )
     @action(detail=False, methods=["get"], url_path="espn/(?P<espn_id>[^/.]+)")
-    def by_espn_id(self, request: Request, espn_id: str) -> Response:
-        """Get team by ESPN ID."""
+    def by_espn_id(self, request: Request, espn_id: str) -> Response:  # noqa: ARG002
+
         queryset = self.get_queryset()
         team = queryset.filter(espn_id=espn_id).first()
         if not team:
@@ -270,8 +270,8 @@ class EventViewSet(viewsets.ReadOnlyModelViewSet):
         ],
     )
     @action(detail=False, methods=["get"], url_path="espn/(?P<espn_id>[^/.]+)")
-    def by_espn_id(self, request: Request, espn_id: str) -> Response:
-        """Get event by ESPN ID."""
+    def by_espn_id(self, request: Request, espn_id: str) -> Response:  # noqa: ARG002
+
         queryset = self.get_queryset()
         event = queryset.filter(espn_id=espn_id).first()
         if not event:

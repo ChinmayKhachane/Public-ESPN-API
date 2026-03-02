@@ -1,13 +1,12 @@
 """Tests for REST API endpoints."""
 
-from datetime import datetime, timezone
 from unittest.mock import MagicMock, patch
 
 import pytest
 from rest_framework import status
 from rest_framework.test import APIClient
 
-from apps.espn.models import Competitor, Event, League, Sport, Team, Venue
+from apps.espn.models import Competitor, Event, League, Sport, Team
 from clients.espn_client import ESPNResponse
 
 

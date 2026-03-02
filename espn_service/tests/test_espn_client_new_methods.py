@@ -1,6 +1,5 @@
 """Tests for new ESPN client methods added during March 2026 audit."""
 
-import pytest
 from pytest_httpx import HTTPXMock
 
 from clients.espn_client import ESPNClient
