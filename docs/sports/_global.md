@@ -7,6 +7,99 @@ These endpoints are not sport-scoped and apply across the entire ESPN API.
 
 ---
 
+## 🚀 Quick Reference
+
+The most useful cross-sport global endpoints — great starting points for exploration.
+
+### Discovery
+
+```bash
+# List all sports tracked by ESPN
+curl "https://sports.core.api.espn.com/v2/sports"
+
+# List all leagues (cross-sport)
+curl "https://sports.core.api.espn.com/v2/ontology/leagues?limit=500"
+
+# List all teams (cross-sport)
+curl "https://sports.core.api.espn.com/v2/ontology/teams?limit=500"
+
+# List all sports via v3
+curl "https://sports.core.api.espn.com/v3/sports"
+
+# List all leagues via v3
+curl "https://sports.core.api.espn.com/v3/leagues?limit=500"
+```
+
+### Cross-Sport Athletes & Coaches
+
+```bash
+# Look up athlete by ESPN ID (v3)
+curl "https://sports.core.api.espn.com/v3/athletes/{athleteId}"
+
+# Athlete event log
+curl "https://sports.core.api.espn.com/v3/{athlete}/eventlog"
+
+# Coach lookup
+curl "https://sports.core.api.espn.com/v3/coaches/{coachId}"
+```
+
+### Teams (cross-sport, v3)
+
+```bash
+# All teams (cross-sport)
+curl "https://sports.core.api.espn.com/v3/teams?limit=1000"
+
+# Single team by ID
+curl "https://sports.core.api.espn.com/v3/teams/{teamId}"
+
+# Team depth charts
+curl "https://sports.core.api.espn.com/v3/teams/{teamId}/depthcharts"
+
+# Team schedule / events
+curl "https://sports.core.api.espn.com/v3/teams/{teamId}/events"
+```
+
+### Global Events & Games
+
+```bash
+# All events
+curl "https://sports.core.api.espn.com/v3/events?limit=100&dates=20250915"
+
+# Single event by ID
+curl "https://sports.core.api.espn.com/v3/events/{eventId}"
+
+# Play-by-play
+curl "https://sports.core.api.espn.com/v3/events/{eventId}/competitions/{compId}/plays"
+```
+
+### Odds, Predictions & Power Index (v3)
+
+```bash
+# Global odds
+curl "https://sports.core.api.espn.com/v3/odds"
+
+# Win predictions
+curl "https://sports.core.api.espn.com/v3/predictions"
+
+# Power index
+curl "https://sports.core.api.espn.com/v3/powerindex"
+
+# Global standings
+curl "https://sports.core.api.espn.com/v3/standings"
+```
+
+### API Meta
+
+```bash
+# ESPN API listing / documentation
+curl "https://sports.core.api.espn.com/v2/api-docs"
+
+# WADL schema
+curl "https://sports.core.api.espn.com/v3application.wadl"
+```
+
+---
+
 ## V2 Global Endpoints
 
 | Endpoint | Method ID | Query Params |
