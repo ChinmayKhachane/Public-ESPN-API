@@ -539,17 +539,37 @@ docker compose up --build
 
 ### API Endpoints
 
+#### Discovery & Data
+
 | Endpoint | Method | Description |
 |----------|--------|-------------|
 | `/healthz` | GET | Health check |
-| `/api/v1/ingest/teams/` | POST | Ingest ESPN teams |
-| `/api/v1/ingest/scoreboard/` | POST | Ingest ESPN events |
-| `/api/v1/teams/` | GET | List teams |
+| `/api/v1/sports/` | GET | List sports |
+| `/api/v1/leagues/` | GET | List leagues (`?sport=basketball`) |
+| `/api/v1/teams/` | GET | List teams (`?sport=`, `?league=`, `?search=`) |
 | `/api/v1/teams/{id}/` | GET | Team details |
 | `/api/v1/teams/espn/{espn_id}/` | GET | Team by ESPN ID |
-| `/api/v1/events/` | GET | List events |
+| `/api/v1/events/` | GET | List events (`?league=`, `?date=`, `?status=`) |
 | `/api/v1/events/{id}/` | GET | Event details |
 | `/api/v1/events/espn/{espn_id}/` | GET | Event by ESPN ID |
+| `/api/v1/news/` | GET | News articles (`?sport=`, `?league=`, `?date_from=`) |
+| `/api/v1/news/{id}/` | GET | Article detail |
+| `/api/v1/injuries/` | GET | Injury reports (`?sport=`, `?league=`, `?status=`, `?team=`) |
+| `/api/v1/injuries/{id}/` | GET | Injury detail |
+| `/api/v1/transactions/` | GET | Transactions (`?sport=`, `?league=`, `?date_from=`) |
+| `/api/v1/transactions/{id}/` | GET | Transaction detail |
+| `/api/v1/athlete-stats/` | GET | Season stats (`?sport=`, `?league=`, `?season=`, `?athlete_espn_id=`) |
+| `/api/v1/athlete-stats/{id}/` | GET | Stats detail |
+
+#### Ingest Triggers
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/v1/ingest/teams/` | POST | Ingest ESPN teams |
+| `/api/v1/ingest/scoreboard/` | POST | Ingest ESPN events |
+| `/api/v1/ingest/news/` | POST | Ingest news articles (`limit` optional) |
+| `/api/v1/ingest/injuries/` | POST | Refresh injury snapshot |
+| `/api/v1/ingest/transactions/` | POST | Ingest transactions |
 
 ### ESPN Client Methods
 
@@ -577,6 +597,64 @@ The `ESPNClient` in `clients/espn_client.py` provides methods covering all major
 | Power Index | `get_power_index()` |
 | QBR | `get_qbr()` |
 
+### Database Models
+
+| Model | Key Fields | Updated Via |
+|-------|-----------|-------------|
+| `Sport` | slug, name | `ingest/teams/` |
+| `League` | slug, name, abbreviation | `ingest/teams/` |
+| `Team` | espn_id, display_name, logos, color | `ingest/teams/` |
+| `Event` | espn_id, date, status, season_year | `ingest/scoreboard/` |
+| `Competitor` | team, home_away, score, winner | `ingest/scoreboard/` |
+| `Athlete` | espn_id, position, headshot | manual/client |
+| `Venue` | espn_id, name, city, capacity | `ingest/scoreboard/` |
+| `NewsArticle` | espn_id, headline, published, league | `ingest/news/` |
+| `Injury` | athlete_name, status, injury_type, team | `ingest/injuries/` |
+| `Transaction` | espn_id, date, description, type | `ingest/transactions/` |
+| `AthleteSeasonStats` | athlete_espn_id, season_year, stats (JSON) | `AthleteStatsIngestionService` |
+
+### Celery Beat Schedule
+
+| Task | Frequency |
+|------|-----------|
+| `refresh_all_news_task` | Every 30 minutes |
+| `refresh_all_injuries_task` | Every 4 hours |
+| `refresh_all_transactions_task` | Every 6 hours |
+| `refresh_scoreboard_task` (NBA/NFL) | Every hour |
+| `refresh_all_teams_task` | Weekly |
+
+### Management Commands
+
+```bash
+# Ingest news for a single league
+python manage.py ingest_news --sport basketball --league nba
+
+# Ingest news for all configured leagues
+python manage.py ingest_news
+
+# Refresh injury report for a league
+python manage.py ingest_injuries --sport football --league nfl
+
+# Ingest transactions
+python manage.py ingest_transactions --sport basketball --league nba
+
+# Ingest all teams (all configured leagues)
+python manage.py ingest_all_teams
+```
+
+### Docker Testing
+
+```bash
+cd espn_service
+
+# Build and run full test suite
+docker compose -f docker-compose.test.yml run --rm test
+
+# Run a specific test file
+docker compose -f docker-compose.test.yml run --rm test \
+  python -m pytest tests/test_ingestion_new.py -v --no-cov
+```
+
 ### Example Usage
 
 ```bash
@@ -585,13 +663,21 @@ curl -X POST http://localhost:8000/api/v1/ingest/teams/ \
   -H "Content-Type: application/json" \
   -d '{"sport": "basketball", "league": "nba"}'
 
-# Ingest EPL matches
-curl -X POST http://localhost:8000/api/v1/ingest/scoreboard/ \
+# Ingest NFL injury report
+curl -X POST http://localhost:8000/api/v1/ingest/injuries/ \
   -H "Content-Type: application/json" \
-  -d '{"sport": "soccer", "league": "eng.1"}'
+  -d '{"sport": "football", "league": "nfl"}'
 
-# Query teams
-curl "http://localhost:8000/api/v1/teams/?league=nba&search=Lakers"
+# Ingest NBA news (last 25 articles)
+curl -X POST http://localhost:8000/api/v1/ingest/news/ \
+  -H "Content-Type: application/json" \
+  -d '{"sport": "basketball", "league": "nba", "limit": 25}'
+
+# Query injuries by status
+curl "http://localhost:8000/api/v1/injuries/?league=nfl&status=out"
+
+# Query latest NBA news
+curl "http://localhost:8000/api/v1/news/?league=nba&date_from=2024-01-01"
 
 # Query events
 curl "http://localhost:8000/api/v1/events/?league=nfl&date=2024-12-15"
