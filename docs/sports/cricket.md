@@ -114,11 +114,15 @@ GET https://site.api.espn.com/apis/site/v2/sports/cricket/{league}/{resource}
 
 | Resource | Description |
 |----------|-------------|
-| `scoreboard` | Live scores & schedules |
-| `scoreboard?dates={YYYYMMDD}` | Scores for a specific date |
+| `scoreboard` | ⚠️ Not available — see note below |
 | `teams` | All teams |
 | `standings` | Standings |
 | `news` | Latest news |
+
+> ⚠️ **Scoreboard Note:** The cricket scoreboard endpoint returns 404 on all tested domains and all league paths (`/cricket/8/`, `/cricket/icc/`, etc.) via the site API. To retrieve cricket events (matches), use the core API instead:
+> ```
+> https://sports.core.api.espn.com/v2/sports/cricket/leagues/{league}/events
+> ```
 
 ---
 

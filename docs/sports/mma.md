@@ -140,8 +140,16 @@ GET https://site.api.espn.com/apis/site/v2/sports/mma/{league}/{resource}
 | Resource | Description |
 |----------|-------------|
 | `scoreboard` | Event results & schedules |
-| `athletes/{id}` | Fighter profile |
+| `scoreboard?dates={YYYYMMDD}` | Events for a specific date |
+| `teams` | Fighter teams/stables (if available) |
 | `news` | Latest news |
+| `athletes/{id}/news` | Fighter-specific news |
+| `summary?event={id}` | Event summary + fight results |
+
+> ⚠️ **Injuries endpoint returns 500** for MMA — not supported.  
+> ⚠️ **Standings not applicable** for MMA — use event/athlete endpoints.  
+> ✅ For fighter profiles and fight history, use the Core API:  
+> `sports.core.api.espn.com/v2/sports/mma/leagues/ufc/athletes/{id}`
 
 ---
 

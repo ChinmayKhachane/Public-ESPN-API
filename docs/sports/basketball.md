@@ -135,12 +135,66 @@ GET https://site.api.espn.com/apis/site/v2/sports/basketball/{league}/{resource}
 | `teams/{id}` | Single team |
 | `teams/{id}/roster` | Team roster |
 | `teams/{id}/schedule` | Team schedule |
-| `teams/{id}/injuries` | Injury report |
-| `standings` | League standings |
+| `teams/{id}/record` | Team record |
+| `teams/{id}/news` | Team news |
+| `teams/{id}/injuries` | Team injury report |
+| `teams/{id}/leaders` | Team statistical leaders |
+| `teams/{id}/depth-charts` | Depth charts |
+| `injuries` | **League-wide** injury report (all teams) |
+| `transactions` | Recent signings, trades, waivers |
+| `statistics` | League statistical leaders |
+| `groups` | Conferences and divisions |
+| `draft` | Draft board (NBA only) |
+| `standings` | ⚠️ Stub only — see note below |
 | `news` | Latest news |
-| `news?team={id}` | Team-specific news |
-| `calendar/regular-season` | Regular season schedule weeks |
-| `summary?event={id}` | Full game summary |
+| `athletes/{id}/news` | Athlete-specific news |
+| `summary?event={id}` | Full game summary + boxscore |
+| `rankings` | Poll rankings (NCAA leagues only) |
+
+> ⚠️ **Standings Note:** The `/apis/site/v2/` path returns only a stub for standings. Use `/apis/v2/` instead:
+> `https://site.api.espn.com/apis/v2/sports/basketball/{league}/standings`
+
+---
+
+## CDN Game Data
+
+> Rich game packages via `cdn.espn.com`. Requires `?xhr=1`. Returns a `gamepackageJSON` object containing drives, plays, win probability, scoring, and odds.
+
+```bash
+# Full game package
+curl "https://cdn.espn.com/core/nba/game?xhr=1&gameId={EVENT_ID}"
+
+# Specific views
+curl "https://cdn.espn.com/core/nba/boxscore?xhr=1&gameId={EVENT_ID}"
+curl "https://cdn.espn.com/core/nba/playbyplay?xhr=1&gameId={EVENT_ID}"
+curl "https://cdn.espn.com/core/nba/matchup?xhr=1&gameId={EVENT_ID}"
+curl "https://cdn.espn.com/core/nba/scoreboard?xhr=1"
+```
+
+---
+
+## Athlete Data (common/v3)
+
+> Individual player stats, game logs, splits, and overview via `site.web.api.espn.com`.
+
+```bash
+# Player overview (stats snapshot + next game + rotowire)
+curl "https://site.web.api.espn.com/apis/common/v3/sports/basketball/nba/athletes/{id}/overview"
+
+# Season stats
+curl "https://site.web.api.espn.com/apis/common/v3/sports/basketball/nba/athletes/{id}/stats"
+
+# Game log
+curl "https://site.web.api.espn.com/apis/common/v3/sports/basketball/nba/athletes/{id}/gamelog"
+
+# Home/Away/Opponent splits
+curl "https://site.web.api.espn.com/apis/common/v3/sports/basketball/nba/athletes/{id}/splits"
+
+# Stats leaderboard (all athletes ranked)
+curl "https://site.web.api.espn.com/apis/common/v3/sports/basketball/nba/statistics/byathlete"
+```
+
+> ✅ Works for: NBA, WNBA, mens-college-basketball, womens-college-basketball
 
 ---
 
@@ -182,8 +236,8 @@ curl "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard"
 # NBA scoreboard for a specific date
 curl "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=20250320"
 
-# NBA standings
-curl "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/standings"
+# NBA standings (use /apis/v2/ — /apis/site/v2/ only returns a stub)
+curl "https://site.api.espn.com/apis/v2/sports/basketball/nba/standings"
 
 # LA Lakers roster
 curl "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams/13/roster"

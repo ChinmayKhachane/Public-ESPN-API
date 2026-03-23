@@ -119,8 +119,13 @@ GET https://site.api.espn.com/apis/site/v2/sports/australian-football/{league}/{
 | `scoreboard?dates={YYYYMMDD}` | Scores for a specific date |
 | `teams` | All teams |
 | `teams/{id}/roster` | Team roster |
-| `standings` | Standings |
+| `standings` | Standings — returns stub `{"fullViewLink":{...}}` on `/apis/site/v2/`, use `/apis/v2/` instead |
 | `news` | Latest news |
+
+> ⚠️ **Standings Note:** The `/apis/site/v2/` path returns only a redirect stub for AFL standings. Use `/apis/v2/` instead:
+> - `https://site.api.espn.com/apis/v2/sports/australian-football/afl/standings`
+> - `https://site.web.api.espn.com/apis/v2/sports/australian-football/afl/standings`
+> Both return full standings data including team stats, percentage, and form (verified 2026 season).
 
 ---
 
@@ -130,8 +135,11 @@ GET https://site.api.espn.com/apis/site/v2/sports/australian-football/{league}/{
 # AFL scoreboard (today)
 curl "https://site.api.espn.com/apis/site/v2/sports/australian-football/afl/scoreboard"
 
-# AFL standings
-curl "https://site.api.espn.com/apis/site/v2/sports/australian-football/afl/standings"
+# AFL standings — use /apis/v2/ (site/v2 returns only a stub redirect)
+curl "https://site.api.espn.com/apis/v2/sports/australian-football/afl/standings"
+
+# Alternative domain (identical response)
+curl "https://site.web.api.espn.com/apis/v2/sports/australian-football/afl/standings"
 
 # AFL teams
 curl "https://site.api.espn.com/apis/site/v2/sports/australian-football/afl/teams"

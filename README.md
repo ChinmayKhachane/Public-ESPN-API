@@ -122,8 +122,8 @@ curl "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams"
 # MLB Scores for a Specific Date
 curl "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard?dates=20241215"
 
-# NHL Standings
-curl "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/standings"
+# NHL Standings — NOTE: use /apis/v2/ (not /apis/site/v2/ which returns a stub)
+curl "https://site.api.espn.com/apis/v2/sports/hockey/nhl/standings"
 ```
 
 ---
@@ -180,7 +180,10 @@ GET https://site.api.espn.com/apis/site/v2/sports/{sport}/{league}/{resource}
 | `athletes/{id}/splits` | Statistical splits |
 | `athletes/{id}/news` | Athlete news |
 | `athletes/{id}/bio` | Athlete bio |
-| `standings` | League standings |
+| `standings` | League standings ⚠️ use `/apis/v2/` — `/apis/site/v2/` returns a stub |
+| `injuries` | League-wide injury report |
+| `transactions` | Recent signings/trades/waivers |
+| `groups` | Conferences/divisions |
 | `news` | Latest news articles |
 | `rankings` | Rankings (college sports) |
 | `calendar` | Season calendar (all weeks/dates) |
@@ -270,8 +273,12 @@ GET https://site.web.api.espn.com/apis/{path}
 |----------|-------------|
 | `/search/v2?query={q}&limit={n}` | Global ESPN search |
 | `/search/v2?query={q}&sport={sport}` | Sport-scoped search |
-| `/common/v3/sports/{sport}/{league}/athletes/{id}/overview` | Rich athlete overview |
 | `/v2/scoreboard/header` | Scoreboard header/nav state |
+| `/apis/common/v3/sports/{sport}/{league}/athletes/{id}/overview` | Athlete overview (stats snapshot, news, next game) |
+| `/apis/common/v3/sports/{sport}/{league}/athletes/{id}/stats` | Season stats (NFL/NBA/NHL/MLB ✅, Soccer ❌) |
+| `/apis/common/v3/sports/{sport}/{league}/athletes/{id}/gamelog` | Game-by-game log (NFL/NBA/MLB ✅) |
+| `/apis/common/v3/sports/{sport}/{league}/athletes/{id}/splits` | Home/away/opponent splits |
+| `/apis/common/v3/sports/{sport}/{league}/statistics/byathlete` | Stats leaderboard with `category=` + `sort=` |
 
 ### CDN API (Real-Time Optimized)
 
@@ -281,9 +288,13 @@ GET https://cdn.espn.com/core/{sport}/{resource}?xhr=1
 
 | Endpoint | Description |
 |----------|-------------|
-| `https://cdn.espn.com/core/{sport}/scoreboard?xhr=1&limit={n}` | CDN-optimized live scoreboard |
+| `/{sport}/scoreboard?xhr=1` | CDN-optimized live scoreboard |
+| `/{sport}/scoreboard?xhr=1&league={league}` | Soccer scoreboard (league slug required, e.g. `eng.1`) |
+| `/{sport}/game?xhr=1&gameId={id}` | Full game package — drives, plays, win probability, boxscore, odds |
+| `/{sport}/boxscore?xhr=1&gameId={id}` | Boxscore only |
+| `/{sport}/playbyplay?xhr=1&gameId={id}` | Play-by-play only |
 
-> **Note:** CDN endpoints are optimized for speed and caching. Use `xhr=1` to receive JSON instead of HTML.
+> **Note:** CDN endpoints return JSON when `xhr=1` is passed. The `gamepackageJSON` key holds the full game data object.
 
 ### Now API (Real-Time News)
 
@@ -296,6 +307,7 @@ GET https://now.core.api.espn.com/v1/sports/news
 | `/v1/sports/news?limit={n}` | Global real-time news feed |
 | `/v1/sports/news?sport={sport}&limit={n}` | Sport-filtered news |
 | `/v1/sports/news?leagues={league}&limit={n}` | League-filtered news |
+| `/v1/sports/news?team={abbrev}&limit={n}` | Team-filtered news |
 
 ---
 
@@ -527,17 +539,37 @@ docker compose up --build
 
 ### API Endpoints
 
+#### Discovery & Data
+
 | Endpoint | Method | Description |
 |----------|--------|-------------|
 | `/healthz` | GET | Health check |
-| `/api/v1/ingest/teams/` | POST | Ingest ESPN teams |
-| `/api/v1/ingest/scoreboard/` | POST | Ingest ESPN events |
-| `/api/v1/teams/` | GET | List teams |
+| `/api/v1/sports/` | GET | List sports |
+| `/api/v1/leagues/` | GET | List leagues (`?sport=basketball`) |
+| `/api/v1/teams/` | GET | List teams (`?sport=`, `?league=`, `?search=`) |
 | `/api/v1/teams/{id}/` | GET | Team details |
 | `/api/v1/teams/espn/{espn_id}/` | GET | Team by ESPN ID |
-| `/api/v1/events/` | GET | List events |
+| `/api/v1/events/` | GET | List events (`?league=`, `?date=`, `?status=`) |
 | `/api/v1/events/{id}/` | GET | Event details |
 | `/api/v1/events/espn/{espn_id}/` | GET | Event by ESPN ID |
+| `/api/v1/news/` | GET | News articles (`?sport=`, `?league=`, `?date_from=`) |
+| `/api/v1/news/{id}/` | GET | Article detail |
+| `/api/v1/injuries/` | GET | Injury reports (`?sport=`, `?league=`, `?status=`, `?team=`) |
+| `/api/v1/injuries/{id}/` | GET | Injury detail |
+| `/api/v1/transactions/` | GET | Transactions (`?sport=`, `?league=`, `?date_from=`) |
+| `/api/v1/transactions/{id}/` | GET | Transaction detail |
+| `/api/v1/athlete-stats/` | GET | Season stats (`?sport=`, `?league=`, `?season=`, `?athlete_espn_id=`) |
+| `/api/v1/athlete-stats/{id}/` | GET | Stats detail |
+
+#### Ingest Triggers
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/v1/ingest/teams/` | POST | Ingest ESPN teams |
+| `/api/v1/ingest/scoreboard/` | POST | Ingest ESPN events |
+| `/api/v1/ingest/news/` | POST | Ingest news articles (`limit` optional) |
+| `/api/v1/ingest/injuries/` | POST | Refresh injury snapshot |
+| `/api/v1/ingest/transactions/` | POST | Ingest transactions |
 
 ### ESPN Client Methods
 
@@ -548,16 +580,80 @@ The `ESPNClient` in `clients/espn_client.py` provides methods covering all major
 | Scoreboard | `get_scoreboard()` |
 | Teams | `get_teams()`, `get_team()`, `get_team_roster()`, `get_core_teams()` |
 | Events | `get_event()`, `get_core_events()` |
-| Standings | `get_standings()`, `get_core_standings()` |
-| News | `get_news()` |
+| Standings | `get_standings()` (/apis/v2/), `get_core_standings()` |
+| News | `get_news()`, `get_now_news()` |
 | Rankings | `get_rankings()` |
-| Athletes | `get_athletes()`, `get_athlete()`, `get_athlete_statistics()`, `get_athletes_v3()` |
+| League info | `get_league_injuries()`, `get_league_transactions()`, `get_groups()` |
+| Athletes | `get_athletes()`, `get_athlete()`, `get_athletes_v3()`, `get_athlete_statistics()` |
+| Athlete v3 | `get_athlete_overview()`, `get_athlete_stats()`, `get_athlete_gamelog()`, `get_athlete_splits()` |
+| Stats | `get_leaders()`, `get_leaders_v3()`, `get_statistics_by_athlete()` |
 | Seasons | `get_seasons()` |
 | Betting | `get_odds()`, `get_win_probabilities()` |
-| Play Data | `get_plays()` |
-| Statistics | `get_leaders()`, `get_leaders_v3()` |
+| Play data | `get_plays()`, `get_game_situation()`, `get_game_predictor()`, `get_game_broadcasts()` |
+| CDN | `get_cdn_game()`, `get_cdn_scoreboard()` |
 | Venues | `get_venues()` |
+| Coaches | `get_coaches()`, `get_coach()` |
 | Metadata | `get_league_info()` |
+| Power Index | `get_power_index()` |
+| QBR | `get_qbr()` |
+
+### Database Models
+
+| Model | Key Fields | Updated Via |
+|-------|-----------|-------------|
+| `Sport` | slug, name | `ingest/teams/` |
+| `League` | slug, name, abbreviation | `ingest/teams/` |
+| `Team` | espn_id, display_name, logos, color | `ingest/teams/` |
+| `Event` | espn_id, date, status, season_year | `ingest/scoreboard/` |
+| `Competitor` | team, home_away, score, winner | `ingest/scoreboard/` |
+| `Athlete` | espn_id, position, headshot | manual/client |
+| `Venue` | espn_id, name, city, capacity | `ingest/scoreboard/` |
+| `NewsArticle` | espn_id, headline, published, league | `ingest/news/` |
+| `Injury` | athlete_name, status, injury_type, team | `ingest/injuries/` |
+| `Transaction` | espn_id, date, description, type | `ingest/transactions/` |
+| `AthleteSeasonStats` | athlete_espn_id, season_year, stats (JSON) | `AthleteStatsIngestionService` |
+
+### Celery Beat Schedule
+
+| Task | Frequency |
+|------|-----------|
+| `refresh_all_news_task` | Every 30 minutes |
+| `refresh_all_injuries_task` | Every 4 hours |
+| `refresh_all_transactions_task` | Every 6 hours |
+| `refresh_scoreboard_task` (NBA/NFL) | Every hour |
+| `refresh_all_teams_task` | Weekly |
+
+### Management Commands
+
+```bash
+# Ingest news for a single league
+python manage.py ingest_news --sport basketball --league nba
+
+# Ingest news for all configured leagues
+python manage.py ingest_news
+
+# Refresh injury report for a league
+python manage.py ingest_injuries --sport football --league nfl
+
+# Ingest transactions
+python manage.py ingest_transactions --sport basketball --league nba
+
+# Ingest all teams (all configured leagues)
+python manage.py ingest_all_teams
+```
+
+### Docker Testing
+
+```bash
+cd espn_service
+
+# Build and run full test suite
+docker compose -f docker-compose.test.yml run --rm test
+
+# Run a specific test file
+docker compose -f docker-compose.test.yml run --rm test \
+  python -m pytest tests/test_ingestion_new.py -v --no-cov
+```
 
 ### Example Usage
 
@@ -567,13 +663,21 @@ curl -X POST http://localhost:8000/api/v1/ingest/teams/ \
   -H "Content-Type: application/json" \
   -d '{"sport": "basketball", "league": "nba"}'
 
-# Ingest EPL matches
-curl -X POST http://localhost:8000/api/v1/ingest/scoreboard/ \
+# Ingest NFL injury report
+curl -X POST http://localhost:8000/api/v1/ingest/injuries/ \
   -H "Content-Type: application/json" \
-  -d '{"sport": "soccer", "league": "eng.1"}'
+  -d '{"sport": "football", "league": "nfl"}'
 
-# Query teams
-curl "http://localhost:8000/api/v1/teams/?league=nba&search=Lakers"
+# Ingest NBA news (last 25 articles)
+curl -X POST http://localhost:8000/api/v1/ingest/news/ \
+  -H "Content-Type: application/json" \
+  -d '{"sport": "basketball", "league": "nba", "limit": 25}'
+
+# Query injuries by status
+curl "http://localhost:8000/api/v1/injuries/?league=nfl&status=out"
+
+# Query latest NBA news
+curl "http://localhost:8000/api/v1/news/?league=nba&date_from=2024-01-01"
 
 # Query events
 curl "http://localhost:8000/api/v1/events/?league=nfl&date=2024-12-15"
@@ -657,4 +761,4 @@ MIT License — See LICENSE file
 
 ---
 
-*Last Updated: March 2026 · 17 sports · 139 leagues · 370 v2 + 79 v3 endpoints*
+*Last Updated: March 2026 · 17 sports · 139 leagues · 370 v2 + 79 v3 endpoints · 6 API domains*

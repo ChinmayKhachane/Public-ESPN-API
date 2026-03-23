@@ -188,27 +188,59 @@ CELERY_TIMEZONE = TIME_ZONE
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60  # 30 minutes
 CELERY_BEAT_SCHEDULE = {
-    "refresh-nba-scoreboard-daily": {
+    # Scoreboards — high-frequency during seasons
+    "refresh-nba-scoreboard-hourly": {
         "task": "apps.ingest.tasks.refresh_scoreboard_task",
         "schedule": 3600.0,  # Every hour
         "args": ("basketball", "nba"),
     },
-    "refresh-nfl-scoreboard-daily": {
+    "refresh-nfl-scoreboard-hourly": {
         "task": "apps.ingest.tasks.refresh_scoreboard_task",
         "schedule": 3600.0,  # Every hour
         "args": ("football", "nfl"),
     },
+    # Teams — refreshed weekly (rosters/logos change infrequently)
     "refresh-teams-weekly": {
         "task": "apps.ingest.tasks.refresh_all_teams_task",
         "schedule": 86400.0 * 7,  # Weekly
+    },
+    # News — ingested every 30 minutes across all leagues
+    "refresh-all-news-30min": {
+        "task": "apps.ingest.tasks.refresh_all_news_task",
+        "schedule": 1800.0,  # Every 30 minutes
+    },
+    # Injuries — refreshed every 4 hours (snapshot replacement)
+    "refresh-all-injuries-4h": {
+        "task": "apps.ingest.tasks.refresh_all_injuries_task",
+        "schedule": 14400.0,  # Every 4 hours
+    },
+    # Transactions — refreshed every 6 hours
+    "refresh-all-transactions-6h": {
+        "task": "apps.ingest.tasks.refresh_all_transactions_task",
+        "schedule": 21600.0,  # Every 6 hours
     },
 }
 
 
 # ESPN Client settings
 ESPN_CLIENT = {
-    "SITE_API_BASE_URL": env("ESPN_SITE_API_URL", default="https://site.api.espn.com"),
-    "CORE_API_BASE_URL": env("ESPN_CORE_API_URL", default="https://sports.core.api.espn.com"),
+    # Domain URLs — override in .env if needed
+    "SITE_API_BASE_URL": env(
+        "ESPN_SITE_API_BASE_URL", default="https://site.api.espn.com"
+    ),
+    "CORE_API_BASE_URL": env(
+        "ESPN_CORE_API_BASE_URL", default="https://sports.core.api.espn.com"
+    ),
+    "WEB_V3_API_BASE_URL": env(
+        "ESPN_WEB_V3_API_BASE_URL", default="https://site.web.api.espn.com"
+    ),
+    "CDN_API_BASE_URL": env(
+        "ESPN_CDN_API_BASE_URL", default="https://cdn.espn.com"
+    ),
+    "NOW_API_BASE_URL": env(
+        "ESPN_NOW_API_BASE_URL", default="https://now.core.api.espn.com"
+    ),
+    # Request behaviour
     "TIMEOUT": env.float("ESPN_TIMEOUT", default=30.0),
     "MAX_RETRIES": env.int("ESPN_MAX_RETRIES", default=3),
     "RETRY_BACKOFF": env.float("ESPN_RETRY_BACKOFF", default=1.0),

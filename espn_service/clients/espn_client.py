@@ -33,8 +33,12 @@ logger = structlog.get_logger(__name__)
 class ESPNEndpointDomain(str, Enum):
     """ESPN API domain types."""
 
-    SITE = "site"  # site.api.espn.com
-    CORE = "core"  # sports.core.api.espn.com
+    SITE = "site"          # site.api.espn.com
+    CORE = "core"          # sports.core.api.espn.com
+    SITE_V2 = "site_v2"    # site.api.espn.com/apis/v2/ — standings only
+    WEB_V3 = "web_v3"      # site.web.api.espn.com/apis/common/v3/ — athlete data
+    CDN = "cdn"            # cdn.espn.com/core/ — full game packages
+    NOW = "now"            # now.core.api.espn.com/v1/ — real-time news
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -263,6 +267,14 @@ class ESPNClient:
     ):
         """Initialize ESPN client.
 
+        Supports all discovered ESPN API domains:
+        - site.api.espn.com          → scoreboard, teams, news, injuries, etc.
+        - site.api.espn.com/apis/v2/ → standings (site/v2 returns a stub)
+        - sports.core.api.espn.com   → core data, odds, play-by-play
+        - site.web.api.espn.com      → athlete stats, gamelog, splits (common/v3)
+        - cdn.espn.com/core/         → full game packages with drives/plays
+        - now.core.api.espn.com/v1/  → real-time news feed
+
         Args:
             site_api_url: Base URL for site.api.espn.com
             core_api_url: Base URL for sports.core.api.espn.com
@@ -277,6 +289,15 @@ class ESPNClient:
         ).rstrip("/")
         self.core_api_url = (
             core_api_url or config.get("CORE_API_BASE_URL", "https://sports.core.api.espn.com")
+        ).rstrip("/")
+        self.web_v3_url = config.get(
+            "WEB_V3_API_BASE_URL", "https://site.web.api.espn.com"
+        ).rstrip("/")
+        self.cdn_url = config.get(
+            "CDN_API_BASE_URL", "https://cdn.espn.com"
+        ).rstrip("/")
+        self.now_url = config.get(
+            "NOW_API_BASE_URL", "https://now.core.api.espn.com"
         ).rstrip("/")
         self.timeout = timeout or config.get("TIMEOUT", 30.0)
         self.max_retries = max_retries or config.get("MAX_RETRIES", 3)
@@ -317,6 +338,14 @@ class ESPNClient:
         """Get base URL for the given domain."""
         if domain == ESPNEndpointDomain.SITE:
             return self.site_api_url
+        if domain == ESPNEndpointDomain.SITE_V2:
+            return self.site_api_url
+        if domain == ESPNEndpointDomain.WEB_V3:
+            return self.web_v3_url
+        if domain == ESPNEndpointDomain.CDN:
+            return self.cdn_url
+        if domain == ESPNEndpointDomain.NOW:
+            return self.now_url
         return self.core_api_url
 
     def _build_url(self, domain: ESPNEndpointDomain, path: str) -> str:
@@ -600,6 +629,9 @@ class ESPNClient:
     ) -> ESPNResponse:
         """Get league standings.
 
+        Uses /apis/v2/ domain — /apis/site/v2/ standings only returns a stub.
+        Rugby Union standings are not available via this domain; use get_core_standings().
+
         Args:
             sport: Sport slug
             league: League slug
@@ -608,7 +640,9 @@ class ESPNClient:
         Returns:
             ESPNResponse with standings data
         """
-        path = f"/apis/site/v2/sports/{sport}/{league}/standings"
+        # NOTE: /apis/site/v2/ returns only a stub {"fullViewLink": {...}}
+        # Use /apis/v2/ which returns the full standings tree
+        path = f"/apis/v2/sports/{sport}/{league}/standings"
         params: dict[str, Any] = {}
         if season:
             params["season"] = season
@@ -1262,6 +1296,313 @@ class ESPNClient:
         logger.info("fetching_power_index", sport=sport, league=league, season=season)
         return self.get(path, domain=ESPNEndpointDomain.CORE)
 
+
+
+    # --------------------- League-wide Site API Endpoints ---------------------
+
+    def get_league_injuries(
+        self,
+        sport: str,
+        league: str,
+    ) -> ESPNResponse:
+        """Get league-wide injury report (all teams).
+
+        Not supported for MMA, Tennis, Golf (returns 500).
+
+        Args:
+            sport: Sport slug (e.g., "basketball", "football")
+            league: League slug (e.g., "nba", "nfl")
+
+        Returns:
+            ESPNResponse with injuries grouped by team
+        """
+        path = f"/apis/site/v2/sports/{sport}/{league}/injuries"
+        logger.info("fetching_league_injuries", sport=sport, league=league)
+        return self.get(path, domain=ESPNEndpointDomain.SITE)
+
+    def get_league_transactions(
+        self,
+        sport: str,
+        league: str,
+    ) -> ESPNResponse:
+        """Get recent league-wide transactions (signings, trades, waivers).
+
+        Args:
+            sport: Sport slug
+            league: League slug
+
+        Returns:
+            ESPNResponse with transaction data
+        """
+        path = f"/apis/site/v2/sports/{sport}/{league}/transactions"
+        logger.info("fetching_league_transactions", sport=sport, league=league)
+        return self.get(path, domain=ESPNEndpointDomain.SITE)
+
+    def get_groups(
+        self,
+        sport: str,
+        league: str,
+    ) -> ESPNResponse:
+        """Get conference/division groups for a league.
+
+        Args:
+            sport: Sport slug
+            league: League slug
+
+        Returns:
+            ESPNResponse with group/conference data
+        """
+        path = f"/apis/site/v2/sports/{sport}/{league}/groups"
+        logger.info("fetching_groups", sport=sport, league=league)
+        return self.get(path, domain=ESPNEndpointDomain.SITE)
+
+    # --------------------- common/v3 Athlete Endpoints ---------------------
+
+    def get_athlete_overview(
+        self,
+        sport: str,
+        league: str,
+        athlete_id: str | int,
+    ) -> ESPNResponse:
+        """Get athlete overview (stats snapshot, next game, rotowire notes, news).
+
+        Uses site.web.api.espn.com/apis/common/v3/. Confirmed working for:
+        NFL, NBA, NHL, MLB. Soccer returns minimal data.
+
+        Args:
+            sport: Sport slug
+            league: League slug
+            athlete_id: ESPN athlete ID
+
+        Returns:
+            ESPNResponse with overview data
+        """
+        path = f"/apis/common/v3/sports/{sport}/{league}/athletes/{athlete_id}/overview"
+        logger.info("fetching_athlete_overview", sport=sport, league=league, athlete_id=athlete_id)
+        return self.get(path, domain=ESPNEndpointDomain.WEB_V3)
+
+    def get_athlete_stats(
+        self,
+        sport: str,
+        league: str,
+        athlete_id: str | int,
+        season: int | None = None,
+        season_type: int | None = None,
+    ) -> ESPNResponse:
+        """Get season stats for an athlete.
+
+        Uses site.web.api.espn.com/apis/common/v3/. Confirmed working for:
+        NFL, NBA, NHL, MLB. Returns 404 for Soccer.
+
+        Args:
+            sport: Sport slug
+            league: League slug
+            athlete_id: ESPN athlete ID
+            season: Season year (optional)
+            season_type: 1=pre, 2=regular, 3=post (optional)
+
+        Returns:
+            ESPNResponse with stats (filters, teams, categories, glossary)
+        """
+        path = f"/apis/common/v3/sports/{sport}/{league}/athletes/{athlete_id}/stats"
+        params: dict[str, Any] = {}
+        if season:
+            params["season"] = season
+        if season_type:
+            params["seasontype"] = season_type
+        logger.info("fetching_athlete_stats", sport=sport, league=league, athlete_id=athlete_id)
+        return self.get(path, domain=ESPNEndpointDomain.WEB_V3, params=params)
+
+    def get_athlete_gamelog(
+        self,
+        sport: str,
+        league: str,
+        athlete_id: str | int,
+        season: int | None = None,
+    ) -> ESPNResponse:
+        """Get game-by-game log for an athlete.
+
+        Uses site.web.api.espn.com/apis/common/v3/. Confirmed working for:
+        NFL, NBA, MLB. Returns 404 for NHL, 400 for Soccer.
+
+        Args:
+            sport: Sport slug
+            league: League slug
+            athlete_id: ESPN athlete ID
+            season: Season year (optional)
+
+        Returns:
+            ESPNResponse with events/gamelog data
+        """
+        path = f"/apis/common/v3/sports/{sport}/{league}/athletes/{athlete_id}/gamelog"
+        params: dict[str, Any] = {}
+        if season:
+            params["season"] = season
+        logger.info("fetching_athlete_gamelog", sport=sport, league=league, athlete_id=athlete_id)
+        return self.get(path, domain=ESPNEndpointDomain.WEB_V3, params=params)
+
+    def get_athlete_splits(
+        self,
+        sport: str,
+        league: str,
+        athlete_id: str | int,
+        season: int | None = None,
+        season_type: int | None = None,
+    ) -> ESPNResponse:
+        """Get home/away/opponent splits for an athlete.
+
+        Uses site.web.api.espn.com/apis/common/v3/. Confirmed working for:
+        NFL, NBA, NHL, MLB. Not available for Soccer.
+
+        Args:
+            sport: Sport slug
+            league: League slug
+            athlete_id: ESPN athlete ID
+            season: Season year (optional)
+            season_type: 1=pre, 2=regular, 3=post (optional)
+
+        Returns:
+            ESPNResponse with splits by category (home/away/opponent)
+        """
+        path = f"/apis/common/v3/sports/{sport}/{league}/athletes/{athlete_id}/splits"
+        params: dict[str, Any] = {}
+        if season:
+            params["season"] = season
+        if season_type:
+            params["seasontype"] = season_type
+        logger.info("fetching_athlete_splits", sport=sport, league=league, athlete_id=athlete_id)
+        return self.get(path, domain=ESPNEndpointDomain.WEB_V3, params=params)
+
+    def get_statistics_by_athlete(
+        self,
+        sport: str,
+        league: str,
+        season: int | None = None,
+        season_type: int | None = None,
+        category: str | None = None,
+        sort: str | None = None,
+        limit: int = 50,
+        page: int = 1,
+    ) -> ESPNResponse:
+        """Get ranked statistics leaderboard across all athletes.
+
+        Uses site.web.api.espn.com/apis/common/v3/. Confirmed working for:
+        NBA, NFL, NHL, MLB.
+
+        Args:
+            sport: Sport slug
+            league: League slug
+            season: Season year (optional)
+            season_type: 1=pre, 2=regular, 3=post (optional)
+            category: Stat category (e.g., "batting" for MLB, "passing" for NFL)
+            sort: Sort field (e.g., "batting.homeRuns:desc")
+            limit: Athletes per page
+            page: Page number
+
+        Returns:
+            ESPNResponse with ranked athlete statistics
+        """
+        path = f"/apis/common/v3/sports/{sport}/{league}/statistics/byathlete"
+        params: dict[str, Any] = {"limit": limit, "page": page}
+        if season:
+            params["season"] = season
+        if season_type:
+            params["seasontype"] = season_type
+        if category:
+            params["category"] = category
+        if sort:
+            params["sort"] = sort
+        logger.info("fetching_statistics_by_athlete", sport=sport, league=league)
+        return self.get(path, domain=ESPNEndpointDomain.WEB_V3, params=params)
+
+    # --------------------- CDN Game Data Endpoints ---------------------
+
+    def get_cdn_game(
+        self,
+        sport: str,
+        game_id: str,
+        view: str = "game",
+    ) -> ESPNResponse:
+        """Get full game package from cdn.espn.com.
+
+        Returns a rich gamepackageJSON object containing drives, plays,
+        scoring summary, win probability, boxscore, betting odds, and more.
+        Requires ?xhr=1 (automatically added).
+
+        Confirmed working for: nfl, nba, mlb, college-football.
+        Soccer: use get_cdn_soccer_scoreboard() with a league param.
+
+        Args:
+            sport: ESPN CDN sport slug (e.g., "nfl", "nba", "mlb",
+                   "college-football")
+            game_id: ESPN event/game ID
+            view: One of "game" (full), "boxscore", "playbyplay", "matchup"
+
+        Returns:
+            ESPNResponse containing gamepackageJSON key with all game data
+        """
+        path = f"/core/{sport}/{view}"
+        params: dict[str, Any] = {"xhr": 1, "gameId": game_id}
+        logger.info("fetching_cdn_game", sport=sport, game_id=game_id, view=view)
+        return self.get(path, domain=ESPNEndpointDomain.CDN, params=params)
+
+    def get_cdn_scoreboard(
+        self,
+        sport: str,
+        league: str | None = None,
+    ) -> ESPNResponse:
+        """Get scoreboard via CDN domain.
+
+        Args:
+            sport: ESPN CDN sport slug (e.g., "nfl", "nba", "mlb",
+                   "college-football", "soccer")
+            league: League slug — only needed for soccer (e.g., "eng.1")
+
+        Returns:
+            ESPNResponse with scoreboard data
+        """
+        path = f"/core/{sport}/scoreboard"
+        params: dict[str, Any] = {"xhr": 1}
+        if league:
+            params["league"] = league
+        logger.info("fetching_cdn_scoreboard", sport=sport)
+        return self.get(path, domain=ESPNEndpointDomain.CDN, params=params)
+
+    # --------------------- Now/News Endpoints ---------------------
+
+    def get_now_news(
+        self,
+        sport: str | None = None,
+        league: str | None = None,
+        team: str | None = None,
+        limit: int = 20,
+        offset: int = 0,
+    ) -> ESPNResponse:
+        """Get real-time news from now.core.api.espn.com.
+
+        Supports filtering by sport, league, or team. Returns a feed of
+        articles with categories, images, and publication timestamps.
+
+        Args:
+            sport: Sport filter (e.g., "football", "basketball")
+            league: League filter (e.g., "nfl", "nba")
+            team: Team abbreviation filter (e.g., "dal", "gsw")
+            limit: Number of articles (max 50)
+            offset: Pagination offset
+
+        Returns:
+            ESPNResponse with resultsCount, resultsLimit, feed[]
+        """
+        path = "/v1/sports/news"
+        params: dict[str, Any] = {"limit": limit, "offset": offset}
+        if sport:
+            params["sport"] = sport
+        if league:
+            params["league"] = league
+        if team:
+            params["team"] = team
+        logger.info("fetching_now_news", sport=sport, league=league, team=team)
+        return self.get(path, domain=ESPNEndpointDomain.NOW, params=params)
 
 
 # Default singleton instance

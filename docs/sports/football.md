@@ -121,17 +121,72 @@ GET https://site.api.espn.com/apis/site/v2/sports/football/{league}/{resource}
 |----------|-------------|
 | `scoreboard` | Live scores & schedules |
 | `scoreboard?week={n}&seasontype=2` | Scores for a specific week |
+| `scoreboard?dates={YYYYMMDD}` | Scores for a specific date |
 | `teams` | All teams |
 | `teams/{id}` | Single team |
 | `teams/{id}/roster` | Team roster |
 | `teams/{id}/schedule` | Team schedule |
+| `teams/{id}/record` | Team record |
+| `teams/{id}/news` | Team news |
 | `teams/{id}/depthcharts` | Depth charts |
-| `teams/{id}/injuries` | Injury report |
-| `standings` | League standings |
+| `teams/{id}/injuries` | Team injury report |
+| `teams/{id}/leaders` | Team statistical leaders |
+| `injuries` | **League-wide** injury report (all teams) |
+| `transactions` | Recent signings, trades, waivers |
+| `statistics` | League statistical leaders |
+| `groups` | Conferences and divisions |
+| `draft` | Draft board (NFL only) |
+| `standings` | ⚠️ Stub only — see note below |
 | `news` | Latest news |
-| `news?team={id}` | Team-specific news |
-| `calendar/regular-season` | Regular season weeks |
-| `summary?event={id}` | Full game summary |
+| `athletes/{id}/news` | Athlete-specific news |
+| `summary?event={id}` | Full game summary + boxscore |
+| `rankings` | Poll rankings (college-football only) |
+
+> ⚠️ **Standings Note:** The `/apis/site/v2/` path returns only a stub for standings. Use `/apis/v2/` instead:
+> `https://site.api.espn.com/apis/v2/sports/football/{league}/standings`
+
+---
+
+## CDN Game Data
+
+> Rich game packages via `cdn.espn.com`. Requires `?xhr=1`. Contains drives, play-by-play, win probability, scoring, and odds inside `gamepackageJSON`.
+
+```bash
+# NFL — full game package
+curl "https://cdn.espn.com/core/nfl/game?xhr=1&gameId={EVENT_ID}"
+
+# College football
+curl "https://cdn.espn.com/core/college-football/game?xhr=1&gameId={EVENT_ID}"
+
+# Specific views (nfl or college-football)
+curl "https://cdn.espn.com/core/nfl/boxscore?xhr=1&gameId={EVENT_ID}"
+curl "https://cdn.espn.com/core/nfl/playbyplay?xhr=1&gameId={EVENT_ID}"
+curl "https://cdn.espn.com/core/nfl/matchup?xhr=1&gameId={EVENT_ID}"
+curl "https://cdn.espn.com/core/nfl/scoreboard?xhr=1"
+```
+
+---
+
+## Athlete Data (common/v3)
+
+> Individual player stats, game logs, and splits via `site.web.api.espn.com`. Works for NFL; also applies to college-football.
+
+```bash
+# Player overview (stats + next game + rotowire notes)
+curl "https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/athletes/{id}/overview"
+
+# Season stats
+curl "https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/athletes/{id}/stats"
+
+# Game log
+curl "https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/athletes/{id}/gamelog"
+
+# Home/Away/Opponent splits
+curl "https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/athletes/{id}/splits"
+
+# Stats leaderboard (all athletes ranked)
+curl "https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/statistics/byathlete"
+```
 
 ---
 
@@ -183,8 +238,8 @@ curl "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard"
 # NFL Week 1 scores
 curl "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?week=1&seasontype=2"
 
-# NFL standings
-curl "https://site.api.espn.com/apis/site/v2/sports/football/nfl/standings"
+# NFL standings (use /apis/v2/ — /apis/site/v2/ only returns a stub)
+curl "https://site.api.espn.com/apis/v2/sports/football/nfl/standings"
 
 # Dallas Cowboys roster
 curl "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/6/roster"
