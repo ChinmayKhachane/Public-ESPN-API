@@ -122,8 +122,8 @@ curl "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams"
 # MLB Scores for a Specific Date
 curl "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard?dates=20241215"
 
-# NHL Standings
-curl "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/standings"
+# NHL Standings — NOTE: use /apis/v2/ (not /apis/site/v2/ which returns a stub)
+curl "https://site.api.espn.com/apis/v2/sports/hockey/nhl/standings"
 ```
 
 ---
@@ -180,7 +180,10 @@ GET https://site.api.espn.com/apis/site/v2/sports/{sport}/{league}/{resource}
 | `athletes/{id}/splits` | Statistical splits |
 | `athletes/{id}/news` | Athlete news |
 | `athletes/{id}/bio` | Athlete bio |
-| `standings` | League standings |
+| `standings` | League standings ⚠️ use `/apis/v2/` — `/apis/site/v2/` returns a stub |
+| `injuries` | League-wide injury report |
+| `transactions` | Recent signings/trades/waivers |
+| `groups` | Conferences/divisions |
 | `news` | Latest news articles |
 | `rankings` | Rankings (college sports) |
 | `calendar` | Season calendar (all weeks/dates) |
@@ -270,8 +273,12 @@ GET https://site.web.api.espn.com/apis/{path}
 |----------|-------------|
 | `/search/v2?query={q}&limit={n}` | Global ESPN search |
 | `/search/v2?query={q}&sport={sport}` | Sport-scoped search |
-| `/common/v3/sports/{sport}/{league}/athletes/{id}/overview` | Rich athlete overview |
 | `/v2/scoreboard/header` | Scoreboard header/nav state |
+| `/apis/common/v3/sports/{sport}/{league}/athletes/{id}/overview` | Athlete overview (stats snapshot, news, next game) |
+| `/apis/common/v3/sports/{sport}/{league}/athletes/{id}/stats` | Season stats (NFL/NBA/NHL/MLB ✅, Soccer ❌) |
+| `/apis/common/v3/sports/{sport}/{league}/athletes/{id}/gamelog` | Game-by-game log (NFL/NBA/MLB ✅) |
+| `/apis/common/v3/sports/{sport}/{league}/athletes/{id}/splits` | Home/away/opponent splits |
+| `/apis/common/v3/sports/{sport}/{league}/statistics/byathlete` | Stats leaderboard with `category=` + `sort=` |
 
 ### CDN API (Real-Time Optimized)
 
@@ -281,9 +288,13 @@ GET https://cdn.espn.com/core/{sport}/{resource}?xhr=1
 
 | Endpoint | Description |
 |----------|-------------|
-| `https://cdn.espn.com/core/{sport}/scoreboard?xhr=1&limit={n}` | CDN-optimized live scoreboard |
+| `/{sport}/scoreboard?xhr=1` | CDN-optimized live scoreboard |
+| `/{sport}/scoreboard?xhr=1&league={league}` | Soccer scoreboard (league slug required, e.g. `eng.1`) |
+| `/{sport}/game?xhr=1&gameId={id}` | Full game package — drives, plays, win probability, boxscore, odds |
+| `/{sport}/boxscore?xhr=1&gameId={id}` | Boxscore only |
+| `/{sport}/playbyplay?xhr=1&gameId={id}` | Play-by-play only |
 
-> **Note:** CDN endpoints are optimized for speed and caching. Use `xhr=1` to receive JSON instead of HTML.
+> **Note:** CDN endpoints return JSON when `xhr=1` is passed. The `gamepackageJSON` key holds the full game data object.
 
 ### Now API (Real-Time News)
 
@@ -296,6 +307,7 @@ GET https://now.core.api.espn.com/v1/sports/news
 | `/v1/sports/news?limit={n}` | Global real-time news feed |
 | `/v1/sports/news?sport={sport}&limit={n}` | Sport-filtered news |
 | `/v1/sports/news?leagues={league}&limit={n}` | League-filtered news |
+| `/v1/sports/news?team={abbrev}&limit={n}` | Team-filtered news |
 
 ---
 
@@ -548,16 +560,22 @@ The `ESPNClient` in `clients/espn_client.py` provides methods covering all major
 | Scoreboard | `get_scoreboard()` |
 | Teams | `get_teams()`, `get_team()`, `get_team_roster()`, `get_core_teams()` |
 | Events | `get_event()`, `get_core_events()` |
-| Standings | `get_standings()`, `get_core_standings()` |
-| News | `get_news()` |
+| Standings | `get_standings()` (/apis/v2/), `get_core_standings()` |
+| News | `get_news()`, `get_now_news()` |
 | Rankings | `get_rankings()` |
-| Athletes | `get_athletes()`, `get_athlete()`, `get_athlete_statistics()`, `get_athletes_v3()` |
+| League info | `get_league_injuries()`, `get_league_transactions()`, `get_groups()` |
+| Athletes | `get_athletes()`, `get_athlete()`, `get_athletes_v3()`, `get_athlete_statistics()` |
+| Athlete v3 | `get_athlete_overview()`, `get_athlete_stats()`, `get_athlete_gamelog()`, `get_athlete_splits()` |
+| Stats | `get_leaders()`, `get_leaders_v3()`, `get_statistics_by_athlete()` |
 | Seasons | `get_seasons()` |
 | Betting | `get_odds()`, `get_win_probabilities()` |
-| Play Data | `get_plays()` |
-| Statistics | `get_leaders()`, `get_leaders_v3()` |
+| Play data | `get_plays()`, `get_game_situation()`, `get_game_predictor()`, `get_game_broadcasts()` |
+| CDN | `get_cdn_game()`, `get_cdn_scoreboard()` |
 | Venues | `get_venues()` |
+| Coaches | `get_coaches()`, `get_coach()` |
 | Metadata | `get_league_info()` |
+| Power Index | `get_power_index()` |
+| QBR | `get_qbr()` |
 
 ### Example Usage
 
@@ -657,4 +675,4 @@ MIT License — See LICENSE file
 
 ---
 
-*Last Updated: March 2026 · 17 sports · 139 leagues · 370 v2 + 79 v3 endpoints*
+*Last Updated: March 2026 · 17 sports · 139 leagues · 370 v2 + 79 v3 endpoints · 6 API domains*

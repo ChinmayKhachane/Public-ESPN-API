@@ -304,3 +304,144 @@ class Athlete(TimestampMixin):
     def __str__(self) -> str:
         team_abbr = self.team.abbreviation if self.team else "FA"
         return f"{self.display_name} ({team_abbr})"
+
+
+# ---------------------------------------------------------------------------
+# New models — added in audit expansion
+# ---------------------------------------------------------------------------
+
+
+class NewsArticle(TimestampMixin):
+    """News article from ESPN news or Now API."""
+
+    espn_id = models.CharField(max_length=100, unique=True, db_index=True)
+    headline = models.CharField(max_length=500)
+    description = models.TextField(blank=True)
+    story = models.TextField(blank=True)
+    published = models.DateTimeField(null=True, blank=True, db_index=True)
+    last_modified = models.DateTimeField(null=True, blank=True)
+    type = models.CharField(max_length=50, blank=True)
+
+    # Optional league association (nullable — some articles span multiple leagues)
+    league = models.ForeignKey(
+        League,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="news_articles",
+    )
+
+    categories = models.JSONField(default=list, blank=True)
+    images = models.JSONField(default=list, blank=True)
+    links = models.JSONField(default=dict, blank=True)
+    raw_data = models.JSONField(default=dict, blank=True)
+
+    class Meta:
+        ordering = ["-published"]
+        verbose_name = "News Article"
+        verbose_name_plural = "News Articles"
+
+    def __str__(self) -> str:
+        return self.headline[:80]
+
+    @property
+    def thumbnail(self) -> str | None:
+        """Return thumbnail URL from first image entry."""
+        for img in self.images:
+            if isinstance(img, dict):
+                return img.get("url") or img.get("href")
+        return None
+
+
+class Injury(TimestampMixin):
+    """Player injury record from the league injuries endpoint."""
+
+    league = models.ForeignKey(League, on_delete=models.CASCADE, related_name="injuries")
+    team = models.ForeignKey(
+        Team, on_delete=models.SET_NULL, null=True, blank=True, related_name="injuries"
+    )
+    espn_id = models.CharField(max_length=100, blank=True, db_index=True)
+    athlete_espn_id = models.CharField(max_length=50, blank=True, db_index=True)
+    athlete_name = models.CharField(max_length=100)
+    position = models.CharField(max_length=50, blank=True)
+
+    STATUS_OUT = "out"
+    STATUS_QUESTIONABLE = "questionable"
+    STATUS_DOUBTFUL = "doubtful"
+    STATUS_IR = "ir"
+    STATUS_DAY_TO_DAY = "day_to_day"
+    STATUS_OTHER = "other"
+    STATUS_CHOICES = [
+        ("out", "Out"),
+        ("questionable", "Questionable"),
+        ("doubtful", "Doubtful"),
+        ("ir", "IR"),
+        ("day_to_day", "Day-to-Day"),
+        ("other", "Other"),
+    ]
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="other", db_index=True)
+    status_display = models.CharField(max_length=100, blank=True)
+    description = models.CharField(max_length=500, blank=True)
+    injury_type = models.CharField(max_length=100, blank=True)
+    injury_date = models.DateField(null=True, blank=True)
+    return_date = models.DateField(null=True, blank=True)
+    raw_data = models.JSONField(default=dict, blank=True)
+
+    class Meta:
+        ordering = ["-updated_at"]
+        verbose_name = "Injury"
+        verbose_name_plural = "Injuries"
+
+    def __str__(self) -> str:
+        return f"{self.athlete_name} ({self.status_display or self.status})"
+
+
+class Transaction(TimestampMixin):
+    """Transaction record (signing, trade, waiver, release, etc.)."""
+
+    league = models.ForeignKey(League, on_delete=models.CASCADE, related_name="transactions")
+    team = models.ForeignKey(
+        Team, on_delete=models.SET_NULL, null=True, blank=True, related_name="transactions"
+    )
+    espn_id = models.CharField(max_length=100, blank=True, db_index=True)
+    date = models.DateField(null=True, blank=True, db_index=True)
+    description = models.TextField()
+    type = models.CharField(max_length=100, blank=True)
+    athlete_name = models.CharField(max_length=100, blank=True)
+    athlete_espn_id = models.CharField(max_length=50, blank=True, db_index=True)
+    raw_data = models.JSONField(default=dict, blank=True)
+
+    class Meta:
+        ordering = ["-date", "-updated_at"]
+        verbose_name = "Transaction"
+        verbose_name_plural = "Transactions"
+
+    def __str__(self) -> str:
+        return self.description[:80]
+
+
+class AthleteSeasonStats(TimestampMixin):
+    """Athlete season statistics from common/v3 stats endpoint."""
+
+    athlete = models.ForeignKey(
+        Athlete, on_delete=models.CASCADE, related_name="season_stats", null=True, blank=True
+    )
+    league = models.ForeignKey(
+        League, on_delete=models.CASCADE, related_name="athlete_season_stats"
+    )
+    athlete_espn_id = models.CharField(max_length=50, db_index=True)
+    athlete_name = models.CharField(max_length=100, blank=True)
+    season_year = models.PositiveIntegerField(db_index=True)
+    season_type = models.PositiveSmallIntegerField(default=2)  # 2=regular, 3=postseason
+    # Flexible stats JSON — structure varies by sport
+    stats = models.JSONField(default=dict, blank=True)
+    raw_data = models.JSONField(default=dict, blank=True)
+
+    class Meta:
+        ordering = ["-season_year"]
+        unique_together = [["league", "athlete_espn_id", "season_year", "season_type"]]
+        verbose_name = "Athlete Season Stats"
+        verbose_name_plural = "Athlete Season Stats"
+
+    def __str__(self) -> str:
+        return f"{self.athlete_name} — {self.league.slug.upper()} {self.season_year}"

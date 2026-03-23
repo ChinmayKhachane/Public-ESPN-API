@@ -500,11 +500,13 @@
 
 ```json
 {
-  "count": 25,
-  "items": [
+  "resultsCount": 1000,
+  "resultsLimit": 20,
+  "resultsOffset": 0,
+  "feed": [
     {
       "dataSourceIdentifier": "espn_wire_12345",
-      "description": "Stephen Curry scores 32 points as Golden State Warriors beat Boston Celtics 121-115",
+      "description": "Stephen Curry scores 32 points as Golden State Warriors beat Boston Celtics",
       "nowId": "11-12345",
       "premium": false,
       "published": "2025-03-15T02:00:00Z",
@@ -513,14 +515,12 @@
       "headline": "Curry scores 32, Warriors top Celtics",
       "links": {
         "web": { "href": "https://www.espn.com/nba/story/_/id/12345" },
-        "mobile": { "href": "https://m.espn.com/nba/story?id=12345" },
         "api": { "href": "https://api.espn.com/v1/sports/news/12345" }
       },
       "images": [
         {
           "id": 98765,
           "name": "stephen-curry.jpg",
-          "caption": "Stephen Curry",
           "url": "https://a.espncdn.com/photo/...",
           "width": 576,
           "height": 324
@@ -533,5 +533,328 @@
       ]
     }
   ]
+}
+```
+
+---
+
+## CDN Game Package (`cdn.espn.com/core/{sport}/{endpoint}?xhr=1`)
+
+> Returns a large `gamepackageJSON` object containing all game data. Requires `?xhr=1`.
+
+```bash
+curl "https://cdn.espn.com/core/nfl/game?xhr=1&gameId=401671793"
+```
+
+```json
+{
+  "gameId": "401671793",
+  "gamepackageJSON": {
+    "header": {
+      "id": "401671793",
+      "season": { "year": 2025, "type": 3 },
+      "competitions": [
+        {
+          "id": "401671793",
+          "competitors": [
+            { "id": "12", "homeAway": "home", "score": "27", "winner": true },
+            { "id": "25", "homeAway": "away", "score": "24", "winner": false }
+          ],
+          "status": {
+            "type": { "name": "STATUS_FINAL", "state": "post", "completed": true }
+          }
+        }
+      ]
+    },
+    "boxscore": { "teams": [], "players": [] },
+    "drives": {
+      "previous": [
+        {
+          "id": "4016717931\",",
+          "description": "10 plays, 75 yards, 4:32",
+          "team": { "id": "12" },
+          "plays": [ { "id": "...", "type": { "text": "Rush" }, "text": "..." } ],
+          "result": "Touchdown",
+          "yards": 75
+        }
+      ]
+    },
+    "plays": [ { "id": "...", "text": "...", "scoringPlay": true } ],
+    "winprobability": [ { "homeWinPercentage": 0.72, "playId": "..." } ],
+    "news": { "articles": [] },
+    "standings": {}
+  }
+}
+```
+
+---
+
+## Athlete Overview (`site.web.api.espn.com/apis/common/v3/sports/{sport}/{league}/athletes/{id}/overview`)
+
+> Works for NFL, NBA, NHL, MLB. Response includes stats snapshot, next game, recent news, and rotowire notes.
+
+```json
+{
+  "statistics": {
+    "labels": ["GP", "PTS", "REB", "AST"],
+    "names": ["gamesPlayed", "avgPoints", "avgRebounds", "avgAssists"],
+    "values": [56.0, 26.4, 4.5, 6.1],
+    "displayValues": ["56", "26.4", "4.5", "6.1"]
+  },
+  "news": { "articles": [ { "headline": "...", "published": "2025-03-14T21:00Z" } ] },
+  "nextGame": {
+    "id": "401765999",
+    "date": "2025-03-16T17:30Z",
+    "name": "Golden State Warriors at Boston Celtics",
+    "competitions": []
+  },
+  "gameLog": {
+    "events": [
+      { "id": "401765000", "gameResult": "W", "stats": ["34", "5", "7"] }
+    ]
+  },
+  "rotowire": { "injury": null, "news": "Curry is healthy and expected to play Friday." }
+}
+```
+
+---
+
+## Athlete Stats (`site.web.api.espn.com/apis/common/v3/sports/{sport}/{league}/athletes/{id}/stats`)
+
+> Works for NFL, NBA, NHL, MLB. Soccer uses a different path.
+
+```json
+{
+  "filters": [
+    {
+      "displayName": "Season Type",
+      "name": "seasontype",
+      "value": "2",
+      "options": [
+        { "value": "2", "displayValue": "Regular Season" },
+        { "value": "3", "displayValue": "Playoffs" }
+      ]
+    }
+  ],
+  "teams": [
+    { "id": "9", "uid": "s:40~l:46~t:9", "displayName": "Golden State Warriors" }
+  ],
+  "categories": [
+    {
+      "name": "general",
+      "displayName": "General",
+      "labels": ["GP", "GS", "MIN", "PTS", "REB", "AST", "STL", "BLK", "TO", "FG%", "3P%", "FT%"],
+      "totals": ["56", "56", "34.2", "26.4", "4.5", "6.1", "0.9", "0.4", "3.1", ".502", ".408", ".924"]
+    }
+  ],
+  "glossary": [
+    { "abbreviation": "GP", "displayName": "Games Played", "description": "Total games played" }
+  ]
+}
+```
+
+---
+
+## Athlete Gamelog (`site.web.api.espn.com/apis/common/v3/sports/{sport}/{league}/athletes/{id}/gamelog`)
+
+```json
+{
+  "filters": [ { "displayName": "Season", "name": "season", "value": "2025" } ],
+  "labels": ["DATE", "OPP", "RESULT", "MIN", "FG", "3PT", "FT", "REB", "AST", "STL", "BLK", "PTS"],
+  "names": ["date", "opponent", "gameResult", "minutes", "fieldGoalsMade", "threePointsMade", "freeThrowsMade", "rebounds", "assists", "steals", "blocks", "points"],
+  "displayNames": ["Date", "OPP", "RESULT", "MIN", "FG", "3PT", "FT", "REB", "AST", "STL", "BLK", "PTS"],
+  "events": [
+    {
+      "id": "401765000",
+      "date": "2025-03-14T00:00Z",
+      "opponent": { "id": "2", "displayName": "Boston Celtics", "abbreviation": "BOS" },
+      "gameResult": "W",
+      "stats": ["36", "12-24", "4-10", "4-4", "5", "7", "1", "0", "32"]
+    }
+  ]
+}
+```
+
+---
+
+## Athlete Splits (`site.web.api.espn.com/apis/common/v3/sports/{sport}/{league}/athletes/{id}/splits`)
+
+```json
+{
+  "filters": [ { "displayName": "Season Type", "name": "seasontype" } ],
+  "displayName": "Stephen Curry",
+  "categories": [
+    {
+      "name": "home",
+      "displayName": "Home",
+      "labels": ["GP", "PTS", "REB", "AST"],
+      "totals": ["28", "27.1", "4.8", "6.4"]
+    },
+    {
+      "name": "away",
+      "displayName": "Away",
+      "labels": ["GP", "PTS", "REB", "AST"],
+      "totals": ["28", "25.7", "4.2", "5.8"]
+    }
+  ]
+}
+```
+
+---
+
+## Statistics by Athlete (`site.web.api.espn.com/apis/common/v3/sports/{sport}/{league}/statistics/byathlete`)
+
+> Statistical leaderboard across all athletes. Works for NBA, NFL, MLB, NHL.
+
+```bash
+curl "https://site.web.api.espn.com/apis/common/v3/sports/basketball/nba/statistics/byathlete"
+curl "https://site.web.api.espn.com/apis/common/v3/sports/baseball/mlb/statistics/byathlete?category=batting&sort=batting.homeRuns:desc&season=2024"
+```
+
+```json
+{
+  "pagination": { "count": 500, "limit": 50, "page": 1, "pages": 10 },
+  "league": { "id": "46", "name": "NBA" },
+  "currentSeason": { "year": 2025, "type": 2 },
+  "athletes": [
+    {
+      "athlete": {
+        "id": "3136776",
+        "displayName": "Stephen Curry",
+        "team": { "id": "9", "abbreviation": "GSW" },
+        "position": { "abbreviation": "PG" }
+      },
+      "statistics": [
+        { "name": "avgPoints", "displayValue": "26.4", "rank": 5 }
+      ]
+    }
+  ]
+}
+```
+
+---
+
+## League-wide Injuries (`/apis/site/v2/sports/{sport}/{league}/injuries`)
+
+> Works for team sports: NBA, NFL, NHL, MLB, Soccer. Returns 500 for MMA, Tennis, Golf.
+
+```json
+{
+  "timestamp": "2025-03-23T12:00:00Z",
+  "status": "success",
+  "season": { "year": 2025, "type": 2 },
+  "injuries": [
+    {
+      "team": {
+        "id": "9",
+        "displayName": "Golden State Warriors",
+        "abbreviation": "GSW"
+      },
+      "injuries": [
+        {
+          "id": "12345",
+          "athlete": {
+            "id": "3136776",
+            "displayName": "Stephen Curry",
+            "position": { "abbreviation": "PG" }
+          },
+          "type": { "name": "knee" },
+          "status": "Day-To-Day",
+          "date": "2025-03-20T00:00Z"
+        }
+      ]
+    }
+  ]
+}
+```
+
+---
+
+## Transactions (`/apis/site/v2/sports/{sport}/{league}/transactions`)
+
+```json
+{
+  "timestamp": "2025-03-23T12:00:00Z",
+  "status": "success",
+  "season": { "year": 2025, "type": 2 },
+  "requestedYear": 2025,
+  "count": 42,
+  "transactions": [
+    {
+      "id": "99001",
+      "date": "2025-03-20T00:00Z",
+      "description": "GSW signed F Joe Smith to a 10-day contract",
+      "team": { "id": "9", "displayName": "Golden State Warriors" },
+      "type": { "id": "1", "description": "Contract Signing" }
+    }
+  ]
+}
+```
+
+---
+
+## Groups / Conferences (`/apis/site/v2/sports/{sport}/{league}/groups`)
+
+```json
+{
+  "status": "success",
+  "groups": [
+    {
+      "id": "5",
+      "name": "Eastern Conference",
+      "abbreviation": "East",
+      "children": [
+        { "id": "1", "name": "Atlantic Division", "abbreviation": "Atlantic" },
+        { "id": "2", "name": "Central Division", "abbreviation": "Central" },
+        { "id": "3", "name": "Southeast Division", "abbreviation": "Southeast" }
+      ]
+    },
+    {
+      "id": "6",
+      "name": "Western Conference",
+      "abbreviation": "West"
+    }
+  ]
+}
+```
+
+---
+
+## Rankings (`/apis/site/v2/sports/{sport}/{league}/rankings`)
+
+> Works for college sports: `college-football`, `mens-college-basketball`.
+
+```bash
+curl "https://site.api.espn.com/apis/site/v2/sports/football/college-football/rankings"
+curl "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/rankings"
+```
+
+```json
+{
+  "sports": [ { "id": "23", "name": "College Football" } ],
+  "leagues": [ { "id": "23", "name": "NCAA Football" } ],
+  "rankings": [
+    {
+      "name": "AP Top 25",
+      "shortName": "AP Poll",
+      "type": "ap",
+      "occurrence": { "number": 13, "value": 13, "displayValue": "Week 13" },
+      "ranks": [
+        {
+          "current": 1,
+          "previous": 1,
+          "points": 1575,
+          "firstPlaceVotes": 63,
+          "team": {
+            "id": "333",
+            "displayName": "Alabama Crimson Tide",
+            "abbreviation": "ALA",
+            "record": { "summary": "11-0" }
+          }
+        }
+      ]
+    }
+  ],
+  "latestWeek": { "number": 13, "startDate": "2024-11-11" }
 }
 ```

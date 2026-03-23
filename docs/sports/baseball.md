@@ -132,10 +132,50 @@ GET https://site.api.espn.com/apis/site/v2/sports/baseball/{league}/{resource}
 | `teams/{id}` | Single team |
 | `teams/{id}/roster` | Team roster |
 | `teams/{id}/schedule` | Team schedule |
-| `teams/{id}/injuries` | Injury report |
-| `standings` | League standings |
+| `teams/{id}/record` | Team record |
+| `teams/{id}/news` | Team news |
+| `teams/{id}/injuries` | Team injury report |
+| `teams/{id}/leaders` | Team statistical leaders |
+| `teams/{id}/depth-charts` | Depth charts |
+| `injuries` | **League-wide** injury report (all teams) |
+| `transactions` | Recent signings, trades, waivers |
+| `statistics` | League statistical leaders |
+| `groups` | Divisions |
+| `standings` | ⚠️ Stub only — see note below |
 | `news` | Latest news |
-| `summary?event={id}` | Full game summary |
+| `athletes/{id}/news` | Athlete-specific news |
+| `summary?event={id}` | Full game summary + boxscore |
+
+> ⚠️ **Standings Note:** The `/apis/site/v2/` path returns only a stub for standings. Use `/apis/v2/` instead:
+> `https://site.api.espn.com/apis/v2/sports/baseball/{league}/standings`
+
+---
+
+## CDN Game Data
+
+> Rich game packages via `cdn.espn.com`. Requires `?xhr=1`.
+
+```bash
+curl "https://cdn.espn.com/core/mlb/game?xhr=1&gameId={EVENT_ID}"
+curl "https://cdn.espn.com/core/mlb/boxscore?xhr=1&gameId={EVENT_ID}"
+curl "https://cdn.espn.com/core/mlb/scoreboard?xhr=1"
+```
+
+---
+
+## Athlete Data (common/v3)
+
+> Works for MLB: `stats`, `gamelog`, `overview`, `splits`. Also supports `statistics/byathlete` with category filtering.
+
+```bash
+curl "https://site.web.api.espn.com/apis/common/v3/sports/baseball/mlb/athletes/{id}/overview"
+curl "https://site.web.api.espn.com/apis/common/v3/sports/baseball/mlb/athletes/{id}/stats"
+curl "https://site.web.api.espn.com/apis/common/v3/sports/baseball/mlb/athletes/{id}/gamelog"
+curl "https://site.web.api.espn.com/apis/common/v3/sports/baseball/mlb/athletes/{id}/splits"
+
+# Stats leaderboard with category filter
+curl "https://site.web.api.espn.com/apis/common/v3/sports/baseball/mlb/statistics/byathlete?category=batting&sort=batting.homeRuns:desc&season=2024&seasontype=2"
+```
 
 ---
 
@@ -148,8 +188,8 @@ curl "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard"
 # MLB scoreboard for a specific date
 curl "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard?dates=20250920"
 
-# MLB standings
-curl "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/standings"
+# MLB standings (use /apis/v2/ — /apis/site/v2/ only returns a stub)
+curl "https://site.api.espn.com/apis/v2/sports/baseball/mlb/standings"
 
 # New York Yankees roster
 curl "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/teams/10/roster"

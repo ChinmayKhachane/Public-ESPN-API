@@ -114,8 +114,19 @@ GET https://site.api.espn.com/apis/site/v2/sports/rugby-league/{league}/{resourc
 | `scoreboard` | Live scores & schedules |
 | `scoreboard?dates={YYYYMMDD}` | Scores for a specific date |
 | `teams` | All teams |
-| `standings` | League standings |
+| `teams/{id}` | Single team |
+| `teams/{id}/roster` | Team roster |
+| `teams/{id}/schedule` | Team schedule |
+| `teams/{id}/news` | Team news |
+| `injuries` | League-wide injury report |
 | `news` | Latest news |
+| `summary?event={id}` | Full game summary + boxscore |
+| `standings` | ⚠️ Stub only — see note below |
+
+> ⚠️ **Standings Note:** The `/apis/site/v2/` path returns only a stub for standings. Use `/apis/v2/` instead:
+> `https://site.api.espn.com/apis/v2/sports/rugby-league/{league}/standings`
+
+> ⚠️ **League ID Note:** Rugby League uses numeric league ID `3` — not named slugs like `nrl`.
 
 ---
 
@@ -130,8 +141,8 @@ curl "https://sports.core.api.espn.com/v2/sports/rugby-league/leagues"
 # NRL / Super League scoreboard (all rugby league under ID 3)
 curl "https://site.api.espn.com/apis/site/v2/sports/rugby-league/3/scoreboard"
 
-# Standings
-curl "https://site.api.espn.com/apis/site/v2/sports/rugby-league/3/standings"
+# Standings (use /apis/v2/ — /apis/site/v2/ only returns a stub)
+curl "https://site.api.espn.com/apis/v2/sports/rugby-league/3/standings"
 
 # Teams (core API)
 curl "https://sports.core.api.espn.com/v2/sports/rugby-league/leagues/3/teams"

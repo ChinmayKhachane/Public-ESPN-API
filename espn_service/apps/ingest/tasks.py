@@ -1,232 +1,270 @@
-"""Celery tasks for data ingestion.
+"""Celery tasks for ESPN data ingestion.
 
-These tasks can be scheduled via Celery Beat or triggered manually.
+All tasks are idempotent — safe to retry or run concurrently for
+different sport/league combinations.
 """
 
-from datetime import datetime
+from __future__ import annotations
 
 import structlog
 from celery import shared_task
 
-from apps.ingest.services import ScoreboardIngestionService, TeamIngestionService
-
 logger = structlog.get_logger(__name__)
 
-# All major leagues to refresh in scheduled tasks.
-# Covers all 17 ESPN sports with primary professional leagues.
+# ---------------------------------------------------------------------------
+# League configuration — keep in sync with ingest_all_teams.py
+# ---------------------------------------------------------------------------
+
 ALL_LEAGUES_CONFIG: list[tuple[str, str]] = [
     # Football
     ("football", "nfl"),
     ("football", "college-football"),
     ("football", "cfl"),
     ("football", "ufl"),
+    ("football", "xfl"),
     # Basketball
     ("basketball", "nba"),
     ("basketball", "wnba"),
+    ("basketball", "nba-development"),
     ("basketball", "mens-college-basketball"),
     ("basketball", "womens-college-basketball"),
-    ("basketball", "nba-development"),
+    ("basketball", "nbl"),
     # Baseball
     ("baseball", "mlb"),
     ("baseball", "college-baseball"),
     # Hockey
     ("hockey", "nhl"),
     ("hockey", "mens-college-hockey"),
-    # Soccer (major leagues)
+    ("hockey", "womens-college-hockey"),
+    # Soccer — major leagues only for Celery (performance)
     ("soccer", "eng.1"),
-    ("soccer", "usa.1"),
     ("soccer", "esp.1"),
     ("soccer", "ger.1"),
     ("soccer", "ita.1"),
     ("soccer", "fra.1"),
-    ("soccer", "mex.1"),
+    ("soccer", "usa.1"),
+    ("soccer", "eng.2"),
     ("soccer", "uefa.champions"),
-    ("soccer", "uefa.europa"),
-    ("soccer", "usa.nwsl"),
-    # MMA
-    ("mma", "ufc"),
     # Golf
     ("golf", "pga"),
     ("golf", "lpga"),
+    ("golf", "eur"),
     ("golf", "liv"),
-    # Tennis
-    ("tennis", "atp"),
-    ("tennis", "wta"),
     # Racing
     ("racing", "f1"),
     ("racing", "irl"),
     ("racing", "nascar-premier"),
-    # Rugby (numeric slugs)
-    ("rugby", "164205"),   # Rugby World Cup
-    ("rugby", "180659"),   # Six Nations
-    ("rugby", "267979"),   # Gallagher Premiership
-    ("rugby", "242041"),   # Super Rugby Pacific
+    ("racing", "nascar-secondary"),
+    ("racing", "nascar-truck"),
+    # Tennis
+    ("tennis", "atp"),
+    ("tennis", "wta"),
+    # MMA
+    ("mma", "ufc"),
+    ("mma", "bellator"),
+    # Rugby
+    ("rugby", "premiership"),
+    ("rugby", "rugby-union-super-rugby"),
+    ("rugby", "internationals"),
     # Rugby League
-    ("rugby-league", "3"),
+    ("rugby-league", "nrl"),
     # Lacrosse
     ("lacrosse", "pll"),
     ("lacrosse", "nll"),
-    # Australian Football
-    ("australian-football", "afl"),
-    # Cricket
-    ("cricket", "icc.t20"),
-    ("cricket", "ipl"),
-    # Volleyball
-    ("volleyball", "fivb.w"),
-    ("volleyball", "fivb.m"),
+    ("lacrosse", "mens-college-lacrosse"),
+    ("lacrosse", "womens-college-lacrosse"),
 ]
 
 
-@shared_task(
-    bind=True,
-    autoretry_for=(Exception,),
-    retry_backoff=True,
-    retry_backoff_max=600,
-    max_retries=3,
-    acks_late=True,
-)
-def refresh_scoreboard_task(
-    self,
-    sport: str,
-    league: str,
-    date: str | None = None,
-) -> dict:
-    """Celery task to refresh scoreboard data.
-
-    Args:
-        sport: Sport slug (e.g., "basketball")
-        league: League slug (e.g., "nba")
-        date: Optional date in YYYYMMDD format
-
-    Returns:
-        Dict with ingestion results
-    """
-    logger.info(
-        "starting_scoreboard_refresh_task",
-        sport=sport,
-        league=league,
-        date=date,
-        task_id=self.request.id,
-    )
-
-    service = ScoreboardIngestionService()
-    result = service.ingest_scoreboard(sport, league, date)
-
-    logger.info(
-        "completed_scoreboard_refresh_task",
-        sport=sport,
-        league=league,
-        date=date,
-        created=result.created,
-        updated=result.updated,
-        errors=result.errors,
-        task_id=self.request.id,
-    )
-
-    return result.to_dict()
+# ---------------------------------------------------------------------------
+# Scoreboard tasks
+# ---------------------------------------------------------------------------
 
 
-@shared_task(
-    bind=True,
-    autoretry_for=(Exception,),
-    retry_backoff=True,
-    retry_backoff_max=600,
-    max_retries=3,
-    acks_late=True,
-)
-def refresh_teams_task(
-    self,
-    sport: str,
-    league: str,
-) -> dict:
-    """Celery task to refresh team data.
+@shared_task(bind=True, max_retries=3, default_retry_delay=60)
+def refresh_scoreboard_task(self, sport: str, league: str, date: str | None = None) -> dict:
+    """Ingest scoreboard data for a single sport/league."""
+    from apps.ingest.services import ScoreboardIngestionService
 
-    Args:
-        sport: Sport slug (e.g., "basketball")
-        league: League slug (e.g., "nba")
-
-    Returns:
-        Dict with ingestion results
-    """
-    logger.info(
-        "starting_teams_refresh_task",
-        sport=sport,
-        league=league,
-        task_id=self.request.id,
-    )
-
-    service = TeamIngestionService()
-    result = service.ingest_teams(sport, league)
-
-    logger.info(
-        "completed_teams_refresh_task",
-        sport=sport,
-        league=league,
-        created=result.created,
-        updated=result.updated,
-        errors=result.errors,
-        task_id=self.request.id,
-    )
-
-    return result.to_dict()
+    try:
+        service = ScoreboardIngestionService()
+        result = service.ingest_scoreboard(sport, league, date)
+        logger.info(
+            "scoreboard_task_completed",
+            sport=sport,
+            league=league,
+            date=date,
+            created=result.created,
+            updated=result.updated,
+        )
+        return result.to_dict()
+    except Exception as exc:
+        logger.error("scoreboard_task_failed", sport=sport, league=league, error=str(exc))
+        raise self.retry(exc=exc) from exc
 
 
-@shared_task(bind=True)
+@shared_task(bind=True, max_retries=2, default_retry_delay=120)
+def refresh_all_scoreboards_task(self) -> dict:
+    """Ingest today's scoreboard for every configured league."""
+    total = {"created": 0, "updated": 0, "errors": 0}
+    for sport, league in ALL_LEAGUES_CONFIG:
+        try:
+            refresh_scoreboard_task.delay(sport, league)
+        except Exception as e:
+            logger.error("refresh_all_scoreboards_dispatch_error", sport=sport, league=league, error=str(e))
+            total["errors"] += 1
+    return total
+
+
+# ---------------------------------------------------------------------------
+# Team tasks
+# ---------------------------------------------------------------------------
+
+
+@shared_task(bind=True, max_retries=3, default_retry_delay=60)
+def refresh_teams_task(self, sport: str, league: str) -> dict:
+    """Ingest team data for a single sport/league."""
+    from apps.ingest.services import TeamIngestionService
+
+    try:
+        service = TeamIngestionService()
+        result = service.ingest_teams(sport, league)
+        logger.info("teams_task_completed", sport=sport, league=league, created=result.created)
+        return result.to_dict()
+    except Exception as exc:
+        logger.error("teams_task_failed", sport=sport, league=league, error=str(exc))
+        raise self.retry(exc=exc) from exc
+
+
+@shared_task(bind=True, max_retries=2, default_retry_delay=120)
 def refresh_all_teams_task(self) -> dict:
-    """Celery task to refresh team data for all configured leagues.
-
-    Covers all 17 ESPN sports. Failures per league are logged and
-    aggregated; the task completes even if individual leagues fail.
-
-    Returns:
-        Dict with aggregated results by league key (sport/league)
-    """
-    results = {}
-
+    """Ingest teams for every configured league (weekly refresh)."""
+    total = {"created": 0, "updated": 0, "errors": 0}
     for sport, league in ALL_LEAGUES_CONFIG:
         try:
-            service = TeamIngestionService()
-            result = service.ingest_teams(sport, league)
-            results[f"{sport}/{league}"] = result.to_dict()
+            refresh_teams_task.delay(sport, league)
+        except Exception as e:
+            logger.error("refresh_all_teams_dispatch_error", sport=sport, league=league, error=str(e))
+            total["errors"] += 1
+    return total
+
+
+# ---------------------------------------------------------------------------
+# News tasks (NEW)
+# ---------------------------------------------------------------------------
+
+
+@shared_task(bind=True, max_retries=3, default_retry_delay=60)
+def refresh_news_task(self, sport: str, league: str, limit: int = 50) -> dict:
+    """Ingest news articles for a single sport/league."""
+    from apps.ingest.services import NewsIngestionService
+
+    try:
+        service = NewsIngestionService()
+        result = service.ingest_news(sport, league, limit=limit)
+        logger.info(
+            "news_task_completed",
+            sport=sport,
+            league=league,
+            created=result.created,
+            updated=result.updated,
+        )
+        return result.to_dict()
+    except Exception as exc:
+        logger.error("news_task_failed", sport=sport, league=league, error=str(exc))
+        raise self.retry(exc=exc) from exc
+
+
+@shared_task(bind=True, max_retries=2, default_retry_delay=120)
+def refresh_all_news_task(self) -> dict:
+    """Ingest latest news for every configured league (runs every 30 min)."""
+    total = {"created": 0, "updated": 0, "errors": 0}
+    for sport, league in ALL_LEAGUES_CONFIG:
+        try:
+            refresh_news_task.delay(sport, league)
+        except Exception as e:
+            logger.error("refresh_all_news_dispatch_error", sport=sport, league=league, error=str(e))
+            total["errors"] += 1
+    return total
+
+
+# ---------------------------------------------------------------------------
+# Injury tasks (NEW)
+# ---------------------------------------------------------------------------
+
+
+@shared_task(bind=True, max_retries=3, default_retry_delay=60)
+def refresh_injuries_task(self, sport: str, league: str) -> dict:
+    """Refresh injury report for a single sport/league (full snapshot)."""
+    from apps.ingest.services import InjuryIngestionService
+
+    try:
+        service = InjuryIngestionService()
+        result = service.ingest_injuries(sport, league)
+        logger.info(
+            "injuries_task_completed",
+            sport=sport,
+            league=league,
+            created=result.created,
+        )
+        return result.to_dict()
+    except Exception as exc:
+        logger.error("injuries_task_failed", sport=sport, league=league, error=str(exc))
+        raise self.retry(exc=exc) from exc
+
+
+@shared_task(bind=True, max_retries=2, default_retry_delay=120)
+def refresh_all_injuries_task(self) -> dict:
+    """Refresh injury reports for every configured league (runs every 4 hours)."""
+    total = {"created": 0, "errors": 0}
+    for sport, league in ALL_LEAGUES_CONFIG:
+        try:
+            refresh_injuries_task.delay(sport, league)
+        except Exception as e:
+            logger.error("refresh_all_injuries_dispatch_error", sport=sport, league=league, error=str(e))
+            total["errors"] += 1
+    return total
+
+
+# ---------------------------------------------------------------------------
+# Transaction tasks (NEW)
+# ---------------------------------------------------------------------------
+
+
+@shared_task(bind=True, max_retries=3, default_retry_delay=60)
+def refresh_transactions_task(self, sport: str, league: str) -> dict:
+    """Ingest transactions for a single sport/league."""
+    from apps.ingest.services import TransactionIngestionService
+
+    try:
+        service = TransactionIngestionService()
+        result = service.ingest_transactions(sport, league)
+        logger.info(
+            "transactions_task_completed",
+            sport=sport,
+            league=league,
+            created=result.created,
+            updated=result.updated,
+        )
+        return result.to_dict()
+    except Exception as exc:
+        logger.error("transactions_task_failed", sport=sport, league=league, error=str(exc))
+        raise self.retry(exc=exc) from exc
+
+
+@shared_task(bind=True, max_retries=2, default_retry_delay=120)
+def refresh_all_transactions_task(self) -> dict:
+    """Refresh transaction feeds for every configured league (runs every 6 hours)."""
+    total = {"created": 0, "updated": 0, "errors": 0}
+    for sport, league in ALL_LEAGUES_CONFIG:
+        try:
+            refresh_transactions_task.delay(sport, league)
         except Exception as e:
             logger.error(
-                "league_teams_refresh_failed",
+                "refresh_all_transactions_dispatch_error",
                 sport=sport,
                 league=league,
                 error=str(e),
             )
-            results[f"{sport}/{league}"] = {"error": str(e)}
-
-    return results
-
-
-@shared_task(bind=True)
-def refresh_daily_scoreboards_task(self) -> dict:
-    """Celery task to refresh today's scoreboards for all leagues.
-
-    Covers all 17 ESPN sports. Failures per league are logged and
-    aggregated; the task completes even if individual leagues fail.
-
-    Returns:
-        Dict with aggregated results by league key (sport/league)
-    """
-    today = datetime.now().strftime("%Y%m%d")
-    results = {}
-
-    for sport, league in ALL_LEAGUES_CONFIG:
-        try:
-            service = ScoreboardIngestionService()
-            result = service.ingest_scoreboard(sport, league, today)
-            results[f"{sport}/{league}"] = result.to_dict()
-        except Exception as e:
-            logger.error(
-                "league_scoreboard_refresh_failed",
-                sport=sport,
-                league=league,
-                date=today,
-                error=str(e),
-            )
-            results[f"{sport}/{league}"] = {"error": str(e)}
-
-    return results
-
+            total["errors"] += 1
+    return total

@@ -127,6 +127,13 @@ GET https://site.api.espn.com/apis/site/v2/sports/golf/{league}/{resource}
 | `scoreboard?dates={YYYYMMDD}` | Scores for a specific date range |
 | `leaderboard?tournamentId={id}` | Tournament leaderboard |
 | `news` | Latest news |
+| `athletes/{id}/news` | Player-specific news |
+| `summary?event={id}` | Tournament summary + results |
+
+> ⚠️ **Slug required:** Golf scoreboard requires a named league slug — numeric IDs return 400.
+> Use: `pga`, `lpga`, `liv`, `eur` (European Tour)
+
+> ⚠️ **Injuries endpoint returns 500** for Golf — not supported.
 
 ---
 

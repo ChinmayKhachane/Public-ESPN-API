@@ -219,3 +219,207 @@ class TestESPNClientRetry:
             client.get_scoreboard("basketball", "nba")
 
         assert "connection error" in str(exc_info.value).lower()
+
+
+# ---------------------------------------------------------------------------
+# Domain routing — new domains added to ESPNEndpointDomain
+# ---------------------------------------------------------------------------
+
+class TestNewDomainRouting:
+    """Verify new ESPNEndpointDomain values map to correct base URLs."""
+
+    def setup_method(self):
+        self.client = ESPNClient(site_api_url="https://site.api.espn.com")
+
+    def test_web_v3_domain_url(self):
+        url = self.client._build_url(
+            ESPNEndpointDomain.WEB_V3,
+            "/apis/common/v3/sports/basketball/nba/athletes/1/stats",
+        )
+        assert url.startswith("https://site.web.api.espn.com")
+
+    def test_cdn_domain_url(self):
+        url = self.client._build_url(ESPNEndpointDomain.CDN, "/core/nfl/game")
+        assert url.startswith("https://cdn.espn.com")
+
+    def test_now_domain_url(self):
+        url = self.client._build_url(ESPNEndpointDomain.NOW, "/v1/sports/news")
+        assert url.startswith("https://now.core.api.espn.com")
+
+
+# ---------------------------------------------------------------------------
+# get_standings bug-fix regression
+# ---------------------------------------------------------------------------
+
+class TestGetStandingsDomainFix:
+    """Regression: get_standings must use /apis/v2/ not /apis/site/v2/."""
+
+    def test_standings_path_uses_apis_v2(self, httpx_mock: HTTPXMock):
+        """Standings must resolve to /apis/v2/ — not /apis/site/v2/."""
+        httpx_mock.add_response(
+            url="https://site.api.espn.com/apis/v2/sports/basketball/nba/standings",
+            json={"children": [], "seasons": {}},
+        )
+        with ESPNClient() as client:
+            resp = client.get_standings("basketball", "nba")
+        assert resp.is_success
+
+    def test_standings_path_does_not_use_site_v2(self):
+        """Ensure the path string itself is /apis/v2/, never /apis/site/v2/."""
+        client = ESPNClient()
+        # Inspect the path string that would be composed
+        # get_standings produces: /apis/v2/sports/{sport}/{league}/standings
+        from unittest.mock import patch, MagicMock
+        mock_resp = MagicMock()
+        mock_resp.is_success = True
+        mock_resp.data = {}
+        with patch.object(client, "_request_with_retry", return_value=mock_resp) as mock_req:
+            client.get_standings("football", "nfl")
+        called_url = mock_req.call_args[0][1]
+        assert "/apis/v2/sports/football/nfl/standings" in called_url
+        assert "/apis/site/v2/" not in called_url
+
+
+# ---------------------------------------------------------------------------
+# League-wide Site API endpoints
+# ---------------------------------------------------------------------------
+
+class TestLeagueWideEndpoints:
+
+    def test_get_league_injuries(self, httpx_mock: HTTPXMock):
+        httpx_mock.add_response(
+            url="https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
+            json={"items": []},
+        )
+        with ESPNClient() as client:
+            resp = client.get_league_injuries("basketball", "nba")
+        assert resp.is_success
+
+    def test_get_league_transactions(self, httpx_mock: HTTPXMock):
+        httpx_mock.add_response(
+            url="https://site.api.espn.com/apis/site/v2/sports/football/nfl/transactions",
+            json={"items": []},
+        )
+        with ESPNClient() as client:
+            resp = client.get_league_transactions("football", "nfl")
+        assert resp.is_success
+
+    def test_get_groups(self, httpx_mock: HTTPXMock):
+        httpx_mock.add_response(
+            url="https://site.api.espn.com/apis/site/v2/sports/basketball/nba/groups",
+            json={"groups": []},
+        )
+        with ESPNClient() as client:
+            resp = client.get_groups("basketball", "nba")
+        assert resp.is_success
+
+
+# ---------------------------------------------------------------------------
+# Athlete common/v3 endpoints
+# ---------------------------------------------------------------------------
+
+class TestAthleteV3Endpoints:
+
+    def test_get_athlete_overview_uses_web_domain(self, httpx_mock: HTTPXMock):
+        httpx_mock.add_response(
+            url="https://site.web.api.espn.com/apis/common/v3/sports/basketball/nba/athletes/1234/overview",
+            json={"athlete": {}, "statistics": []},
+        )
+        with ESPNClient() as client:
+            resp = client.get_athlete_overview("basketball", "nba", 1234)
+        assert resp.is_success
+
+    def test_get_athlete_stats_uses_web_domain(self, httpx_mock: HTTPXMock):
+        httpx_mock.add_response(
+            url="https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/athletes/3054211/stats",
+            json={"filters": [], "athletes": []},
+        )
+        with ESPNClient() as client:
+            resp = client.get_athlete_stats("football", "nfl", 3054211)
+        assert resp.is_success
+
+    def test_get_athlete_gamelog_uses_web_domain(self, httpx_mock: HTTPXMock):
+        httpx_mock.add_response(
+            url="https://site.web.api.espn.com/apis/common/v3/sports/baseball/mlb/athletes/33912/gamelog",
+            json={"events": []},
+        )
+        with ESPNClient() as client:
+            resp = client.get_athlete_gamelog("baseball", "mlb", 33912)
+        assert resp.is_success
+
+    def test_get_athlete_splits_uses_web_domain(self, httpx_mock: HTTPXMock):
+        httpx_mock.add_response(
+            url="https://site.web.api.espn.com/apis/common/v3/sports/hockey/nhl/athletes/999/splits",
+            json={"splits": {}},
+        )
+        with ESPNClient() as client:
+            resp = client.get_athlete_splits("hockey", "nhl", 999)
+        assert resp.is_success
+
+    def test_get_statistics_by_athlete_uses_web_domain(self, httpx_mock: HTTPXMock):
+        httpx_mock.add_response(
+            url="https://site.web.api.espn.com/apis/common/v3/sports/baseball/mlb/statistics/byathlete?limit=50&page=1&category=batting",
+            json={"athletes": []},
+        )
+        with ESPNClient() as client:
+            resp = client.get_statistics_by_athlete("baseball", "mlb", category="batting")
+        assert resp.is_success
+
+
+# ---------------------------------------------------------------------------
+# CDN Game Data endpoints
+# ---------------------------------------------------------------------------
+
+class TestCDNEndpoints:
+
+    def test_get_cdn_game_uses_cdn_domain(self, httpx_mock: HTTPXMock):
+        httpx_mock.add_response(
+            url="https://cdn.espn.com/core/nfl/game?xhr=1&gameId=401547667",
+            json={"gamepackageJSON": {}},
+        )
+        with ESPNClient() as client:
+            resp = client.get_cdn_game("nfl", "401547667")
+        assert resp.is_success
+
+    def test_get_cdn_game_boxscore_view(self, httpx_mock: HTTPXMock):
+        httpx_mock.add_response(
+            url="https://cdn.espn.com/core/nba/boxscore?xhr=1&gameId=401584666",
+            json={"gamepackageJSON": {}},
+        )
+        with ESPNClient() as client:
+            resp = client.get_cdn_game("nba", "401584666", view="boxscore")
+        assert resp.is_success
+
+    def test_get_cdn_scoreboard(self, httpx_mock: HTTPXMock):
+        httpx_mock.add_response(
+            url="https://cdn.espn.com/core/nba/scoreboard?xhr=1",
+            json={"events": []},
+        )
+        with ESPNClient() as client:
+            resp = client.get_cdn_scoreboard("nba")
+        assert resp.is_success
+
+
+# ---------------------------------------------------------------------------
+# Now/News endpoint
+# ---------------------------------------------------------------------------
+
+class TestNowNewsEndpoints:
+
+    def test_get_now_news_uses_now_domain(self, httpx_mock: HTTPXMock):
+        httpx_mock.add_response(
+            url="https://now.core.api.espn.com/v1/sports/news?limit=20&offset=0",
+            json={"resultsCount": 0, "feed": []},
+        )
+        with ESPNClient() as client:
+            resp = client.get_now_news()
+        assert resp.is_success
+
+    def test_get_now_news_with_sport_filter(self, httpx_mock: HTTPXMock):
+        httpx_mock.add_response(
+            url="https://now.core.api.espn.com/v1/sports/news?limit=20&offset=0&sport=football&league=nfl",
+            json={"resultsCount": 5, "feed": []},
+        )
+        with ESPNClient() as client:
+            resp = client.get_now_news(sport="football", league="nfl")
+        assert resp.is_success

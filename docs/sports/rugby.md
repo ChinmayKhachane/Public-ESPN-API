@@ -101,8 +101,19 @@ GET https://site.api.espn.com/apis/site/v2/sports/rugby/{league}/{resource}
 | `scoreboard` | Live scores & schedules |
 | `scoreboard?dates={YYYYMMDD}` | Scores for a specific date |
 | `teams` | All teams |
-| `standings` | League standings |
+| `teams/{id}` | Single team |
+| `teams/{id}/roster` | Team roster |
+| `teams/{id}/schedule` | Team schedule |
 | `news` | Latest news |
+| `summary?event={id}` | Full game summary + boxscore |
+| `standings` | ⚠️ Broken — see note below |
+
+> ⚠️ **Standings Note:** Rugby Union standings have **very limited API support**:
+> - `/apis/site/v2/` returns a **500 error** for all tested league IDs
+> - `/apis/v2/` (both `site.api` and `site.web.api`) returns **empty `{"children":[], "seasons":{}}`**
+> 
+> Standings data is **not reliably available** for Rugby Union via the site API (tested with league IDs 267 and 180).
+> Use `sports.core.api.espn.com/v2/sports/rugby/leagues/{league}/standings` for reference data instead.
 
 ---
 
@@ -129,8 +140,9 @@ curl "https://site.api.espn.com/apis/site/v2/sports/rugby/242041/scoreboard"
 # Rugby World Cup teams (core API)
 curl "https://sports.core.api.espn.com/v2/sports/rugby/leagues/164205/teams"
 
-# Six Nations standings
-curl "https://site.api.espn.com/apis/site/v2/sports/rugby/180659/standings"
+# Six Nations standings — NOTE: /apis/v2/ returns empty {} for rugby union
+# Use the core API reference endpoint instead:
+curl "https://sports.core.api.espn.com/v2/sports/rugby/leagues/267/standings"
 
 # Rugby World Cup events (core API)
 curl "https://sports.core.api.espn.com/v2/sports/rugby/leagues/164205/events"

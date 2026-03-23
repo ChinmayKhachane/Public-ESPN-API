@@ -43,12 +43,38 @@ Each file covers leagues & competitions, API endpoints, Site API resources, and 
 |------|-------------|
 | [response_schemas.md](response_schemas.md) | Example JSON responses for scoreboard, teams, roster, injuries, game summary, athlete, odds, standings, Now API |
 
+### Domain Routing Guide
+
+> ⚠️ Not all endpoints work on all ESPN API domains. See [domain_audit_results.md](../.gemini/antigravity/brain/1706f1bd-2d3e-456d-8bcc-e83566f60832/domain_audit_results.md) for the full breakdown.
+
+| Domain | Use for |
+|--------|---------|
+| `site.api.espn.com/apis/site/v2/` | Scoreboard, teams, news, injuries, transactions, statistics, groups, draft, summary, rankings |
+| `site.api.espn.com/apis/v2/` | **Standings only** — site/v2 returns a stub |
+| `site.web.api.espn.com/apis/common/v3/` | Athlete stats, gamelog, overview, splits (`statistics/byathlete`) |
+| `cdn.espn.com/core/` | Full game packages — drives, plays, odds (requires `?xhr=1`) |
+| `now.core.api.espn.com/v1/` | Real-time news feed with `sport=`, `league=`, `team=` filters |
+| `sports.core.api.espn.com/v2/` | Core data — events, odds, play-by-play, athletes, coaches |
+
+**Sport-specific exceptions:**
+- 🏏 **Cricket scoreboard** → core API: `sports.core.api.espn.com/v2/sports/cricket/leagues/{league}/events`
+- 🏉 **Rugby Union standings** → core API: `sports.core.api.espn.com/v2/sports/rugby/leagues/{league}/standings`
+- ⛳ **Golf / 🎾 Tennis scoreboard** → slug required: `pga`, `lpga`, `atp`, `wta` (not numeric IDs)
+
 ---
 
 ## 🚀 Quick Links
 
-- **Scoreboard:** `https://site.api.espn.com/apis/site/v2/sports/{sport}/{league}/scoreboard`
-- **Teams:** `https://site.api.espn.com/apis/site/v2/sports/{sport}/{league}/teams`
-- **Core API:** `https://sports.core.api.espn.com/v2/sports/{sport}/leagues/{league}/...`
-- **Fantasy:** `https://fantasy.espn.com/apis/v3/games/ffl/seasons/{year}/segments/0/leagues/{id}`
-- **Now/News:** `https://now.core.api.espn.com/v1/sports/news`
+| Data | Endpoint |
+|------|----------|
+| Scoreboard | `https://site.api.espn.com/apis/site/v2/sports/{sport}/{league}/scoreboard` |
+| Teams | `https://site.api.espn.com/apis/site/v2/sports/{sport}/{league}/teams` |
+| Standings | `https://site.api.espn.com/apis/v2/sports/{sport}/{league}/standings` |
+| Game summary | `https://site.api.espn.com/apis/site/v2/sports/{sport}/{league}/summary?event={id}` |
+| Full game package | `https://cdn.espn.com/core/{sport}/game?xhr=1&gameId={id}` |
+| Athlete overview | `https://site.web.api.espn.com/apis/common/v3/sports/{sport}/{league}/athletes/{id}/overview` |
+| Athlete stats | `https://site.web.api.espn.com/apis/common/v3/sports/{sport}/{league}/athletes/{id}/stats` |
+| Stats leaderboard | `https://site.web.api.espn.com/apis/common/v3/sports/{sport}/{league}/statistics/byathlete` |
+| Real-time news | `https://now.core.api.espn.com/v1/sports/news?sport=football` |
+| Core API | `https://sports.core.api.espn.com/v2/sports/{sport}/leagues/{league}/...` |
+

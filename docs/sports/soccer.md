@@ -359,9 +359,14 @@ GET https://site.api.espn.com/apis/site/v2/sports/soccer/{league}/{resource}
 | `teams/{id}/roster` | Team squad |
 | `teams/{id}/injuries` | Injury report |
 | `teams/{id}/schedule` | Team schedule |
-| `standings` | League table (points, GD, etc.) |
+| `standings` | League table — returns empty `{}` on `/apis/site/v2/`, use `/apis/v2/` instead (see below) |
 | `news` | Latest match & transfer news |
 | `summary?event={id}` | Full match report |
+
+> ⚠️ **Standings Note:** The `/apis/site/v2/` path returns an empty `{}` for soccer standings. Use `/apis/v2/` instead:
+> - `https://site.api.espn.com/apis/v2/sports/soccer/{league}/standings`
+> - `https://site.web.api.espn.com/apis/v2/sports/soccer/{league}/standings`
+> Both return full standings data including team stats, form, and rankings.
 
 ---
 
@@ -386,13 +391,16 @@ curl "https://sports.core.api.espn.com/v2/sports/soccer/leagues/eng.1/events/{id
 ### Standings with Groups
 
 ```bash
-# Full EPL table (points, GD, form)
-curl "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/standings"
+# Full EPL table (points, GD, form) — /apis/site/v2/ returns empty {}, use /apis/v2/
+curl "https://site.api.espn.com/apis/v2/sports/soccer/eng.1/standings"
+
+# Alternative domain (identical response)
+curl "https://site.web.api.espn.com/apis/v2/sports/soccer/eng.1/standings"
 
 # UCL group stage standings
-curl "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.champions/standings"
+curl "https://site.api.espn.com/apis/v2/sports/soccer/uefa.champions/standings"
 
-# Core API standings (richer data)
+# Core API standings (reference data)
 curl "https://sports.core.api.espn.com/v2/sports/soccer/leagues/eng.1/standings"
 ```
 
@@ -408,6 +416,36 @@ curl "https://sports.core.api.espn.com/v2/sports/soccer/leagues/eng.1/seasons/20
 
 ---
 
+## CDN Game Data
+
+> Rich game packages via `cdn.espn.com`. Requires `?xhr=1`.
+
+```bash
+# EPL game package (use the specific league name)
+curl "https://cdn.espn.com/core/soccer/scoreboard?xhr=1&league=eng.1"
+```
+
+---
+
+## Athlete Data (common/v3)
+
+> Individual player stats via `site.web.api.espn.com`. Note: Soccer support is **partially limited** compared to American sports.
+
+| Path | Works |
+|------|-------|
+| `athletes/{id}/overview` | ⚠️ Returns minimal data (next game only) |
+| `athletes/{id}/stats` | ❌ 404 |
+| `athletes/{id}/gamelog` | ❌ 400 |
+| `athletes/{id}/splits` | ❌ |
+
+> ✅ For full athlete data use **Core API**:
+> `sports.core.api.espn.com/v2/sports/soccer/leagues/eng.1/athletes/{id}`
+>
+> ✅ For active player lists:
+> `sports.core.api.espn.com/v3/sports/soccer/eng.1/athletes?limit=100&active=true`
+
+---
+
 ## Example API Calls
 
 ```bash
@@ -417,8 +455,8 @@ curl "https://sports.core.api.espn.com/v2/sports/soccer/leagues"
 # Premier League scoreboard (today)
 curl "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/scoreboard"
 
-# Premier League standings
-curl "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/standings"
+# Premier League standings — use /apis/v2/ (site/v2 returns empty {})
+curl "https://site.api.espn.com/apis/v2/sports/soccer/eng.1/standings"
 
 # Premier League teams
 curl "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/teams"
@@ -430,7 +468,7 @@ curl "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.champions/scoreb
 curl "https://site.api.espn.com/apis/site/v2/sports/soccer/usa.1/scoreboard"
 
 # La Liga standings
-curl "https://site.api.espn.com/apis/site/v2/sports/soccer/esp.1/standings"
+curl "https://site.api.espn.com/apis/v2/sports/soccer/esp.1/standings"
 
 # Bundesliga scoreboard
 curl "https://site.api.espn.com/apis/site/v2/sports/soccer/ger.1/scoreboard"

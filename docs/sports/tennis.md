@@ -118,8 +118,15 @@ GET https://site.api.espn.com/apis/site/v2/sports/tennis/{league}/{resource}
 |----------|-------------|
 | `scoreboard` | Live match scores |
 | `scoreboard?dates={YYYYMMDD}` | Scores for a specific date |
-| `athletes/{id}` | Player profile |
+| `teams` | Player groups / tour sections |
 | `news` | Latest news |
+| `athletes/{id}/news` | Player-specific news |
+| `summary?event={id}` | Match summary + results |
+
+> ⚠️ **Slug required:** Tennis scoreboard requires a named league slug — numeric IDs return 400.
+> Use: `atp`, `wta` (and potentially `atp-challenger`, `itf`)
+
+> ⚠️ **Injuries endpoint returns 500** for Tennis — not supported.
 
 ---
 
