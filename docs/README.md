@@ -45,21 +45,22 @@ Each file covers leagues & competitions, API endpoints, Site API resources, and 
 
 ### Domain Routing Guide
 
-> ⚠️ Not all endpoints work on all ESPN API domains. See [domain_audit_results.md](../.gemini/antigravity/brain/1706f1bd-2d3e-456d-8bcc-e83566f60832/domain_audit_results.md) for the full breakdown.
+> All domains below were **live-verified via browser HTTP tests on 2026-03-26** — all returned HTTP 200 OK.
 
-| Domain | Use for |
-|--------|---------|
-| `site.api.espn.com/apis/site/v2/` | Scoreboard, teams, news, injuries, transactions, statistics, groups, draft, summary, rankings |
-| `site.api.espn.com/apis/v2/` | **Standings only** — site/v2 returns a stub |
-| `site.web.api.espn.com/apis/common/v3/` | Athlete stats, gamelog, overview, splits (`statistics/byathlete`) |
-| `cdn.espn.com/core/` | Full game packages — drives, plays, odds (requires `?xhr=1`) |
-| `now.core.api.espn.com/v1/` | Real-time news feed with `sport=`, `league=`, `team=` filters |
-| `sports.core.api.espn.com/v2/` | Core data — events, odds, play-by-play, athletes, coaches |
+| Domain | Use for | Verified Response Keys |
+|--------|---------|----------------------|
+| `site.api.espn.com/apis/site/v2/` | Scoreboard, teams, news, injuries, transactions, statistics, groups, draft, summary, rankings | `leagues`, `season`, `week`, `events` (scoreboard); `header`, `articles` (news); `uid`, `children` (standings) |
+| `site.api.espn.com/apis/v2/` | **Standings only** — site/v2 returns a stub | `uid`, `id`, `name`, `abbreviation`, `children` |
+| `site.web.api.espn.com/apis/common/v3/` | Athlete stats, gamelog, overview, splits (`statistics/byathlete`) | `leagues`, `season`, `day`, `events` (same as site.api) |
+| `cdn.espn.com/core/` | Full game packages — drives, plays, odds (requires `?xhr=1`) | Varies by sport |
+| `now.core.api.espn.com/v1/` | Real-time news feed — filter by `sport=`, `league=`, `team=` | `resultsCount`, `resultsLimit`, `resultsOffset`, `headlines[]` |
+| `sports.core.api.espn.com/v2/` | Core data — events, odds, play-by-play, athletes, coaches | Leagues: `$ref`, `id`, `name`, `season`, `teams`, `athletes`; Collections: `count`, `pageIndex`, `pageSize`, `items[]` |
 
 **Sport-specific exceptions:**
 - 🏏 **Cricket scoreboard** → core API: `sports.core.api.espn.com/v2/sports/cricket/leagues/{league}/events`
 - 🏉 **Rugby Union standings** → core API: `sports.core.api.espn.com/v2/sports/rugby/leagues/{league}/standings`
 - ⛳ **Golf / 🎾 Tennis scoreboard** → slug required: `pga`, `lpga`, `atp`, `wta` (not numeric IDs)
+
 
 ---
 
