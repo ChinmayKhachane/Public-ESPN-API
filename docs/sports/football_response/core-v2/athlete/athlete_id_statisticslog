@@ -1,0 +1,90 @@
+# Athlete ID Statslog
+
+## https://sports.core.api.espn.com/v2/sports/football/leagues/{league}/athletes/{id}/statisticslog
+
+Notes: The refs under `statistics` insert `/seasons/{year}/types/{season_type}` into the uri for season specific stats. \
+       `1` : preseason \
+       `2` : regular season \
+       `3` : postseason 
+
+## Optional Parameters
+
+| Param | Type | Description|
+| --- | --- | --- |
+|  |  |  |
+
+## Example Response
+
+```json
+{
+  "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/athletes/4429202/statisticslog?lang=en&region=us",
+  "entries": [
+    {
+      "season": {
+        "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2025?lang=en&region=us"
+      },
+      "statistics": [
+        {
+          "type": "total",
+          "statistics": {
+            "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2025/types/1/athletes/4429202/statistics/0?lang=en&region=us"
+          }
+        },
+        {
+          "type": "team",
+          "team": {
+            "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2025/teams/9?lang=en&region=us"
+          },
+          "statistics": {
+            "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2025/types/1/teams/9/athletes/4429202/statistics?lang=en&region=us"
+          }
+        }
+      ]
+    },
+    {
+      "season": {
+        "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2024?lang=en&region=us"
+      },
+      "statistics": [
+        {
+          "type": "total",
+          "statistics": {
+            "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2024/types/1/athletes/4429202/statistics/0?lang=en&region=us"
+          }
+        },
+        {
+          "type": "team",
+          "team": {
+            "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2024/teams/20?lang=en&region=us"
+          },
+          "statistics": {
+            "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2024/types/1/teams/20/athletes/4429202/statistics?lang=en&region=us"
+          }
+        }
+      ]
+    },
+    {
+      "season": {
+        "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2023?lang=en&region=us"
+      },
+      "statistics": [
+        {
+          "type": "total",
+          "statistics": {
+            "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2023/types/2/athletes/4429202/statistics/0?lang=en&region=us"
+          }
+        },
+        {
+          "type": "team",
+          "team": {
+            "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2023/teams/20?lang=en&region=us"
+          },
+          "statistics": {
+            "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2023/types/2/teams/20/athletes/4429202/statistics?lang=en&region=us"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
