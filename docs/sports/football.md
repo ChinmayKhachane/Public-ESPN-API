@@ -167,13 +167,41 @@ curl "https://cdn.espn.com/core/nfl/scoreboard?xhr=1"
 
 ---
 
+## Core API v3
+
+> Enriched core responses via `sports.core.api.espn.com/v3`. NFL paths include the league slug directly after the sport.
+
+```bash
+# NFL league root
+curl "https://sports.core.api.espn.com/v3/sports/football/nfl"
+
+# NFL season
+curl "https://sports.core.api.espn.com/v3/sports/football/nfl/seasons/2025"
+
+# NFL athletes
+curl "https://sports.core.api.espn.com/v3/sports/football/nfl/athletes?limit=10"
+
+# NFL athlete detail with useful expansions
+curl "https://sports.core.api.espn.com/v3/sports/football/nfl/athletes/{id}?enable=team,position,links"
+
+# NFL team detail with useful expansions
+curl "https://sports.core.api.espn.com/v3/sports/football/nfl/teams/{teamId}?enable=logos,links,groups,venue,record"
+```
+
+> **NFL note:** `sports/football/athletes` without `/nfl` and `sports/football/nfl/leaders` returned `404` in live testing.
+
+---
+
 ## Athlete Data (common/v3)
 
-> Individual player stats, game logs, and splits via `site.web.api.espn.com`. Works for NFL; also applies to college-football.
+> Individual player stats, game logs, splits, and some selective team/leaderboard views via `site.web.api.espn.com`. Works for NFL; also applies to college-football.
 
 ```bash
 # Player overview (stats + next game + rotowire notes)
 curl "https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/athletes/{id}/overview"
+
+# Player bio / team history
+curl "https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/athletes/{id}/bio"
 
 # Season stats
 curl "https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/athletes/{id}/stats"
@@ -186,7 +214,32 @@ curl "https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/athletes/
 
 # Stats leaderboard (all athletes ranked)
 curl "https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/statistics/byathlete"
+
+# Team roster (one of the few working NFL team leaves under common/v3)
+curl "https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/teams/{teamId}/roster"
+
+# Team stats leaderboard
+curl "https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/statistics/byteam?season=2025&seasontype=2&category=passing&sort=passing.netYardsPerGame:desc"
 ```
+
+> **NFL note:** many parent/common-v3 league, event, and generic team paths still return `404`, even though leaf endpoints such as `athletes/{id}/overview`, `teams/{teamId}/roster`, and `statistics/byteam` work.
+
+---
+
+## Search, Header, And Now APIs
+
+```bash
+# ESPN search
+curl "https://site.web.api.espn.com/apis/search/v2?query=drake%20maye&sport=football&limit=2"
+
+# NFL scoreboard header
+curl "https://site.web.api.espn.com/apis/v2/scoreboard/header?sport=football&league=nfl"
+
+# Football-scoped Now feed
+curl "https://now.core.api.espn.com/v1/sports/news?sport=football&limit=10"
+```
+
+> **NFL note:** the Now API accepts `leagues=` and `team=` parameters, but NFL live tests did not reliably narrow the feed with those filters. `sport=football` did narrow the feed.
 
 ---
 

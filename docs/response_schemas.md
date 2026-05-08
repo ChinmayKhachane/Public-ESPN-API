@@ -1134,10 +1134,10 @@
 
 ```json
 {
-  "resultsCount": 1000,
+  "resultsCount": 2,
   "resultsLimit": 20,
   "resultsOffset": 0,
-  "feed": [
+  "headlines": [
     {
       "dataSourceIdentifier": "espn_wire_12345",
       "description": "Stephen Curry scores 32 points as Golden State Warriors beat Boston Celtics",
@@ -1166,7 +1166,10 @@
         { "type": "athlete", "id": 3136776, "description": "Stephen Curry" }
       ]
     }
-  ]
+  ],
+  "breakingNews": [],
+  "timestamp": "2026-05-08T15:07:20Z",
+  "status": "success"
 }
 ```
 

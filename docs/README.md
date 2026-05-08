@@ -51,9 +51,9 @@ Each file covers leagues & competitions, API endpoints, Site API resources, and 
 |--------|---------|----------------------|
 | `site.api.espn.com/apis/site/v2/` | Scoreboard, teams, news, injuries, transactions, statistics, groups, draft, summary, rankings | `leagues`, `season`, `week`, `events` (scoreboard); `header`, `articles` (news); `uid`, `children` (standings) |
 | `site.api.espn.com/apis/v2/` | **Standings only** — site/v2 returns a stub | `uid`, `id`, `name`, `abbreviation`, `children` |
-| `site.web.api.espn.com/apis/common/v3/` | Athlete stats, gamelog, overview, splits (`statistics/byathlete`) | `leagues`, `season`, `day`, `events` (same as site.api) |
-| `cdn.espn.com/core/` | Full game packages — drives, plays, odds (requires `?xhr=1`) | Varies by sport |
-| `now.core.api.espn.com/v1/` | Real-time news feed — filter by `sport=`, `league=`, `team=` | `resultsCount`, `resultsLimit`, `resultsOffset`, `headlines[]` |
+| `site.web.api.espn.com/apis/common/v3/` | Athlete overview/stats/gamelog/splits, athlete bio, team roster, team and athlete stat leaderboards | `teamHistory`, `positionGroups`, `athletes`, `teams`, `categories` |
+| `cdn.espn.com/core/` | CDN page shells and full game packages; requires `?xhr=1` for JSON | `content`, `gamepackageJSON`, `sport`, `tier2Nav` |
+| `now.core.api.espn.com/v1/` | Real-time news feed; `sport=` works reliably in NFL tests | `resultsCount`, `resultsLimit`, `resultsOffset`, `headlines[]`, `status` |
 | `sports.core.api.espn.com/v2/` | Core data — events, odds, play-by-play, athletes, coaches | Leagues: `$ref`, `id`, `name`, `season`, `teams`, `athletes`; Collections: `count`, `pageIndex`, `pageSize`, `items[]` |
 
 **Sport-specific exceptions:**
@@ -73,9 +73,15 @@ Each file covers leagues & competitions, API endpoints, Site API resources, and 
 | Standings | `https://site.api.espn.com/apis/v2/sports/{sport}/{league}/standings` |
 | Game summary | `https://site.api.espn.com/apis/site/v2/sports/{sport}/{league}/summary?event={id}` |
 | Full game package | `https://cdn.espn.com/core/{sport}/game?xhr=1&gameId={id}` |
+| CDN scoreboard | `https://cdn.espn.com/core/{sport}/scoreboard?xhr=1` |
 | Athlete overview | `https://site.web.api.espn.com/apis/common/v3/sports/{sport}/{league}/athletes/{id}/overview` |
+| Athlete bio | `https://site.web.api.espn.com/apis/common/v3/sports/{sport}/{league}/athletes/{id}/bio` |
 | Athlete stats | `https://site.web.api.espn.com/apis/common/v3/sports/{sport}/{league}/athletes/{id}/stats` |
 | Stats leaderboard | `https://site.web.api.espn.com/apis/common/v3/sports/{sport}/{league}/statistics/byathlete` |
+| Team roster | `https://site.web.api.espn.com/apis/common/v3/sports/{sport}/{league}/teams/{id}/roster` |
+| Team stats leaderboard | `https://site.web.api.espn.com/apis/common/v3/sports/{sport}/{league}/statistics/byteam` |
 | Real-time news | `https://now.core.api.espn.com/v1/sports/news?sport=football` |
+| Search | `https://site.web.api.espn.com/apis/search/v2?query={q}&sport={sport}` |
+| Scoreboard header | `https://site.web.api.espn.com/apis/v2/scoreboard/header?sport=football&league=nfl` |
 | Core API | `https://sports.core.api.espn.com/v2/sports/{sport}/leagues/{league}/...` |
-
+| Core API v3 | `https://sports.core.api.espn.com/v3/sports/{sport}/{league}/...` |
