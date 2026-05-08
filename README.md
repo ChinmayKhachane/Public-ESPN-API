@@ -102,7 +102,7 @@ ESPN provides undocumented APIs that power their website and mobile apps. These 
 |--------|---------|---------|
 | `site.api.espn.com` | v2/v3 | Scores, news, teams, standings (site-facing) |
 | `sports.core.api.espn.com` | v2 | Athletes, stats, odds, play-by-play, detailed data |
-| `sports.core.api.espn.com` | v3 | Athletes, leaders (richer schema) |
+| `sports.core.api.espn.com` | v3 | Athletes, teams, and selective enriched core data |
 | `site.web.api.espn.com` | v3 | Search, athlete profiles |
 | `cdn.espn.com` | — | CDN-optimized live data |
 | `fantasy.espn.com` | v3 | Fantasy sports leagues |
@@ -261,8 +261,9 @@ GET https://sports.core.api.espn.com/v3/sports/{sport}/{league}/{resource}
 | `athletes` | Athletes (enriched schema) |
 | `athletes/{id}` | Single athlete (enriched) |
 | `athletes/{id}/statisticslog` | Game log (enriched) |
-| `athletes/{id}/plays` | Athlete play history |
-| `leaders` | Statistical leaders |
+| `athletes/{id}/plays` | Athlete play history; may return an empty collection |
+| `teams/{id}` | Single team (use `enable=logos,links,groups,venue,record` for richer output) |
+| `leaders` | Statistical leaders; NFL returned `404` in live testing |
 
 ### Search & Web API
 
@@ -275,11 +276,15 @@ GET https://site.web.api.espn.com/apis/{path}
 | `/search/v2?query={q}&limit={n}` | Global ESPN search |
 | `/search/v2?query={q}&sport={sport}` | Sport-scoped search |
 | `/v2/scoreboard/header` | Scoreboard header/nav state |
+| `/v2/scoreboard/header?sport=football&league=nfl` | NFL-specific scoreboard header |
 | `/apis/common/v3/sports/{sport}/{league}/athletes/{id}/overview` | Athlete overview (stats snapshot, news, next game) |
+| `/apis/common/v3/sports/{sport}/{league}/athletes/{id}/bio` | Athlete bio / team history |
 | `/apis/common/v3/sports/{sport}/{league}/athletes/{id}/stats` | Season stats (NFL/NBA/NHL/MLB ✅, Soccer ❌) |
 | `/apis/common/v3/sports/{sport}/{league}/athletes/{id}/gamelog` | Game-by-game log (NFL/NBA/MLB ✅) |
 | `/apis/common/v3/sports/{sport}/{league}/athletes/{id}/splits` | Home/away/opponent splits |
 | `/apis/common/v3/sports/{sport}/{league}/statistics/byathlete` | Stats leaderboard with `category=` + `sort=` |
+| `/apis/common/v3/sports/{sport}/{league}/teams/{id}/roster` | Team roster grouped by position (NFL ✅) |
+| `/apis/common/v3/sports/{sport}/{league}/statistics/byteam` | Team stats leaderboard (NFL ✅) |
 
 ### CDN API (Real-Time Optimized)
 
@@ -307,8 +312,8 @@ GET https://now.core.api.espn.com/v1/sports/news
 |----------|-------------|
 | `/v1/sports/news?limit={n}` | Global real-time news feed |
 | `/v1/sports/news?sport={sport}&limit={n}` | Sport-filtered news |
-| `/v1/sports/news?leagues={league}&limit={n}` | League-filtered news |
-| `/v1/sports/news?team={abbrev}&limit={n}` | Team-filtered news |
+| `/v1/sports/news?leagues={league}&limit={n}` | Accepted, but NFL tests did not reliably narrow the feed |
+| `/v1/sports/news?team={abbrev_or_id}&limit={n}` | Accepted, but NFL tests did not reliably narrow the feed |
 
 ---
 
