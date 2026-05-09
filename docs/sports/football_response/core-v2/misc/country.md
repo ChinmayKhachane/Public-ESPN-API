@@ -20,7 +20,15 @@ Verified with `league=nfl` on 2026-05-08.
       "id": "1",
       "slug": "usa",
       "name": "USA",
-      "abbreviation": "USA"
+      "abbreviation": "USA",
+      "flag": {
+        "href": "https://a.espncdn.com/i/teamlogos/countries/500/usa.png",
+        "alt": "USA",
+        "rel": [
+          "country-flag"
+        ]
+      },
+      "athletes": {}
     }
   ]
 }
@@ -44,7 +52,11 @@ Verified with `league=nfl` on 2026-05-08.
     "alt": "USA"
   },
   "athletes": {
-    "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/countries/1/athletes?lang=en&region=us"
+    "count": 0,
+    "pageIndex": 0,
+    "pageSize": 25,
+    "pageCount": 0,
+    "items": []
   }
 }
 ```

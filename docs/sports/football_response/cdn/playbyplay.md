@@ -14,7 +14,6 @@ Notes:
   "gameId": 401772988,
   "gamepackageJSON": {
     "drives": {
-      "current": null,
       "previous": []
     },
     "scoringPlays": [],
@@ -24,9 +23,6 @@ Notes:
     "broadcasts": [],
     "videos": [],
     "standings": {}
-  },
-  "driveSummary": {
-    "previousCount": 28
   }
 }
 ```

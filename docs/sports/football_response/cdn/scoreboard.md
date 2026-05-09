@@ -6,6 +6,8 @@ Notes:
 - Verified on 2026-05-07.
 - Returns a CDN page shell, not just the raw site scoreboard object.
 - Scoreboard data is nested under `content.sbData`.
+- The observed top-level keys included `news`, `content`, `analytics`, `ads`,
+  `meta`, `nowFeed`, `sport`, and `tier2Nav`.
 - Tested response contained one NFL event, `401772988`.
 
 ## Example Response
@@ -13,23 +15,8 @@ Notes:
 ```json
 {
   "sport": ["nfl"],
-  "topKeys": [
-    "news",
-    "pinnedCount",
-    "nowFeedMD5Hash",
-    "type",
-    "content",
-    "analytics",
-    "nowFeed",
-    "ads",
-    "nowFeedCount",
-    "meta",
-    "nowFeedSupported",
-    "sport",
-    "tier2Nav"
-  ],
   "content": {
-    "league": {},
+    "league": "nfl",
     "sbGroup": {},
     "sbData": {
       "events": [

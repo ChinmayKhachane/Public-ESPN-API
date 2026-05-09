@@ -26,12 +26,14 @@ Notes:
     {
       "name": "passing",
       "displayName": "Passing",
-      "count": 14
+      "labels": ["GP", "CMP", "ATT", "CMP%"],
+      "statistics": []
     },
     {
       "name": "rushing",
       "displayName": "Rushing",
-      "count": 5
+      "labels": ["GP", "CAR", "YDS", "AVG"],
+      "statistics": []
     }
   ],
   "teams": {

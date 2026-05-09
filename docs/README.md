@@ -42,6 +42,8 @@ Each file covers leagues & competitions, API endpoints, Site API resources, and 
 | File | Description |
 |------|-------------|
 | [response_schemas.md](response_schemas.md) | Example JSON responses for scoreboard, teams, roster, injuries, game summary, athlete, odds, standings, Now API |
+| [sports/basketball_response/](sports/basketball_response/) | Live-tested NBA response examples for basketball endpoints |
+| [sports/baseball_response/](sports/baseball_response/) | Live-tested MLB response examples for baseball endpoints |
 
 ### Domain Routing Guide
 

@@ -16,7 +16,10 @@ Verified with `league=nfl` on 2026-05-08.
   "pageCount": 71,
   "items": [
     {
-      "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/providers/0?lang=en&region=us"
+      "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/providers/0?lang=en&region=us",
+      "id": "0",
+      "name": "Not Available",
+      "priority": 0
     }
   ]
 }

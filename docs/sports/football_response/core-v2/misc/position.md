@@ -16,7 +16,12 @@ Verified with `league=nfl` on 2026-05-08.
   "pageCount": 74,
   "items": [
     {
-      "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/positions/0?lang=en&region=us"
+      "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/positions/0?lang=en&region=us",
+      "id": "0",
+      "name": "Unknown",
+      "displayName": "Unknown",
+      "abbreviation": "-",
+      "leaf": false
     }
   ]
 }

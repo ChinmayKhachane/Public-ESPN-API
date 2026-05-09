@@ -4,7 +4,8 @@
 
 **Sport slug:** `baseball`  
 **Base URL (v2):** `https://sports.core.api.espn.com/v2/sports/baseball/`  
-**Base URL (v3):** `https://sports.core.api.espn.com/v3/sports/baseball/`
+**Base URL (v3):** `https://sports.core.api.espn.com/v3/sports/baseball/`  
+**Live-tested response docs:** [`baseball_response/`](baseball_response/)
 
 ---
 

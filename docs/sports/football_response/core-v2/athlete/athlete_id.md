@@ -131,7 +131,37 @@
     "country": "USA"
   },
   "college": {
-    "$ref": "http://sports.core.api.espn.com/v2/colleges/221?lang=en&region=us"
+    "$ref": "http://sports.core.api.espn.com/v2/colleges/221?lang=en&region=us",
+    "id": "221",
+    "guid": "5e360fcb-e54f-35be-98e2-f606d116e52c",
+    "mascot": "Panthers",
+    "name": "Pittsburgh",
+    "shortName": "Pitt",
+    "abbrev": "PITT",
+    "logos": [
+      {
+        "href": "https://a.espncdn.com/i/teamlogos/ncaa/500/221.png",
+        "width": 500,
+        "height": 500,
+        "alt": "",
+        "rel": [
+          "full",
+          "default"
+        ],
+        "lastUpdated": "2025-12-19T22:33Z"
+      },
+      {
+        "href": "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/221.png",
+        "width": 500,
+        "height": 500,
+        "alt": "",
+        "rel": [
+          "full",
+          "dark"
+        ],
+        "lastUpdated": "2025-12-19T22:35Z"
+      }
+    ]
   },
   "slug": "israel-abanikanda",
   "headshot": {
@@ -145,26 +175,2077 @@
     "name": "Running Back",
     "displayName": "Running Back",
     "abbreviation": "RB",
-    "leaf": false,
-    "parent": {
-      "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/positions/70?lang=en&region=us"
-    }
+    "leaf": true,
+    "parent": {}
   },
   "linked": true,
   "team": {
-    "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2026/teams/6?lang=en&region=us"
+    "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2026/teams/6?lang=en&region=us",
+    "id": "6",
+    "guid": "b0fc8fb7-9dbe-e574-9008-6f0ee7c6b234",
+    "uid": "s:20~l:28~t:6",
+    "alternateIds": {
+      "sdr": "8809"
+    },
+    "slug": "dallas-cowboys",
+    "location": "Dallas",
+    "name": "Cowboys",
+    "nickname": "Cowboys",
+    "abbreviation": "DAL",
+    "displayName": "Dallas Cowboys",
+    "shortDisplayName": "Cowboys",
+    "color": "002a5c",
+    "alternateColor": "b0b7bc",
+    "isActive": true,
+    "isAllStar": false,
+    "logos": [
+      {
+        "href": "https://a.espncdn.com/i/teamlogos/nfl/500/dal.png",
+        "width": 500,
+        "height": 500,
+        "alt": "",
+        "rel": [
+          "full",
+          "default"
+        ],
+        "lastUpdated": "2024-06-25T18:47Z"
+      },
+      {
+        "href": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/dal.png",
+        "width": 500,
+        "height": 500,
+        "alt": "",
+        "rel": [
+          "full",
+          "dark"
+        ],
+        "lastUpdated": "2024-06-25T18:59Z"
+      },
+      {
+        "href": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/dal.png",
+        "width": 500,
+        "height": 500,
+        "alt": "",
+        "rel": [
+          "full",
+          "scoreboard"
+        ],
+        "lastUpdated": "2024-06-25T18:48Z"
+      },
+      {
+        "href": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/dal.png",
+        "width": 500,
+        "height": 500,
+        "alt": "",
+        "rel": [
+          "full",
+          "scoreboard",
+          "dark"
+        ],
+        "lastUpdated": "2024-06-25T18:59Z"
+      },
+      {
+        "href": "https://a.espncdn.com/guid/b0fc8fb7-9dbe-e574-9008-6f0ee7c6b234/logos/grayscale.png",
+        "width": 500,
+        "height": 500,
+        "alt": "",
+        "rel": [
+          "full",
+          "grayscale"
+        ],
+        "lastUpdated": "2026-03-31T12:54Z"
+      },
+      {
+        "href": "https://a.espncdn.com/guid/b0fc8fb7-9dbe-e574-9008-6f0ee7c6b234/logos/primary_logo_on_white_color.png",
+        "width": 4096,
+        "height": 4096,
+        "alt": "",
+        "rel": [
+          "full",
+          "primary_logo_on_white_color"
+        ],
+        "lastUpdated": "2026-02-13T03:12Z"
+      },
+      {
+        "href": "https://a.espncdn.com/guid/b0fc8fb7-9dbe-e574-9008-6f0ee7c6b234/logos/primary_logo_on_black_color.png",
+        "width": 4096,
+        "height": 4096,
+        "alt": "",
+        "rel": [
+          "full",
+          "primary_logo_on_black_color"
+        ],
+        "lastUpdated": "2026-02-13T03:12Z"
+      },
+      {
+        "href": "https://a.espncdn.com/guid/b0fc8fb7-9dbe-e574-9008-6f0ee7c6b234/logos/primary_logo_on_primary_color.png",
+        "width": 4096,
+        "height": 4096,
+        "alt": "",
+        "rel": [
+          "full",
+          "primary_logo_on_primary_color"
+        ],
+        "lastUpdated": "2026-02-13T03:12Z"
+      },
+      {
+        "href": "https://a.espncdn.com/guid/b0fc8fb7-9dbe-e574-9008-6f0ee7c6b234/logos/primary_logo_on_secondary_color.png",
+        "width": 4096,
+        "height": 4096,
+        "alt": "",
+        "rel": [
+          "full",
+          "primary_logo_on_secondary_color"
+        ],
+        "lastUpdated": "2026-02-13T03:12Z"
+      },
+      {
+        "href": "https://a.espncdn.com/guid/b0fc8fb7-9dbe-e574-9008-6f0ee7c6b234/logos/primary_logo_black.png",
+        "width": 4096,
+        "height": 4096,
+        "alt": "",
+        "rel": [
+          "full",
+          "primary_logo_black"
+        ],
+        "lastUpdated": "2026-02-13T03:12Z"
+      },
+      {
+        "href": "https://a.espncdn.com/guid/b0fc8fb7-9dbe-e574-9008-6f0ee7c6b234/logos/primary_logo_white.png",
+        "width": 4096,
+        "height": 4096,
+        "alt": "",
+        "rel": [
+          "full",
+          "primary_logo_white"
+        ],
+        "lastUpdated": "2026-02-13T03:12Z"
+      },
+      {
+        "href": "https://a.espncdn.com/guid/b0fc8fb7-9dbe-e574-9008-6f0ee7c6b234/logos/secondary_logo_on_white_color.png",
+        "width": 4096,
+        "height": 4096,
+        "alt": "",
+        "rel": [
+          "full",
+          "secondary_logo_on_white_color"
+        ],
+        "lastUpdated": "2026-02-13T03:12Z"
+      },
+      {
+        "href": "https://a.espncdn.com/guid/b0fc8fb7-9dbe-e574-9008-6f0ee7c6b234/logos/secondary_logo_on_black_color.png",
+        "width": 4096,
+        "height": 4096,
+        "alt": "",
+        "rel": [
+          "full",
+          "secondary_logo_on_black_color"
+        ],
+        "lastUpdated": "2026-02-13T03:12Z"
+      },
+      {
+        "href": "https://a.espncdn.com/guid/b0fc8fb7-9dbe-e574-9008-6f0ee7c6b234/logos/secondary_logo_on_primary_color.png",
+        "width": 4096,
+        "height": 4096,
+        "alt": "",
+        "rel": [
+          "full",
+          "secondary_logo_on_primary_color"
+        ],
+        "lastUpdated": "2026-02-13T03:12Z"
+      },
+      {
+        "href": "https://a.espncdn.com/guid/b0fc8fb7-9dbe-e574-9008-6f0ee7c6b234/logos/secondary_logo_on_secondary_color.png",
+        "width": 4096,
+        "height": 4096,
+        "alt": "",
+        "rel": [
+          "full",
+          "secondary_logo_on_secondary_color"
+        ],
+        "lastUpdated": "2026-02-13T03:12Z"
+      },
+      {
+        "href": "https://a.espncdn.com/guid/b0fc8fb7-9dbe-e574-9008-6f0ee7c6b234/logos/secondary_logo_black.png",
+        "width": 4096,
+        "height": 4096,
+        "alt": "",
+        "rel": [
+          "full",
+          "secondary_logo_black"
+        ],
+        "lastUpdated": "2026-02-13T03:12Z"
+      },
+      {
+        "href": "https://a.espncdn.com/guid/b0fc8fb7-9dbe-e574-9008-6f0ee7c6b234/logos/secondary_logo_white.png",
+        "width": 4096,
+        "height": 4096,
+        "alt": "",
+        "rel": [
+          "full",
+          "secondary_logo_white"
+        ],
+        "lastUpdated": "2026-02-13T03:12Z"
+      }
+    ],
+    "record": {},
+    "venue": {
+      "id": "3687",
+      "guid": "a6d02626-ee51-3e35-98f1-2b05c0b9b2b3",
+      "fullName": "AT&T Stadium",
+      "address": {
+        "city": "Arlington",
+        "state": "TX",
+        "zipCode": "76011",
+        "country": "USA"
+      },
+      "grass": false,
+      "indoor": true,
+      "images": [
+        {
+          "href": "https://a.espncdn.com/i/venues/nfl/day/3687.jpg",
+          "width": 2000,
+          "height": 1125,
+          "alt": "",
+          "rel": [
+            "full",
+            "day"
+          ]
+        },
+        {
+          "href": "https://a.espncdn.com/i/venues/nfl/day/interior/3687.jpg",
+          "width": 2000,
+          "height": 1125,
+          "alt": "",
+          "rel": [
+            "full",
+            "day",
+            "interior"
+          ]
+        }
+      ]
+    },
+    "groups": {},
+    "ranks": {},
+    "links": [
+      {
+        "language": "en-US",
+        "rel": [
+          "clubhouse",
+          "desktop",
+          "team"
+        ],
+        "href": "https://www.espn.com/nfl/team/_/name/dal/dallas-cowboys",
+        "text": "Clubhouse",
+        "shortText": "Clubhouse",
+        "isExternal": false,
+        "isPremium": false
+      },
+      {
+        "language": "en-US",
+        "rel": [
+          "roster",
+          "desktop",
+          "team"
+        ],
+        "href": "https://www.espn.com/nfl/team/roster/_/name/dal/dallas-cowboys",
+        "text": "Roster",
+        "shortText": "Roster",
+        "isExternal": false,
+        "isPremium": false
+      },
+      {
+        "language": "en-US",
+        "rel": [
+          "stats",
+          "desktop",
+          "team"
+        ],
+        "href": "https://www.espn.com/nfl/team/stats/_/name/dal/dallas-cowboys",
+        "text": "Statistics",
+        "shortText": "Statistics",
+        "isExternal": false,
+        "isPremium": false
+      },
+      {
+        "language": "en-US",
+        "rel": [
+          "schedule",
+          "desktop",
+          "team"
+        ],
+        "href": "https://www.espn.com/nfl/team/schedule/_/name/dal",
+        "text": "Schedule",
+        "shortText": "Schedule",
+        "isExternal": false,
+        "isPremium": false
+      },
+      {
+        "language": "en-US",
+        "rel": [
+          "photos",
+          "desktop",
+          "team"
+        ],
+        "href": "https://www.espn.com/nfl/team/photos/_/name/dal",
+        "text": "photos",
+        "shortText": "photos",
+        "isExternal": false,
+        "isPremium": false
+      },
+      {
+        "language": "en-US",
+        "rel": [
+          "tickets",
+          "desktop",
+          "team"
+        ],
+        "href": "https://www.vividseats.com/dallas-cowboys-tickets--sports-nfl-football/performer/214?wsUser=717",
+        "text": "Tickets",
+        "shortText": "Tickets",
+        "isExternal": true,
+        "isPremium": false
+      },
+      {
+        "language": "en-US",
+        "rel": [
+          "draftpicks",
+          "desktop",
+          "team"
+        ],
+        "href": "https://www.espn.com/nfl/draft/teams/_/name/dal/dallas-cowboys",
+        "text": "Draft Picks",
+        "shortText": "Draft Picks",
+        "isExternal": false,
+        "isPremium": true
+      },
+      {
+        "language": "en-US",
+        "rel": [
+          "transactions",
+          "desktop",
+          "team"
+        ],
+        "href": "https://www.espn.com/nfl/team/transactions/_/name/dal",
+        "text": "Transactions",
+        "shortText": "Transactions",
+        "isExternal": false,
+        "isPremium": false
+      },
+      {
+        "language": "en-US",
+        "rel": [
+          "injuries",
+          "desktop",
+          "team"
+        ],
+        "href": "https://www.espn.com/nfl/team/injuries/_/name/dal",
+        "text": "Injuries",
+        "shortText": "Injuries",
+        "isExternal": false,
+        "isPremium": false
+      },
+      {
+        "language": "en-US",
+        "rel": [
+          "depthchart",
+          "desktop",
+          "team"
+        ],
+        "href": "https://www.espn.com/nfl/team/depth/_/name/dal",
+        "text": "Depth Chart",
+        "shortText": "Depth Chart",
+        "isExternal": false,
+        "isPremium": false
+      }
+    ],
+    "injuries": {},
+    "notes": {},
+    "againstTheSpreadRecords": {},
+    "awards": {},
+    "franchise": {},
+    "coaches": {}
   },
   "statistics": {
-    "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/athletes/4429202/statistics?lang=en&region=us"
+    "athlete": {},
+    "splits": {
+      "id": "0",
+      "name": "All Splits",
+      "abbreviation": "Any",
+      "categories": [
+        {
+          "name": "general",
+          "displayName": "General",
+          "shortDisplayName": "General",
+          "abbreviation": "gen",
+          "summary": "",
+          "stats": [
+            {
+              "name": "fumbles",
+              "displayName": "Fumbles",
+              "shortDisplayName": "F",
+              "description": "The number of times a player/team has fumbled the ball",
+              "abbreviation": "FUM",
+              "value": 1.0,
+              "displayValue": "1"
+            },
+            {
+              "name": "fumblesLost",
+              "displayName": "Fumbles Lost",
+              "shortDisplayName": "FL",
+              "description": "The number of times a fumble is recovered by the opposing team",
+              "abbreviation": "LST",
+              "value": 1.0,
+              "displayValue": "1"
+            },
+            {
+              "name": "fumblesTouchdowns",
+              "displayName": "Fumbles Touchdowns",
+              "shortDisplayName": "FTD",
+              "description": "The number of times a fumbles is recovered and returned for a touchdown.",
+              "abbreviation": "FTD",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "gamesPlayed",
+              "displayName": "Games Played",
+              "shortDisplayName": "GP",
+              "description": "Games Played",
+              "abbreviation": "GP",
+              "value": 6.0,
+              "displayValue": "6"
+            },
+            {
+              "name": "offensiveTwoPtReturns",
+              "displayName": "Two Point Returns",
+              "shortDisplayName": "2PTR",
+              "description": "The number of two point attempts that is returned by the offense.",
+              "abbreviation": "2PTR",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "offensiveFumblesTouchdowns",
+              "displayName": "Fumbles Touchdowns",
+              "shortDisplayName": "OFTD",
+              "description": "The number of times a fumbles is recovered and returned for a touchdown by the offense.",
+              "abbreviation": "OFTD",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "defensiveFumblesTouchdowns",
+              "displayName": "Fumbles Touchdowns",
+              "shortDisplayName": "DFTD",
+              "description": "The number of times a fumbles is recovered and returned for a touchdown by the defense.",
+              "abbreviation": "DFTD",
+              "value": 0.0,
+              "displayValue": "0"
+            }
+          ]
+        },
+        {
+          "name": "passing",
+          "displayName": "Passing",
+          "shortDisplayName": "Passing",
+          "abbreviation": "pass",
+          "summary": "",
+          "stats": [
+            {
+              "name": "avgGain",
+              "displayName": "Average Gain",
+              "shortDisplayName": "AG",
+              "description": "The average gained yards per position.",
+              "abbreviation": "AG",
+              "value": 0.0,
+              "displayValue": "0.0"
+            },
+            {
+              "name": "completionPct",
+              "displayName": "Completion Percentage",
+              "shortDisplayName": "CMP%",
+              "description": "The percentage of completed passes.",
+              "abbreviation": "CMP%",
+              "value": 0.0,
+              "displayValue": "0.0"
+            },
+            {
+              "name": "completions",
+              "displayName": "Completions",
+              "shortDisplayName": "CMP",
+              "description": "The times a player completes a pass to another player who is eligible to catch a pass.",
+              "abbreviation": "CMP",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "ESPNQBRating",
+              "displayName": "ESPN Quarterback Rating",
+              "shortDisplayName": "ESPN Quarterback Rating",
+              "description": "The quarterback rating used to compare overall offensive performance relative to other positions.",
+              "abbreviation": "EQBR",
+              "value": 0.0,
+              "displayValue": "0.0"
+            },
+            {
+              "name": "interceptionPct",
+              "displayName": "Interception Percentage",
+              "shortDisplayName": "INT%",
+              "description": "The percentage of passes thrown that were intercepted by the opposing team.",
+              "abbreviation": "INT%",
+              "value": 0.0,
+              "displayValue": "0.00"
+            },
+            {
+              "name": "interceptions",
+              "displayName": "Interceptions",
+              "shortDisplayName": "INT",
+              "description": "The number of passes thrown that were intercepted by the opposing team.",
+              "abbreviation": "INT",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "longPassing",
+              "displayName": "Longest Pass",
+              "shortDisplayName": "LONG",
+              "description": "The longest pass play completed in terms of yards.",
+              "abbreviation": "LNG",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "miscYards",
+              "displayName": "Miscellaneous Yards",
+              "shortDisplayName": "MISC",
+              "description": "The number of miscellaneous yards.",
+              "abbreviation": "MISC",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "netPassingYards",
+              "displayName": "Net Passing Yards",
+              "shortDisplayName": "NYDS",
+              "description": "The amount of net passing yards.",
+              "abbreviation": "NYDS",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "netPassingYardsPerGame",
+              "displayName": "Net Passing Yards Per Game",
+              "shortDisplayName": "NYDS/G",
+              "description": "The amount of net passing yards per game.",
+              "abbreviation": "NYDS/G",
+              "value": 0.0,
+              "displayValue": "0.0"
+            },
+            {
+              "name": "netTotalYards",
+              "displayName": "Net Total Yards",
+              "shortDisplayName": "NTYDS",
+              "description": "The amount of net total yards.",
+              "abbreviation": "NTYDS",
+              "value": 70.0,
+              "displayValue": "70"
+            },
+            {
+              "name": "netYardsPerGame",
+              "displayName": "Net Yards Per Game",
+              "shortDisplayName": "NTYDS/G",
+              "description": "The amount of net total yards per game.",
+              "abbreviation": "NTYDS/G",
+              "value": 11.666667,
+              "displayValue": "11.7"
+            },
+            {
+              "name": "passingAttempts",
+              "displayName": "Passing Attempts",
+              "shortDisplayName": "ATT",
+              "description": "The number of times a pass is attempted.",
+              "abbreviation": "ATT",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "passingBigPlays",
+              "displayName": "Passing Big Plays",
+              "shortDisplayName": "BIG",
+              "description": "The number of times a pass results in a big play.",
+              "abbreviation": "BIGP",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "passingFirstDowns",
+              "displayName": "Passing 1st downs",
+              "shortDisplayName": "FIRST",
+              "description": "The number of times a pass results in a first down.",
+              "abbreviation": "FIRST",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "passingFumbles",
+              "displayName": "Passing Fumbles",
+              "shortDisplayName": "F",
+              "description": "The number of times the ball has been fumbled after a completed pass.",
+              "abbreviation": "FUM",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "passingFumblesLost",
+              "displayName": "Passing Fumbles Lost",
+              "shortDisplayName": "FL",
+              "description": "The number of times the ball has been fumbled and lost to the opposing team after a completed pass.",
+              "abbreviation": "FL",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "passingTouchdownPct",
+              "displayName": "Passing Touchdown %",
+              "shortDisplayName": "TD%",
+              "description": "The percentage of passes that result in a touchdown.",
+              "abbreviation": "TD%",
+              "value": 0.0,
+              "displayValue": "0.00"
+            },
+            {
+              "name": "passingTouchdowns",
+              "displayName": "Passing Touchdowns",
+              "shortDisplayName": "Touchdowns",
+              "description": "The total number of passing touchdowns.",
+              "abbreviation": "TD",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "passingYards",
+              "displayName": "Passing Yards",
+              "shortDisplayName": "Pass Yards",
+              "description": "The total passing yards.",
+              "abbreviation": "YDS",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "passingYardsAfterCatch",
+              "displayName": "Passing Yards After Catch",
+              "shortDisplayName": "PYAC",
+              "description": "The amount of passing yards after catch.",
+              "abbreviation": "PYAC",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "passingYardsAtCatch",
+              "displayName": "Passing Yards At Catch",
+              "shortDisplayName": "PY@C",
+              "description": "The amount of passing yards when the catch is made.",
+              "abbreviation": "PY@C",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "passingYardsPerGame",
+              "displayName": "Passing Yards Per Game",
+              "shortDisplayName": "PYDS/G",
+              "description": "The number of passing yards per game.",
+              "abbreviation": "YDS/G",
+              "value": 0.0,
+              "displayValue": "0.0"
+            },
+            {
+              "name": "QBRating",
+              "displayName": "Passer Rating",
+              "shortDisplayName": "RTG",
+              "description": "Passer Rating",
+              "abbreviation": "RTG",
+              "value": 0.0,
+              "displayValue": "0.0"
+            },
+            {
+              "name": "sacks",
+              "displayName": "Total Sacks",
+              "shortDisplayName": "Sacks",
+              "description": "The total number of sacks.",
+              "abbreviation": "SACK",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "sackYardsLost",
+              "displayName": "Sack Yards Lost",
+              "shortDisplayName": "SYL",
+              "description": "The amount of yards lost due to sacks.",
+              "abbreviation": "SYL",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "netPassingAttempts",
+              "displayName": "Net Passing Attempts",
+              "shortDisplayName": "NATT",
+              "description": "Net Passing Attempts.",
+              "abbreviation": "NATT",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "teamGamesPlayed",
+              "displayName": "Team Games Played",
+              "shortDisplayName": "TGP",
+              "description": "The amount of games played.",
+              "abbreviation": "TGP",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "totalOffensivePlays",
+              "displayName": "Total Offensive Plays",
+              "shortDisplayName": "TOP",
+              "description": "The number of total offensive plays.",
+              "abbreviation": "TOP",
+              "value": 22.0,
+              "displayValue": "22"
+            },
+            {
+              "name": "totalPoints",
+              "displayName": "Total Points",
+              "shortDisplayName": "TP",
+              "description": "The number of total points scored.",
+              "abbreviation": "PTS",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "totalPointsPerGame",
+              "displayName": "Total Points Per Game",
+              "shortDisplayName": "TP/G",
+              "description": "The number of points scored per game.",
+              "abbreviation": "TP",
+              "value": 0.0,
+              "displayValue": "0.0"
+            },
+            {
+              "name": "totalTouchdowns",
+              "displayName": "Total Touchdowns",
+              "shortDisplayName": "TTD",
+              "description": "The number of touchdowns scored in total.",
+              "abbreviation": "TD",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "totalYards",
+              "displayName": "Total Yards",
+              "shortDisplayName": "TYDS",
+              "description": "The number of yards accumulated in total.",
+              "abbreviation": "TYDS",
+              "value": 70.0,
+              "displayValue": "70"
+            },
+            {
+              "name": "totalYardsFromScrimmage",
+              "displayName": "Total Yards From Scrimmage",
+              "shortDisplayName": "SCRIM",
+              "description": "The amound of total yards from the line of scrimmage.",
+              "abbreviation": "CMP",
+              "value": 113.0,
+              "displayValue": "113"
+            },
+            {
+              "name": "twoPointPassConvs",
+              "displayName": "Two Point Pass Conversions",
+              "shortDisplayName": "2PTPC",
+              "description": "The number of times a 2-point conversion is successful with a pass.",
+              "abbreviation": "2PTPC",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "twoPtPass",
+              "displayName": "Two Point Pass",
+              "shortDisplayName": "2PTP",
+              "description": "The number of times a pass was thrown for 2 points.",
+              "abbreviation": "2PTP",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "twoPtPassAttempts",
+              "displayName": "Two Point Pass Attempts",
+              "shortDisplayName": "2PTPA",
+              "description": "The number of times a pass was attempted on a 2-point conversion.",
+              "abbreviation": "2PTPA",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "yardsFromScrimmagePerGame",
+              "displayName": "Yards From Scrimmage Per Game",
+              "shortDisplayName": "SCRIM/G",
+              "description": "The yards gained from scrimmage per game.",
+              "abbreviation": "SCRIM/G",
+              "value": 18.833334,
+              "displayValue": "19"
+            },
+            {
+              "name": "yardsPerCompletion",
+              "displayName": "Yards Per Completion",
+              "shortDisplayName": "YDS/CMP",
+              "description": "The average number of yards per pass completion.",
+              "abbreviation": "CMP",
+              "value": 0.0,
+              "displayValue": "0.0"
+            },
+            {
+              "name": "yardsPerGame",
+              "displayName": "Yards Per Game",
+              "shortDisplayName": "YDS/G",
+              "description": "The average number of yards per game.",
+              "abbreviation": "YDS/G",
+              "value": 11.666667,
+              "displayValue": "11.7"
+            },
+            {
+              "name": "yardsPerPassAttempt",
+              "displayName": "Yards Per Pass Attempt",
+              "shortDisplayName": "AVG",
+              "description": "The average number yards per pass attempt.",
+              "abbreviation": "AVG",
+              "value": 0.0,
+              "displayValue": "0.0"
+            },
+            {
+              "name": "netYardsPerPassAttempt",
+              "displayName": "Net Yards Per Pass Attempt",
+              "shortDisplayName": "NYDS/PA",
+              "description": "The average number net yards (taking sack yardage into account) per pass attempt.",
+              "abbreviation": "NYDS/PA",
+              "value": 0.0,
+              "displayValue": "0.0"
+            },
+            {
+              "name": "quarterbackRating",
+              "displayName": "Quarterback Rating",
+              "shortDisplayName": "Quarterback Rating",
+              "description": "Quarterback Rating.",
+              "abbreviation": "RAT",
+              "value": 0.0,
+              "displayValue": "0.0"
+            }
+          ]
+        },
+        {
+          "name": "rushing",
+          "displayName": "Rushing",
+          "shortDisplayName": "Rushing",
+          "abbreviation": "rush",
+          "summary": "",
+          "stats": [
+            {
+              "name": "avgGain",
+              "displayName": "Average Gain",
+              "shortDisplayName": "AG",
+              "description": "The average gained yards per position.",
+              "abbreviation": "AG",
+              "value": 0.0,
+              "displayValue": "0.0"
+            },
+            {
+              "name": "ESPNRBRating",
+              "displayName": "ESPN RB Rating",
+              "shortDisplayName": "ESPNRB",
+              "description": "The ESPN Widereceiver Rating.",
+              "abbreviation": "ESPNRB",
+              "value": 55.0,
+              "displayValue": "55.00"
+            },
+            {
+              "name": "longRushing",
+              "displayName": "Long Rushing",
+              "shortDisplayName": "LONG",
+              "description": "The amount of yards for the longest run.",
+              "abbreviation": "LNG",
+              "value": 12.0,
+              "displayValue": "12"
+            },
+            {
+              "name": "miscYards",
+              "displayName": "Miscellaneous Yards",
+              "shortDisplayName": "MISC",
+              "description": "The amount of miscellaneous yards.",
+              "abbreviation": "MISC",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "netTotalYards",
+              "displayName": "Net Total Yards",
+              "shortDisplayName": "NTYDS",
+              "description": "The amount of total net yards.",
+              "abbreviation": "NTYDS",
+              "value": 70.0,
+              "displayValue": "70"
+            },
+            {
+              "name": "netYardsPerGame",
+              "displayName": "Net Yards Per Game",
+              "shortDisplayName": "NYDS/G",
+              "description": "The total net yards gained per game.",
+              "abbreviation": "CMP",
+              "value": 11.666667,
+              "displayValue": "11.7"
+            },
+            {
+              "name": "rushingAttempts",
+              "displayName": "Rushing Attempts",
+              "shortDisplayName": "Rushing Attempts",
+              "description": "The total number of attempted rushes.",
+              "abbreviation": "CAR",
+              "value": 22.0,
+              "displayValue": "22"
+            },
+            {
+              "name": "rushingBigPlays",
+              "displayName": "20+ Yard Rushing Plays",
+              "shortDisplayName": "BIG",
+              "description": "The number of rushing big plays gained.",
+              "abbreviation": "BIG",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "rushingFirstDowns",
+              "displayName": "Rushing 1st downs",
+              "shortDisplayName": "FIRST",
+              "description": "The number of times a first down is picked up by a run.",
+              "abbreviation": "FD",
+              "value": 3.0,
+              "displayValue": "3"
+            },
+            {
+              "name": "rushingFumbles",
+              "displayName": "Rushing Fumbles",
+              "shortDisplayName": "F",
+              "description": "The number of times there is a run and then the ball is fumbled.",
+              "abbreviation": "FUM",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "rushingFumblesLost",
+              "displayName": "Rushing Fumbles Lost",
+              "shortDisplayName": "FL",
+              "description": "The number of times there is a run and then the ball is fumbled.",
+              "abbreviation": "LST",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "rushingTouchdowns",
+              "displayName": "Rushing Touchdowns",
+              "shortDisplayName": "Rushing Touchdowns",
+              "description": "The total number of rushing touchdowns.",
+              "abbreviation": "TD",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "rushingYards",
+              "displayName": "Rushing Yards",
+              "shortDisplayName": "Rush Yards",
+              "description": "The total rushing yards.",
+              "abbreviation": "YDS",
+              "value": 70.0,
+              "displayValue": "70"
+            },
+            {
+              "name": "rushingYardsPerGame",
+              "displayName": "Rushing Yards Per Game",
+              "shortDisplayName": "YDS/G",
+              "description": "The average number of rushing yards per game.",
+              "abbreviation": "YDS/G",
+              "value": 11.666667,
+              "displayValue": "11.7"
+            },
+            {
+              "name": "stuffs",
+              "displayName": "Stuffs",
+              "shortDisplayName": "STF",
+              "description": "The number of times a run is stopped at or behind the line of scrimmage.",
+              "abbreviation": "STF",
+              "value": 3.0,
+              "displayValue": "3"
+            },
+            {
+              "name": "stuffYardsLost",
+              "displayName": "Stuff Yards Lost",
+              "shortDisplayName": "SYDSL",
+              "description": "The number of yards lost when a run is stuffed.",
+              "abbreviation": "SYDSL",
+              "value": 5.0,
+              "displayValue": "5"
+            },
+            {
+              "name": "teamGamesPlayed",
+              "displayName": "Team Games Played",
+              "shortDisplayName": "GP",
+              "description": "The numbers of team games played.",
+              "abbreviation": "GP",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "totalOffensivePlays",
+              "displayName": "Total Offensive Plays",
+              "shortDisplayName": "OP",
+              "description": "The number of offenseive plays run.",
+              "abbreviation": "OP",
+              "value": 22.0,
+              "displayValue": "22"
+            },
+            {
+              "name": "totalPoints",
+              "displayName": "Total Points",
+              "shortDisplayName": "TP",
+              "description": "The number of total points earned.",
+              "abbreviation": "PTS",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "totalPointsPerGame",
+              "displayName": "Total Points Per Game",
+              "shortDisplayName": "TP/G",
+              "description": "The average number of points scored per game.",
+              "abbreviation": "TP/G",
+              "value": 0.0,
+              "displayValue": "0.0"
+            },
+            {
+              "name": "totalTouchdowns",
+              "displayName": "Total Touchdowns",
+              "shortDisplayName": "TTD",
+              "description": "The number of total Touchdowns scored.",
+              "abbreviation": "TD",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "totalYards",
+              "displayName": "Total Yards",
+              "shortDisplayName": "TYDS",
+              "description": "The number of total yards gained.",
+              "abbreviation": "TYDS",
+              "value": 70.0,
+              "displayValue": "70"
+            },
+            {
+              "name": "totalYardsFromScrimmage",
+              "displayName": "Total Yards From Scrimmage",
+              "shortDisplayName": "SCRIM",
+              "description": "The number of yards gained from the line of scrimmage.",
+              "abbreviation": "SCRIM",
+              "value": 113.0,
+              "displayValue": "113"
+            },
+            {
+              "name": "twoPointRushConvs",
+              "displayName": "Two Point Rush Conversion",
+              "shortDisplayName": "2PTC",
+              "description": "The number of times a 2-point is converted with a run.",
+              "abbreviation": "2PTC",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "twoPtRush",
+              "displayName": "Two Point Rush",
+              "shortDisplayName": "2PTR",
+              "description": "The number of rushes on 2-point attempts.",
+              "abbreviation": "2PTR",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "twoPtRushAttempts",
+              "displayName": "Two Point Rush Attempts",
+              "shortDisplayName": "2PTA",
+              "description": "The number of times a 2-point conversion is attempted with a rush.",
+              "abbreviation": "CMP",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "yardsFromScrimmagePerGame",
+              "displayName": "Yards From Scrimmage Per Game",
+              "shortDisplayName": "SCRIM/G",
+              "description": "The average number of yards gained from scrimmage per game.",
+              "abbreviation": "SCRIM/G",
+              "value": 18.833334,
+              "displayValue": "18.8"
+            },
+            {
+              "name": "yardsPerGame",
+              "displayName": "Yards Per Game",
+              "shortDisplayName": "YDS/G",
+              "description": "The average number of yards per game.",
+              "abbreviation": "YDS/G",
+              "value": 11.666667,
+              "displayValue": "11.7"
+            },
+            {
+              "name": "yardsPerRushAttempt",
+              "displayName": "Yards Per Rush Attempt",
+              "shortDisplayName": "YDS/RA",
+              "description": "The average number of yards per rush attempt.",
+              "abbreviation": "AVG",
+              "value": 3.182,
+              "displayValue": "3.2"
+            }
+          ]
+        },
+        {
+          "name": "receiving",
+          "displayName": "Receiving",
+          "shortDisplayName": "Receiving",
+          "abbreviation": "rec",
+          "summary": "",
+          "stats": [
+            {
+              "name": "avgGain",
+              "displayName": "Average Gain",
+              "shortDisplayName": "AG",
+              "description": "The average gained yards per position.",
+              "abbreviation": "AG",
+              "value": 0.0,
+              "displayValue": "0.0"
+            },
+            {
+              "name": "ESPNWRRating",
+              "displayName": "ESPN Widereceiver Rating",
+              "shortDisplayName": "ESPNWR",
+              "description": "The ESPN Widereceiver Rating.",
+              "abbreviation": "ESPNWR",
+              "value": 78.0,
+              "displayValue": "78.00"
+            },
+            {
+              "name": "longReception",
+              "displayName": "Long Reception",
+              "shortDisplayName": "LONG",
+              "description": "The amount of yards for the longest reception.",
+              "abbreviation": "LNG",
+              "value": 13.0,
+              "displayValue": "13"
+            },
+            {
+              "name": "miscYards",
+              "displayName": "Miscellaneous Yards",
+              "shortDisplayName": "MISC",
+              "description": "The amount of miscellaneous yards.",
+              "abbreviation": "MISC",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "netTotalYards",
+              "displayName": "Net Total Yards",
+              "shortDisplayName": "NTYDS",
+              "description": "The amount of total net yards.",
+              "abbreviation": "NTYDS",
+              "value": 70.0,
+              "displayValue": "70"
+            },
+            {
+              "name": "netYardsPerGame",
+              "displayName": "Net Yards Per Game",
+              "shortDisplayName": "NYDS/G",
+              "description": "The total net yards gained per game.",
+              "abbreviation": "CMP",
+              "value": 11.666667,
+              "displayValue": "11.7"
+            },
+            {
+              "name": "receivingBigPlays",
+              "displayName": "20+ Yard Receiving Plays",
+              "shortDisplayName": "BIG",
+              "description": "The number of receiving big plays gained.",
+              "abbreviation": "BIG",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "receivingFirstDowns",
+              "displayName": "Receiving First Downs",
+              "shortDisplayName": "FIRST",
+              "description": "The number of times a first down is picked up by a reception.",
+              "abbreviation": "FD",
+              "value": 2.0,
+              "displayValue": "2"
+            },
+            {
+              "name": "receivingFumbles",
+              "displayName": "Receiving Fumbles",
+              "shortDisplayName": "F",
+              "description": "The number of times a reception is made and then the ball is fumbled.",
+              "abbreviation": "FUM",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "receivingFumblesLost",
+              "displayName": "Receiving Fumbles Lost",
+              "shortDisplayName": "FL",
+              "description": "The number of times a reception is made and the balled is fumbled and recovered by the opposing team.",
+              "abbreviation": "LST",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "receivingTargets",
+              "displayName": "Receiving Targets",
+              "shortDisplayName": "TGT",
+              "description": "The number of times a receiver is thrown to.",
+              "abbreviation": "TGTS",
+              "value": 11.0,
+              "displayValue": "11"
+            },
+            {
+              "name": "receivingTouchdowns",
+              "displayName": "Receiving Touchdowns",
+              "shortDisplayName": "Receiving Touchdowns",
+              "description": "The total number of receiving touchdowns.",
+              "abbreviation": "TD",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "receivingYards",
+              "displayName": "Receiving Yards",
+              "shortDisplayName": "Rec. Yards",
+              "description": "The total receiving yards.",
+              "abbreviation": "YDS",
+              "value": 43.0,
+              "displayValue": "43"
+            },
+            {
+              "name": "receivingYardsAfterCatch",
+              "displayName": "Receiving Yards After Catch",
+              "shortDisplayName": "YAC",
+              "description": "The number of yards gained after the catch has been made.",
+              "abbreviation": "YAC",
+              "value": 46.0,
+              "displayValue": "46"
+            },
+            {
+              "name": "receivingYardsAtCatch",
+              "displayName": "Receiving Yards At Catch",
+              "shortDisplayName": "Y@C",
+              "description": "The number of yards gained at the time the catch is made.",
+              "abbreviation": "Y@C",
+              "value": -3.0,
+              "displayValue": "-3"
+            },
+            {
+              "name": "receivingYardsPerGame",
+              "displayName": "Receiving Yards Per Game",
+              "shortDisplayName": "YDS/G",
+              "description": "The average number of receiving yards per game.",
+              "abbreviation": "YDS/G",
+              "value": 7.1666665,
+              "displayValue": "7.2"
+            },
+            {
+              "name": "receptions",
+              "displayName": "Receptions",
+              "shortDisplayName": "Receptions",
+              "description": "The total number of receptions.",
+              "abbreviation": "REC",
+              "value": 7.0,
+              "displayValue": "7"
+            },
+            {
+              "name": "teamGamesPlayed",
+              "displayName": "Team Games Played",
+              "shortDisplayName": "GP",
+              "description": "The numbers of team games played.",
+              "abbreviation": "GP",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "totalOffensivePlays",
+              "displayName": "Total Offensive Plays",
+              "shortDisplayName": "OP",
+              "description": "The number of offenseive plays run.",
+              "abbreviation": "OP",
+              "value": 22.0,
+              "displayValue": "22"
+            },
+            {
+              "name": "totalPoints",
+              "displayName": "Total Points",
+              "shortDisplayName": "TP",
+              "description": "The number of total points earned.",
+              "abbreviation": "PTS",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "totalPointsPerGame",
+              "displayName": "Total Points Per Game",
+              "shortDisplayName": "TP/G",
+              "description": "The average number of points scored per game.",
+              "abbreviation": "TP/G",
+              "value": 0.0,
+              "displayValue": "0.0"
+            },
+            {
+              "name": "totalTouchdowns",
+              "displayName": "Total Touchdowns",
+              "shortDisplayName": "TTD",
+              "description": "The number of total Touchdowns scored.",
+              "abbreviation": "TD",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "totalYards",
+              "displayName": "Total Yards",
+              "shortDisplayName": "TYDS",
+              "description": "The number of total yards gained.",
+              "abbreviation": "TYDS",
+              "value": 70.0,
+              "displayValue": "70"
+            },
+            {
+              "name": "totalYardsFromScrimmage",
+              "displayName": "Total Yards From Scrimmage",
+              "shortDisplayName": "SCRIM",
+              "description": "The number of yards gained from the line of scrimmage.",
+              "abbreviation": "SCRIM",
+              "value": 113.0,
+              "displayValue": "113"
+            },
+            {
+              "name": "twoPointRecConvs",
+              "displayName": "Two Point Receiving Conversion",
+              "shortDisplayName": "2PTC",
+              "description": "The number of times a 2-point is converted with a reception.",
+              "abbreviation": "2PTC",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "twoPtReception",
+              "displayName": "Two Point Receptions",
+              "shortDisplayName": "2PTR",
+              "description": "The number of receptions on 2-point attempts.",
+              "abbreviation": "2PTR",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "twoPtReceptionAttempts",
+              "displayName": "Two Point Reception Attempts",
+              "shortDisplayName": "2PTA",
+              "description": "The number of times a 2-point conversion is attempted with a reception.",
+              "abbreviation": "CMP",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "yardsFromScrimmagePerGame",
+              "displayName": "Yards From Scrimmage Per Game",
+              "shortDisplayName": "SCRIM/G",
+              "description": "The average number of yards gained from scrimmage per game.",
+              "abbreviation": "SCRIM/G",
+              "value": 18.833334,
+              "displayValue": "18.8"
+            },
+            {
+              "name": "yardsPerGame",
+              "displayName": "Yards Per Game",
+              "shortDisplayName": "YDS/G",
+              "description": "The average number of yards per game.",
+              "abbreviation": "YDS/G",
+              "value": 11.666667,
+              "displayValue": "11.7"
+            },
+            {
+              "name": "yardsPerReception",
+              "displayName": "Yards Per Reception",
+              "shortDisplayName": "YDS/R",
+              "description": "The average number of yards per reception.",
+              "abbreviation": "AVG",
+              "value": 6.143,
+              "displayValue": "6.1"
+            }
+          ]
+        },
+        {
+          "name": "returning",
+          "displayName": "Returning",
+          "shortDisplayName": "Returning",
+          "abbreviation": "ret",
+          "summary": "",
+          "stats": [
+            {
+              "name": "defFumbleReturns",
+              "displayName": "Defensive Fumbles Returns",
+              "shortDisplayName": "DFR",
+              "description": "The number of fumble returns.",
+              "abbreviation": "DFR",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "defFumbleReturnYards",
+              "displayName": "Defensive Fumble Return Yards",
+              "shortDisplayName": "DFRYDS",
+              "description": "The amount of total yardage from fumble returns.",
+              "abbreviation": "DFRYDS",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "fumbleRecoveries",
+              "displayName": "Fumble Recoveries",
+              "shortDisplayName": "FR",
+              "description": "The number of fumble recoveries.",
+              "abbreviation": "FR",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "fumbleRecoveryYards",
+              "displayName": "Fumble Recovery Yards",
+              "shortDisplayName": "FRYDS",
+              "description": "The amount of total yardage from fumble recoveries.",
+              "abbreviation": "YDS",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "kickReturnFairCatches",
+              "displayName": "Kick Return Fair Catches",
+              "shortDisplayName": "KRFC",
+              "description": "The number of kick return fair catches.",
+              "abbreviation": "KRFC",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "kickReturnFairCatchPct",
+              "displayName": "Kick Return Fair Catch Percentage",
+              "shortDisplayName": "KRFC%",
+              "description": "The percentage of kick returns that are fair caught.",
+              "abbreviation": "KRFC%",
+              "value": 0.0,
+              "displayValue": "0.00"
+            },
+            {
+              "name": "kickReturnFumbles",
+              "displayName": "Kick Return Fumbles",
+              "shortDisplayName": "KRF",
+              "description": "The number of kick return fumbles.",
+              "abbreviation": "KRF",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "kickReturnFumblesLost",
+              "displayName": "Kick Return Fumbles Lost",
+              "shortDisplayName": "KRFL",
+              "description": "The number of kick return fumbles that are lost.",
+              "abbreviation": "KRFL",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "kickReturns",
+              "displayName": "Kick Returns",
+              "shortDisplayName": "KR",
+              "description": "The number of kick returns.",
+              "abbreviation": "ATT",
+              "value": 2.0,
+              "displayValue": "2"
+            },
+            {
+              "name": "kickReturnTouchdowns",
+              "displayName": "Kick Return Touchdowns",
+              "shortDisplayName": "KRTD",
+              "description": "The number of kick return touchdowns.",
+              "abbreviation": "TD",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "kickReturnYards",
+              "displayName": "Kick Return Yards",
+              "shortDisplayName": "KRYDS",
+              "description": "The total yardage of kick returns.",
+              "abbreviation": "YDS",
+              "value": 31.0,
+              "displayValue": "31"
+            },
+            {
+              "name": "longKickReturn",
+              "displayName": "Long Kick Return",
+              "shortDisplayName": "LGKR",
+              "description": "The longest kick return in yards.",
+              "abbreviation": "LNG",
+              "value": 19.0,
+              "displayValue": "19"
+            },
+            {
+              "name": "longPuntReturn",
+              "displayName": "Long Punt Return",
+              "shortDisplayName": "LGPR",
+              "description": "The longest punt return in yards.",
+              "abbreviation": "LNG",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "miscFumbleReturns",
+              "displayName": "Miscellaneous Fumbles Returns",
+              "shortDisplayName": "MFR",
+              "description": "The number of fumble returns.",
+              "abbreviation": "MFR",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "miscFumbleReturnYards",
+              "displayName": "Miscellaneous Fumble Return Yards",
+              "shortDisplayName": "MFRYDS",
+              "description": "The amount of total yardage from fumble returns.",
+              "abbreviation": "MFRYDS",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "oppFumbleRecoveries",
+              "displayName": "Opposition Fumble Recoveries",
+              "shortDisplayName": "OPFR",
+              "description": "The number of fumble recoveries by the opposition.",
+              "abbreviation": "OPFR",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "oppFumbleRecoveryYards",
+              "displayName": "Opposition Fumble Recovery Yards",
+              "shortDisplayName": "OFRYDS",
+              "description": "The amount of total yardage from fumble recoveries by the opposition.",
+              "abbreviation": "OFRYDS",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "oppSpecialTeamFumbleReturns",
+              "displayName": "Opposition Special Team Fumble Returns",
+              "shortDisplayName": "OPSTFR",
+              "description": "The number of fumble returns by the opposition's speical teams.",
+              "abbreviation": "OPSTFR",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "oppSpecialTeamFumbleReturnYards",
+              "displayName": "Opposition Special Team Fumble Return Yards",
+              "shortDisplayName": "OSFRYD",
+              "description": "The amount of total yardage from fumble return by the opposition's special teams.",
+              "abbreviation": "OFRYDS",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "puntReturnFairCatches",
+              "displayName": "Punt Return Fair Catches",
+              "shortDisplayName": "PRFC",
+              "description": "The number of punt return fair catches.",
+              "abbreviation": "FC",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "puntReturnFairCatchPct",
+              "displayName": "Punt Return Fair Catch Percentage",
+              "shortDisplayName": "PRFC%",
+              "description": "The percentage of kick returns that are fair caught.",
+              "abbreviation": "PRFC%",
+              "value": 0.0,
+              "displayValue": "0.00"
+            },
+            {
+              "name": "puntReturnFumbles",
+              "displayName": "Punt Return Fumbles",
+              "shortDisplayName": "PRF",
+              "description": "The number of punt return fumbles.",
+              "abbreviation": "PRF",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "puntReturnFumblesLost",
+              "displayName": "Punt Return Fumbles Lost",
+              "shortDisplayName": "PRFL",
+              "description": "The number of punt return fumbles that are lost.",
+              "abbreviation": "PRFL",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "puntReturns",
+              "displayName": "Punt Returns",
+              "shortDisplayName": "PR",
+              "description": "The number of punt returns.",
+              "abbreviation": "ATT",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "puntReturnsStartedInsideThe10",
+              "displayName": "Punt Returns Started Inside the 10",
+              "shortDisplayName": "PR 10",
+              "description": "The number of punt returns started inside the 10.",
+              "abbreviation": "PR 10",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "puntReturnsStartedInsideThe20",
+              "displayName": "Punt Returns Started Inside the 20",
+              "shortDisplayName": "PR 20",
+              "description": "The number of punt returns started inside the 20.",
+              "abbreviation": "PR 20",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "puntReturnTouchdowns",
+              "displayName": "Punt Return Touchdowns",
+              "shortDisplayName": "PRTD",
+              "description": "The number of punt return touchdowns.",
+              "abbreviation": "TD",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "puntReturnYards",
+              "displayName": "Punt Return Yards",
+              "shortDisplayName": "PRYDS",
+              "description": "The total yardage of punt returns.",
+              "abbreviation": "YDS",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "specialTeamFumbleReturns",
+              "displayName": "Special Team Fumbles Returns",
+              "shortDisplayName": "STFR",
+              "description": "The number of special team fumble returns.",
+              "abbreviation": "STFR",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "specialTeamFumbleReturnYards",
+              "displayName": "Special Team Fumble Return Yards",
+              "shortDisplayName": "STFRYD",
+              "description": "The amount of total yardage from special team fumble returns.",
+              "abbreviation": "STFRYD",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "teamGamesPlayed",
+              "displayName": "Team Games Played",
+              "shortDisplayName": "GP",
+              "description": "The numbers of team games played.",
+              "abbreviation": "GP",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "yardsPerKickReturn",
+              "displayName": "Yards Per Kick Return",
+              "shortDisplayName": "YDS/KR",
+              "description": "The average number of yards per kick return.",
+              "abbreviation": "AVG",
+              "value": 15.5,
+              "displayValue": "15.5"
+            },
+            {
+              "name": "yardsPerPuntReturn",
+              "displayName": "Yards Per Punt Return",
+              "shortDisplayName": "YDS/PR",
+              "description": "The average number of yards per punt return.",
+              "abbreviation": "AVG",
+              "value": 0.0,
+              "displayValue": "0.0"
+            },
+            {
+              "name": "yardsPerReturn",
+              "displayName": "Yards Per Return",
+              "shortDisplayName": "YDS/R",
+              "description": "The average number of yards per return.",
+              "abbreviation": "YDS/R",
+              "value": 15.5,
+              "displayValue": "15.5"
+            }
+          ]
+        },
+        {
+          "name": "scoring",
+          "displayName": "Scoring",
+          "shortDisplayName": "Scoring",
+          "abbreviation": "s",
+          "summary": "",
+          "stats": [
+            {
+              "name": "defensivePoints",
+              "displayName": "Defensive Points",
+              "shortDisplayName": "DP",
+              "description": "The number of points scored on defense.",
+              "abbreviation": "DP",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "fieldGoals",
+              "displayName": "Field Goals",
+              "shortDisplayName": "FG",
+              "description": "The number of field goals made.",
+              "abbreviation": "FG",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "kickExtraPoints",
+              "displayName": "Kick Extra Points",
+              "shortDisplayName": "XP",
+              "description": "The number of extra points made.",
+              "abbreviation": "PAT",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "kickExtraPointsMade",
+              "displayName": "Kick Extra Points Made",
+              "shortDisplayName": "XPM",
+              "description": "The number of extra points made.",
+              "abbreviation": "XPM",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "miscPoints",
+              "displayName": "Miscellaneous Points",
+              "shortDisplayName": "MISP",
+              "description": "The number of miscellaneous points scored.",
+              "abbreviation": "MISP",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "passingTouchdowns",
+              "displayName": "Passing Touchdowns",
+              "shortDisplayName": "Touchdowns",
+              "description": "The total number of passing touchdowns.",
+              "abbreviation": "PASS",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "receivingTouchdowns",
+              "displayName": "Receiving Touchdowns",
+              "shortDisplayName": "RECTD",
+              "description": "The total number of receiving touchdowns.",
+              "abbreviation": "REC",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "returnTouchdowns",
+              "displayName": "Return Touchdowns",
+              "shortDisplayName": "RETTD",
+              "description": "The total number of return touchdowns.",
+              "abbreviation": "RET",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "rushingTouchdowns",
+              "displayName": "Rushing Touchdowns",
+              "shortDisplayName": "RUSTD",
+              "description": "The total number of rushing touchdowns.",
+              "abbreviation": "RUSH",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "totalPoints",
+              "displayName": "Total Points",
+              "shortDisplayName": "TP",
+              "description": "The number of total points scored.",
+              "abbreviation": "PTS",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "totalPointsPerGame",
+              "displayName": "Total Points Per Game",
+              "shortDisplayName": "TP/G",
+              "description": "The number of points scored per game.",
+              "abbreviation": "TP/G",
+              "value": 0.0,
+              "displayValue": "0.0"
+            },
+            {
+              "name": "totalTouchdowns",
+              "displayName": "Total Touchdowns",
+              "shortDisplayName": "TTD",
+              "description": "The number of touchdowns scored in total.",
+              "abbreviation": "TD",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "totalTwoPointConvs",
+              "displayName": "Total Two Point Conversions",
+              "shortDisplayName": "2PTC",
+              "description": "The number of times a 2-point conversion is successful.",
+              "abbreviation": "2PT",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "twoPointPassConvs",
+              "displayName": "Two Point Pass Conversions",
+              "shortDisplayName": "2PTPC",
+              "description": "The number of times a 2-point conversion is successful with a pass.",
+              "abbreviation": "2PTPC",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "twoPointRecConvs",
+              "displayName": "Two Point Receiving Conversion",
+              "shortDisplayName": "2PTRCC",
+              "description": "The number of times a 2-point is converted with a reception.",
+              "abbreviation": "2PTRCC",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "twoPointRushConvs",
+              "displayName": "Two Point Rush Conversion",
+              "shortDisplayName": "2PTRUC",
+              "description": "The number of times a 2-point is converted with a run.",
+              "abbreviation": "2PTRUC",
+              "value": 0.0,
+              "displayValue": "0"
+            },
+            {
+              "name": "onePtSafetiesMade",
+              "displayName": "One Point Safeties Made",
+              "shortDisplayName": "OPSM",
+              "description": "One Point Safeties Made",
+              "abbreviation": "OPSM",
+              "value": 0.0,
+              "displayValue": "0"
+            }
+          ]
+        }
+      ]
+    }
   },
   "contracts": {
-    "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/athletes/4429202/contracts?lang=en&region=us"
+    "count": 0,
+    "pageIndex": 0,
+    "pageSize": 25,
+    "pageCount": 0,
+    "items": []
   },
   "experience": {
     "years": 3
   },
   "collegeAthlete": {
-    "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/athletes/4429202?lang=en&region=us"
+    "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/athletes/4429202?lang=en&region=us",
+    "id": "4429202",
+    "uid": "s:20~l:23~a:4429202",
+    "guid": "2fcbb6af-36f8-3b49-9438-3fdef938d6da",
+    "type": "football",
+    "alternateIds": {
+      "sdr": "4429202"
+    },
+    "firstName": "Israel",
+    "lastName": "Abanikanda",
+    "fullName": "Israel Abanikanda",
+    "displayName": "Israel Abanikanda",
+    "shortName": "I. Abanikanda",
+    "weight": 215.0,
+    "displayWeight": "215 lbs",
+    "height": 71.0,
+    "displayHeight": "5' 11\"",
+    "age": 23,
+    "dateOfBirth": "2002-10-05T07:00Z",
+    "links": [
+      {
+        "language": "en-US",
+        "rel": [
+          "playercard",
+          "desktop",
+          "athlete"
+        ],
+        "href": "https://www.espn.com/college-football/player/_/id/4429202/israel-abanikanda",
+        "text": "Player Card",
+        "shortText": "Player Card",
+        "isExternal": false,
+        "isPremium": false
+      },
+      {
+        "language": "en-US",
+        "rel": [
+          "stats",
+          "desktop",
+          "athlete"
+        ],
+        "href": "https://www.espn.com/college-football/player/stats/_/id/4429202/israel-abanikanda",
+        "text": "Stats",
+        "shortText": "Stats",
+        "isExternal": false,
+        "isPremium": false
+      },
+      {
+        "language": "en-US",
+        "rel": [
+          "splits",
+          "desktop",
+          "athlete"
+        ],
+        "href": "https://www.espn.com/college-football/player/splits/_/id/4429202/israel-abanikanda",
+        "text": "Splits",
+        "shortText": "Splits",
+        "isExternal": false,
+        "isPremium": false
+      },
+      {
+        "language": "en-US",
+        "rel": [
+          "gamelog",
+          "desktop",
+          "athlete"
+        ],
+        "href": "https://www.espn.com/college-football/player/gamelog/_/id/4429202/israel-abanikanda",
+        "text": "Game Log",
+        "shortText": "Game Log",
+        "isExternal": false,
+        "isPremium": false
+      },
+      {
+        "language": "en-US",
+        "rel": [
+          "news",
+          "desktop",
+          "athlete"
+        ],
+        "href": "https://www.espn.com/college-football/player/news/_/id/4429202/israel-abanikanda",
+        "text": "News",
+        "shortText": "News",
+        "isExternal": false,
+        "isPremium": false
+      },
+      {
+        "language": "en-US",
+        "rel": [
+          "bio",
+          "desktop",
+          "athlete"
+        ],
+        "href": "https://www.espn.com/college-football/player/bio/_/id/4429202/israel-abanikanda",
+        "text": "Bio",
+        "shortText": "Bio",
+        "isExternal": false,
+        "isPremium": false
+      },
+      {
+        "language": "en-US",
+        "rel": [
+          "overview",
+          "desktop",
+          "athlete"
+        ],
+        "href": "https://www.espn.com/college-football/player/_/id/4429202/israel-abanikanda",
+        "text": "Overview",
+        "shortText": "Overview",
+        "isExternal": false,
+        "isPremium": false
+      }
+    ],
+    "birthPlace": {
+      "city": "Brooklyn",
+      "state": "NY",
+      "country": "USA"
+    },
+    "birthCountry": {
+      "alternateId": "1",
+      "abbreviation": "USA"
+    },
+    "college": {},
+    "slug": "israel-abanikanda",
+    "headshot": {
+      "href": "https://a.espncdn.com/i/headshots/college-football/players/full/4429202.png",
+      "alt": "Israel Abanikanda"
+    },
+    "jersey": "2",
+    "hand": {
+      "type": "RIGHT",
+      "abbreviation": "R",
+      "displayValue": "Right"
+    },
+    "flag": {
+      "href": "https://a.espncdn.com/i/teamlogos/countries/500/usa.png",
+      "alt": "USA",
+      "rel": [
+        "country-flag"
+      ]
+    },
+    "position": {
+      "id": "9",
+      "name": "Running Back",
+      "displayName": "Running Back",
+      "abbreviation": "RB",
+      "leaf": true,
+      "parent": {}
+    },
+    "linked": true,
+    "team": {},
+    "statistics": {},
+    "experience": {
+      "years": 3,
+      "displayValue": "Junior",
+      "abbreviation": "JR"
+    },
+    "proAthlete": {},
+    "active": false,
+    "status": {
+      "id": "2",
+      "name": "Inactive",
+      "type": "inactive",
+      "abbreviation": "Inactive"
+    },
+    "statisticslog": {}
   },
   "active": true,
   "draft": {
@@ -173,7 +2254,396 @@
     "year": 2023,
     "selection": 143,
     "team": {
-      "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2023/teams/20?lang=en&region=us"
+      "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2023/teams/20?lang=en&region=us",
+      "id": "20",
+      "guid": "732d3caf-b350-1e34-48c6-b7cebb4a0d88",
+      "uid": "s:20~l:28~t:20",
+      "alternateIds": {
+        "sdr": "8821"
+      },
+      "slug": "new-york-jets",
+      "location": "New York",
+      "name": "Jets",
+      "nickname": "Jets",
+      "abbreviation": "NYJ",
+      "displayName": "New York Jets",
+      "shortDisplayName": "Jets",
+      "color": "115740",
+      "alternateColor": "ffffff",
+      "isActive": true,
+      "isAllStar": false,
+      "logos": [
+        {
+          "href": "https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png",
+          "width": 500,
+          "height": 500,
+          "alt": "",
+          "rel": [
+            "full",
+            "default"
+          ],
+          "lastUpdated": "2024-06-25T18:55Z"
+        },
+        {
+          "href": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/nyj.png",
+          "width": 500,
+          "height": 500,
+          "alt": "",
+          "rel": [
+            "full",
+            "dark"
+          ],
+          "lastUpdated": "2024-06-25T18:59Z"
+        },
+        {
+          "href": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/nyj.png",
+          "width": 500,
+          "height": 500,
+          "alt": "",
+          "rel": [
+            "full",
+            "scoreboard"
+          ],
+          "lastUpdated": "2024-07-02T15:08Z"
+        },
+        {
+          "href": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/nyj.png",
+          "width": 500,
+          "height": 500,
+          "alt": "",
+          "rel": [
+            "full",
+            "scoreboard",
+            "dark"
+          ],
+          "lastUpdated": "2024-07-02T15:09Z"
+        },
+        {
+          "href": "https://a.espncdn.com/guid/732d3caf-b350-1e34-48c6-b7cebb4a0d88/logos/grayscale.png",
+          "width": 500,
+          "height": 500,
+          "alt": "",
+          "rel": [
+            "full",
+            "grayscale"
+          ],
+          "lastUpdated": "2026-03-31T12:54Z"
+        },
+        {
+          "href": "https://a.espncdn.com/guid/732d3caf-b350-1e34-48c6-b7cebb4a0d88/logos/primary_logo_on_white_color.png",
+          "width": 4096,
+          "height": 4096,
+          "alt": "",
+          "rel": [
+            "full",
+            "primary_logo_on_white_color"
+          ],
+          "lastUpdated": "2026-02-13T03:12Z"
+        },
+        {
+          "href": "https://a.espncdn.com/guid/732d3caf-b350-1e34-48c6-b7cebb4a0d88/logos/primary_logo_on_black_color.png",
+          "width": 4096,
+          "height": 4096,
+          "alt": "",
+          "rel": [
+            "full",
+            "primary_logo_on_black_color"
+          ],
+          "lastUpdated": "2026-02-13T03:12Z"
+        },
+        {
+          "href": "https://a.espncdn.com/guid/732d3caf-b350-1e34-48c6-b7cebb4a0d88/logos/primary_logo_on_primary_color.png",
+          "width": 4096,
+          "height": 4096,
+          "alt": "",
+          "rel": [
+            "full",
+            "primary_logo_on_primary_color"
+          ],
+          "lastUpdated": "2026-02-13T03:12Z"
+        },
+        {
+          "href": "https://a.espncdn.com/guid/732d3caf-b350-1e34-48c6-b7cebb4a0d88/logos/primary_logo_on_secondary_color.png",
+          "width": 4096,
+          "height": 4096,
+          "alt": "",
+          "rel": [
+            "full",
+            "primary_logo_on_secondary_color"
+          ],
+          "lastUpdated": "2026-02-13T03:12Z"
+        },
+        {
+          "href": "https://a.espncdn.com/guid/732d3caf-b350-1e34-48c6-b7cebb4a0d88/logos/primary_logo_black.png",
+          "width": 4096,
+          "height": 4096,
+          "alt": "",
+          "rel": [
+            "full",
+            "primary_logo_black"
+          ],
+          "lastUpdated": "2026-02-13T03:12Z"
+        },
+        {
+          "href": "https://a.espncdn.com/guid/732d3caf-b350-1e34-48c6-b7cebb4a0d88/logos/primary_logo_white.png",
+          "width": 4096,
+          "height": 4096,
+          "alt": "",
+          "rel": [
+            "full",
+            "primary_logo_white"
+          ],
+          "lastUpdated": "2026-02-13T03:12Z"
+        },
+        {
+          "href": "https://a.espncdn.com/guid/732d3caf-b350-1e34-48c6-b7cebb4a0d88/logos/secondary_logo_on_white_color.png",
+          "width": 4096,
+          "height": 4096,
+          "alt": "",
+          "rel": [
+            "full",
+            "secondary_logo_on_white_color"
+          ],
+          "lastUpdated": "2026-02-13T03:12Z"
+        },
+        {
+          "href": "https://a.espncdn.com/guid/732d3caf-b350-1e34-48c6-b7cebb4a0d88/logos/secondary_logo_on_black_color.png",
+          "width": 4096,
+          "height": 4096,
+          "alt": "",
+          "rel": [
+            "full",
+            "secondary_logo_on_black_color"
+          ],
+          "lastUpdated": "2026-02-13T03:12Z"
+        },
+        {
+          "href": "https://a.espncdn.com/guid/732d3caf-b350-1e34-48c6-b7cebb4a0d88/logos/secondary_logo_on_primary_color.png",
+          "width": 4096,
+          "height": 4096,
+          "alt": "",
+          "rel": [
+            "full",
+            "secondary_logo_on_primary_color"
+          ],
+          "lastUpdated": "2026-02-13T03:12Z"
+        },
+        {
+          "href": "https://a.espncdn.com/guid/732d3caf-b350-1e34-48c6-b7cebb4a0d88/logos/secondary_logo_on_secondary_color.png",
+          "width": 4096,
+          "height": 4096,
+          "alt": "",
+          "rel": [
+            "full",
+            "secondary_logo_on_secondary_color"
+          ],
+          "lastUpdated": "2026-02-13T03:12Z"
+        },
+        {
+          "href": "https://a.espncdn.com/guid/732d3caf-b350-1e34-48c6-b7cebb4a0d88/logos/secondary_logo_black.png",
+          "width": 4096,
+          "height": 4096,
+          "alt": "",
+          "rel": [
+            "full",
+            "secondary_logo_black"
+          ],
+          "lastUpdated": "2026-02-13T03:12Z"
+        },
+        {
+          "href": "https://a.espncdn.com/guid/732d3caf-b350-1e34-48c6-b7cebb4a0d88/logos/secondary_logo_white.png",
+          "width": 4096,
+          "height": 4096,
+          "alt": "",
+          "rel": [
+            "full",
+            "secondary_logo_white"
+          ],
+          "lastUpdated": "2026-02-13T03:12Z"
+        }
+      ],
+      "record": {},
+      "venue": {
+        "id": "3839",
+        "guid": "604c24d0-2641-3553-82bc-1b005ac94765",
+        "fullName": "MetLife Stadium",
+        "address": {
+          "city": "East Rutherford",
+          "state": "NJ",
+          "zipCode": "07073",
+          "country": "USA"
+        },
+        "grass": false,
+        "indoor": false,
+        "images": [
+          {
+            "href": "https://a.espncdn.com/i/venues/nfl/day/3839.jpg",
+            "width": 2000,
+            "height": 1125,
+            "alt": "",
+            "rel": [
+              "full",
+              "day"
+            ]
+          },
+          {
+            "href": "https://a.espncdn.com/i/venues/nfl/day/interior/3839.jpg",
+            "width": 2000,
+            "height": 1125,
+            "alt": "",
+            "rel": [
+              "full",
+              "day",
+              "interior"
+            ]
+          }
+        ]
+      },
+      "groups": {},
+      "ranks": {},
+      "statistics": {},
+      "leaders": {},
+      "links": [
+        {
+          "language": "en-US",
+          "rel": [
+            "clubhouse",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/_/name/nyj/new-york-jets",
+          "text": "Clubhouse",
+          "shortText": "Clubhouse",
+          "isExternal": false,
+          "isPremium": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "roster",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/roster/_/name/nyj/new-york-jets",
+          "text": "Roster",
+          "shortText": "Roster",
+          "isExternal": false,
+          "isPremium": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "stats",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/stats/_/name/nyj/new-york-jets",
+          "text": "Statistics",
+          "shortText": "Statistics",
+          "isExternal": false,
+          "isPremium": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "schedule",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/schedule/_/name/nyj",
+          "text": "Schedule",
+          "shortText": "Schedule",
+          "isExternal": false,
+          "isPremium": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "photos",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/photos/_/name/nyj",
+          "text": "photos",
+          "shortText": "photos",
+          "isExternal": false,
+          "isPremium": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "tickets",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.vividseats.com/new-york-jets-tickets--sports-nfl-football/performer/601?wsUser=717",
+          "text": "Tickets",
+          "shortText": "Tickets",
+          "isExternal": true,
+          "isPremium": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "draftpicks",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/draft/teams/_/name/nyj/new-york-jets",
+          "text": "Draft Picks",
+          "shortText": "Draft Picks",
+          "isExternal": false,
+          "isPremium": true
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "transactions",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/transactions/_/name/nyj",
+          "text": "Transactions",
+          "shortText": "Transactions",
+          "isExternal": false,
+          "isPremium": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "injuries",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/injuries/_/name/nyj",
+          "text": "Injuries",
+          "shortText": "Injuries",
+          "isExternal": false,
+          "isPremium": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "depthchart",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/depth/_/name/nyj",
+          "text": "Depth Chart",
+          "shortText": "Depth Chart",
+          "isExternal": false,
+          "isPremium": false
+        }
+      ],
+      "injuries": {},
+      "notes": {},
+      "againstTheSpreadRecords": {},
+      "awards": {},
+      "franchise": {},
+      "events": {},
+      "transactions": {},
+      "coaches": {},
+      "attendance": {}
     }
   },
   "status": {
@@ -183,7 +2653,51 @@
     "abbreviation": "Active"
   },
   "statisticslog": {
-    "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/athletes/4429202/statisticslog?lang=en&region=us"
+    "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/athletes/4429202/statisticslog?lang=en&region=us",
+    "entries": [
+      {
+        "season": {},
+        "statistics": [
+          {
+            "type": "total",
+            "statistics": {}
+          },
+          {
+            "type": "team",
+            "team": {},
+            "statistics": {}
+          }
+        ]
+      },
+      {
+        "season": {},
+        "statistics": [
+          {
+            "type": "total",
+            "statistics": {}
+          },
+          {
+            "type": "team",
+            "team": {},
+            "statistics": {}
+          }
+        ]
+      },
+      {
+        "season": {},
+        "statistics": [
+          {
+            "type": "total",
+            "statistics": {}
+          },
+          {
+            "type": "team",
+            "team": {},
+            "statistics": {}
+          }
+        ]
+      }
+    ]
   }
 }
 ```

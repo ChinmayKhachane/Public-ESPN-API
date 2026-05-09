@@ -6,7 +6,8 @@ Notes:
 - Verified with `league=nfl`, `season=2025`, `seasontype=2` on 2026-05-07.
 - This endpoint works for NFL and returns team leaderboard data grouped into category blocks.
 - Each `teams[]` entry contains a `team` object plus a `categories[]` array.
-- The top-level `categories[]` metadata exists, but the tested NFL response used `null` `displayName` values there; the useful labels live inside each team's category entries.
+- The top-level `categories[]` metadata contains label/name arrays. The useful
+  totals and ranks live inside each team's category entries.
 
 ## Optional Parameters
 
@@ -40,46 +41,41 @@ Notes:
   "categories": [
     {
       "name": "general",
-      "displayName": null
+      "labels": ["GP", "FR", "LST"]
     },
     {
       "name": "passing",
-      "displayName": null
+      "labels": ["TYDS", "YDS/G", "NYDS"]
     },
     {
       "name": "rushing",
-      "displayName": null
+      "labels": ["YDS", "YDS/G", "ATT"]
     }
   ],
-  "teamSample": {
-    "team": {
-      "id": "22",
-      "displayName": "Arizona Cardinals",
-      "abbreviation": "ARI"
-    },
-    "categories": [
-      {
-        "name": "general",
-        "displayName": "Own General",
-        "splitId": "0",
-        "totals": ["17", "9", "10"],
-        "ranks": ["1", "9", "7"]
+  "teams": [
+    {
+      "team": {
+        "id": "22",
+        "displayName": "Arizona Cardinals",
+        "abbreviation": "ARI"
       },
-      {
-        "name": "general",
-        "displayName": "Opponent General",
-        "splitId": "900",
-        "totals": ["17", "10", "9"],
-        "ranks": ["1", "21", "19"]
-      },
-      {
-        "name": "passing",
-        "displayName": "Own Passing",
-        "splitId": "0",
-        "totals": ["5,937", "347.6", "3,955"],
-        "ranks": ["14", "14", "7"]
-      }
-    ]
-  }
+      "categories": [
+        {
+          "name": "general",
+          "displayName": "Own General",
+          "splitId": "0",
+          "totals": ["17", "9", "10"],
+          "ranks": ["1", "9", "7"]
+        },
+        {
+          "name": "passing",
+          "displayName": "Own Passing",
+          "splitId": "0",
+          "totals": ["5,937", "347.6", "3,955"],
+          "ranks": ["14", "14", "7"]
+        }
+      ]
+    }
+  ]
 }
 ```

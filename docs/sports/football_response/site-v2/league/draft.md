@@ -14,15 +14,7 @@ Notes:
   "year": 2026,
   "displayName": "2026 National Football League Draft",
   "shortDisplayName": "2026 NFL Draft",
-  "rounds": [
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7
-  ],
+  "rounds": 7,
   "picks": [
     {
       "status": "SELECTION_MADE",

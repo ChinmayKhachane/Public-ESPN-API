@@ -30,20 +30,6 @@ Notes:
     "boxscore": {},
     "leaders": [],
     "standings": {}
-  },
-  "packageKeys": [
-    "news",
-    "pickcenter",
-    "drives",
-    "scoringPlays",
-    "winprobability",
-    "gameInfo",
-    "boxscore",
-    "header",
-    "broadcasts",
-    "leaders",
-    "videos",
-    "standings"
-  ]
+  }
 }
 ```

@@ -4,7 +4,8 @@
 
 **Sport slug:** `basketball`  
 **Base URL (v2):** `https://sports.core.api.espn.com/v2/sports/basketball/`  
-**Base URL (v3):** `https://sports.core.api.espn.com/v3/sports/basketball/`
+**Base URL (v3):** `https://sports.core.api.espn.com/v3/sports/basketball/`  
+**Live-tested response docs:** [`basketball_response/`](basketball_response/)
 
 ---
 

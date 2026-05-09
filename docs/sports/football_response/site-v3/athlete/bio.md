@@ -13,8 +13,10 @@ Notes:
 {
   "teamHistory": [
     {
+      "id": "17",
       "displayName": "New England Patriots",
-      "items": []
+      "seasons": "2024-CURRENT",
+      "links": []
     }
   ]
 }

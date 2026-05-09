@@ -18,12 +18,20 @@ Notes:
       "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401772988/competitions/401772988/competitors/17/linescores/1/1?lang=en&region=us",
       "value": 0.0,
       "displayValue": "0",
+      "source": {
+        "id": "1",
+        "description": "Basic/Manual"
+      },
       "period": 1
     },
     {
       "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401772988/competitions/401772988/competitors/17/linescores/1/4?lang=en&region=us",
       "value": 13.0,
       "displayValue": "13",
+      "source": {
+        "id": "1",
+        "description": "Basic/Manual"
+      },
       "period": 4
     }
   ]

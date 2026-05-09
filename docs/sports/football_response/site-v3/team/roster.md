@@ -7,6 +7,7 @@ Notes:
 - This is one of the few working NFL `common/v3` team endpoints.
 - The response is organized by `positionGroups[]`, not a flat roster array.
 - Top-level keys are `season`, `coach`, `positionGroups`, and `team`.
+- `coach` is an array, even when there is only one head coach object.
 
 ## Optional Parameters
 
@@ -23,12 +24,14 @@ Notes:
     "type": 2,
     "name": "Regular Season"
   },
-  "coach": {
-    "id": "17530",
-    "firstName": "Brian",
-    "lastName": "Schottenheimer",
-    "experience": 1
-  },
+  "coach": [
+    {
+      "id": "17530",
+      "firstName": "Brian",
+      "lastName": "Schottenheimer",
+      "experience": 1
+    }
+  ],
   "team": {
     "id": "6",
     "displayName": "Dallas Cowboys"
@@ -37,24 +40,30 @@ Notes:
     {
       "type": "offense",
       "displayName": "Offense",
-      "athleteCount": 42,
-      "sampleAthlete": {
-        "id": "4429202",
-        "displayName": "Israel Abanikanda",
-        "jersey": "30",
-        "position": "RB"
-      }
+      "athletes": [
+        {
+          "id": "4429202",
+          "displayName": "Israel Abanikanda",
+          "jersey": "30",
+          "position": {
+            "abbreviation": "RB"
+          }
+        }
+      ]
     },
     {
       "type": "specialTeam",
       "displayName": "Special Teams",
-      "athleteCount": 3,
-      "sampleAthlete": {
-        "id": "14950",
-        "displayName": "Bryan Anger",
-        "jersey": "5",
-        "position": "P"
-      }
+      "athletes": [
+        {
+          "id": "14950",
+          "displayName": "Bryan Anger",
+          "jersey": "5",
+          "position": {
+            "abbreviation": "P"
+          }
+        }
+      ]
     }
   ]
 }

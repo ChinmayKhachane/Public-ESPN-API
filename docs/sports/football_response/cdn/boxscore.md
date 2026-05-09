@@ -14,7 +14,9 @@ Notes:
 {
   "gameId": 401772988,
   "gamepackageJSON": {
-    "news": [],
+    "news": {
+      "articles": []
+    },
     "winprobability": [],
     "boxscore": {
       "teams": [{}, {}],
@@ -24,15 +26,6 @@ Notes:
     "broadcasts": [],
     "videos": [],
     "standings": {}
-  },
-  "packageKeys": [
-    "news",
-    "winprobability",
-    "boxscore",
-    "header",
-    "broadcasts",
-    "videos",
-    "standings"
-  ]
+  }
 }
 ```

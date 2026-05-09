@@ -23,16 +23,9 @@ Notes:
     "categories": [
       {
         "name": "passing",
-        "displayName": "Passing"
+        "displayName": "Passing",
+        "leaders": []
       }
-    ],
-    "labels": [
-      "CMP",
-      "ATT",
-      "YDS",
-      "CMP%",
-      "AVG",
-      "TD"
     ]
   },
   "status": "success"

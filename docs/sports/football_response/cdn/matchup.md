@@ -13,7 +13,9 @@ Notes:
 {
   "gameId": 401772988,
   "gamepackageJSON": {
-    "news": [],
+    "news": {
+      "articles": []
+    },
     "pickcenter": [],
     "winprobability": [],
     "gameInfo": {},
@@ -23,7 +25,6 @@ Notes:
     "leaders": [],
     "standings": {}
   },
-  "predictor": null,
-  "againstTheSpread": null
+  "content": {}
 }
 ```
