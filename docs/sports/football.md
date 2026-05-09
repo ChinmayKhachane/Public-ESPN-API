@@ -6,6 +6,14 @@
 **Base URL (v2):** `https://sports.core.api.espn.com/v2/sports/football/`  
 **Base URL (v3):** `https://sports.core.api.espn.com/v3/sports/football/`
 
+Live-tested NFL response docs:
+
+- [football_response/](football_response/)
+- [football_response/reference_resolution.md](football_response/reference_resolution.md)
+- [football_response/api_hierarchy.md](football_response/api_hierarchy.md)
+- [football_response/sdk_chaining_matrix.md](football_response/sdk_chaining_matrix.md)
+- [football_response/sdk_capabilities.md](football_response/sdk_capabilities.md)
+
 ---
 
 ## Leagues & Competitions
