@@ -6,6 +6,8 @@
 **Base URL (v2):** `https://sports.core.api.espn.com/v2/sports/hockey/`  
 **Base URL (v3):** `https://sports.core.api.espn.com/v3/sports/hockey/`
 
+**Live-tested response docs:** [`hockey_response/`](hockey_response/)
+
 ---
 
 ## Leagues & Competitions
